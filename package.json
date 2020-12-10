@@ -1,0 +1,23 @@
+{
+  "name": "swftli-me",
+  "version": "1.0.0",
+  "description": "swftli-me is a personal project. It is a social media reference landing page (of which LinkTree and Carrd.co are examples).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kayloody/swftli-me.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kayloody/swftli-me/issues"
+  },
+  "homepage": "https://github.com/kayloody/swftli-me#readme",
+  "dependencies": {
+    "create-react-app": "^4.0.1"
+  }
+}
