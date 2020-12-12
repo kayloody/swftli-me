@@ -1,9 +1,10 @@
 import React from 'react';
+import Cards from './components/Swftli/Cards/Cards';
 
 const App = () => {
     return(
         <div>
-            <h1>Finally</h1>
+            <Cards />
         </div>
     )
 }
