@@ -1,12 +1,9 @@
 import React from 'react';
-import Cards from './components/Swftli/Cards/Cards';
+
+import Swftli from './components/Swftli/Swtfli.js';
 
 const App = () => {
-    return(
-        <div>
-            <Cards />
-        </div>
-    )
-}
+  return <Swftli />;
+};
 
 export default App;
