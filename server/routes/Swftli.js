@@ -1,8 +1,8 @@
 import express from 'express';
-import { getUser } from '../controllers/UsersSwftli.js';
+import { getUser } from '../controllers/Swftli.js';
 
 const router = express.Router();
 
-router.get('/', getUser);
+router.get('/:uid', getUser);
 
 export default router;

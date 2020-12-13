@@ -2,14 +2,20 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
+//import App from '../client/public/index.html';
+
 import loginSignupRoutes from './routes/LoginSignup.js';
-import myRoutes from './routes/UsersSwftli.js';
-import usersRoutes from './routes/UsersSwftli.js';
+import myRoutes from './routes/Admin.js';
+import usersRoutes from './routes/Swftli.js';
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.sendFile('/client/public/index.html', { root: '../' });
+});
+
 app.use('/', loginSignupRoutes);
-app.use('/me', myRoutes);
+app.use('/admin', myRoutes);
 app.use('/', usersRoutes);
 
 app.use(cors());
@@ -23,6 +29,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
+    useCreateIndex: true,
   })
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
