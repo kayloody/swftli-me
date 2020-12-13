@@ -1,7 +1,17 @@
 * {
   font-family: 'Bahnschrift';
-  color: #5f5d54;
   user-select: none;
+
+  /* User custom colors */
+  color: #5f5d54;
+  --bg-color1: #d4bec0;
+  --bg-color2: #a2c6ca;
+  --bg-angle: 45deg;
+  --card-color1: #f1f2eb;
+  --card-color2: #f1f2eb;
+  --card-angle: 45deg;
+  --border-color: #929b94;
+  --social-color: #f2f3ef;
 }
 
 .swftli {
@@ -15,8 +25,12 @@
   display: block;
   overflow: auto;
 
-  background-color: blue;
-  background: linear-gradient(45deg, #d4bec0 0%, #a2c6ca 100%);
+  background: linear-gradient(
+    var(--bg-angle),
+    var(--bg-color1) 0%,
+    var(--bg-color2) 100%
+  );
+  background-position: center;
 }
 
 .userHeader {
@@ -35,9 +49,9 @@
   justify-content: flex-start;
   align-items: center;
 
-  background-color: #f1f2eb;
+  background: var(--card-color1);
   border-radius: 100px 0px 100px 100px;
-  border: solid 8px #929b94;
+  border: solid 8px var(--border-color);
 
   height: 100px;
   width: calc(100vw - 80px);
@@ -74,11 +88,11 @@
 }
 
 .userSocial {
-  color: #f2f3ef;
+  color: var(--social-color);
 }
 
 .userSocial:hover {
-  color: #dfe0db;
+  filter: brightness(105%);
 }
 
 .userCards {
@@ -96,7 +110,11 @@
   justify-content: center;
   align-items: center;
 
-  background-color: #f1f2eb;
+  background: linear-gradient(
+    var(--card-angle),
+    var(--card-color1) 0%,
+    var(--card-color2) 100%
+  );
   border-radius: 50px;
 
   height: 80px;
@@ -110,9 +128,9 @@
 }
 
 .userCard:hover {
-  filter: brightness(95%);
+  filter: brightness(105%);
 
-  box-shadow: 0 0 30px #929b94;
+  box-shadow: 0 0 30px var(--border-color);
 }
 
 .cardLink {
