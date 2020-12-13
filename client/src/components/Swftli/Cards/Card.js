@@ -1,14 +1,16 @@
 import React from 'react';
 
 function Card(props) {
-  return (
-    <div className='userCard'>
-      {props.number % 2 === 0 && <i class='fab fa-facebook cardSocial'></i>}
-      <a className='cardLink' href={'http://www.google.com/' + props.number}>
-        Link Name {props.number}
+  if (props.enabled === true) {
+    return (
+      <a className='userCard' href={props.url}>
+        <i class={props.social + ' cardSocial'}></i>
+        {props.name}
       </a>
-    </div>
-  );
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default Card;

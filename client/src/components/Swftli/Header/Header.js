@@ -8,9 +8,9 @@ const Header = (props) => {
     <div class='userHeader'>
       <div class='userBanner'>
         <img className='userImage' src={userImage} alt='username' />{' '}
-        {props.username}
+        {props.name}
       </div>
-      <Socials />
+      <Socials socials={props.socials} />
     </div>
   );
 };

@@ -33,6 +33,15 @@
   background-position: center;
 }
 
+.error {
+  margin-top: 30px;
+  margin-left: 30px;
+
+  font-size: 50px;
+  font-weight: lighter;
+  color: #5f5d54;
+}
+
 .userHeader {
   display: flex;
   flex-direction: row;
@@ -124,6 +133,7 @@
   margin-bottom: 30px;
   padding: auto;
 
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -131,10 +141,6 @@
   filter: brightness(105%);
 
   box-shadow: 0 0 30px var(--border-color);
-}
-
-.cardLink {
-  text-decoration: none;
 }
 
 .cardSocial {

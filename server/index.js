@@ -5,24 +5,19 @@ import mongoose from 'mongoose';
 //import App from '../client/public/index.html';
 
 import loginSignupRoutes from './routes/LoginSignup.js';
-import myRoutes from './routes/Admin.js';
-import usersRoutes from './routes/Swftli.js';
+import adminRoutes from './routes/Admin.js';
+import swftliRoutes from './routes/Swftli.js';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.sendFile('/client/public/index.html', { root: '../' });
-});
-
-app.use('/', loginSignupRoutes);
-app.use('/admin', myRoutes);
-app.use('/', usersRoutes);
-
 app.use(cors());
+app.use('/auth', loginSignupRoutes);
+app.use('/admin', adminRoutes);
+app.use('/users', swftliRoutes);
 
 const DB_URI =
   'mongodb+srv://admin:0Y5xa4luLzY1Cqaf@cluster0.vnm2t.mongodb.net/<dbname>?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5500;
 
 mongoose
   .connect(DB_URI, {

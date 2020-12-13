@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: String,
   email: { type: String, required: true, unique: true },
+  password: String,
+  userImg: String,
+  socials: [{ name: String, uid: String }],
   links: [{ name: String, url: String, enabled: Boolean }],
-  socials: [{ name: String, url: String }],
   settings: {
-    userImg: String,
     bgColor1: String,
     bgColor2: String,
     bgAngle: Number,
