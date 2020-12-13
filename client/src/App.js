@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Swftli from './components/Swftli/Swtfli.js';
+import UsersSwftli from './components/Swftli/UsersSwtfli.js';
 
 const App = () => {
-  return <Swftli />;
+  return <UsersSwftli />;
 };
 
 export default App;
