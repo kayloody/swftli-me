@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { socialClasses, getDomain } from '../Domains.js';
+import { socialClasses } from '../Domains.js';
 
 const Socials = (props) => {
   const socials = props.socials.map((social, i) => {
