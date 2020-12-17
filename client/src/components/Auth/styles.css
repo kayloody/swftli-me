@@ -1,3 +1,17 @@
+hr {
+  border: solid 1px var(--border-color);
+
+  box-sizing: border-box;
+  width: 400px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
 .auth {
   display: flex;
   flex-direction: column;
@@ -15,4 +29,117 @@
   padding-left: 30px;
 
   width: 240px;
+}
+
+.authMe {
+  font-weight: 500;
+  color: var(--border-color);
+}
+
+.authMain {
+  position: relative;
+  margin: auto;
+
+  background: var(--card-color1);
+  border-radius: 50px;
+  border: solid 8px var(--border-color);
+
+  height: 569px;
+  width: 750px;
+
+  text-align: center;
+}
+
+.authPhone {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  right: calc(750px - 270px);
+  /* right: 0;
+  left: calc(750px - 270px); */
+  text-align: center;
+}
+
+.authForm {
+  position: absolute;
+  width: 450px;
+}
+
+.login {
+  right: 17px;
+
+  top: 60px;
+}
+
+.signup {
+  left: 17px;
+
+  top: 80px;
+}
+
+.authText {
+  background: #ffffff;
+  border-radius: 5px;
+  border: solid 5px var(--border-color);
+
+  box-sizing: border-box;
+  width: 400px;
+  height: 70px;
+  margin-bottom: 25px;
+  padding: 20px;
+
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.authText:focus {
+  border: solid 5px #5f5d54;
+}
+
+.authSubmit {
+  background: var(--border-color);
+  border-radius: 5px;
+  border: solid 5px var(--border-color);
+
+  box-sizing: border-box;
+  width: 400px;
+  height: 50px;
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  font-size: 27px;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.authSubmit:active {
+  filter: brightness(120%);
+}
+
+#authGoogle {
+  margin: 25px;
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.authSubtext {
+  margin: 25px;
+  font-size: 17px;
+  font-weight: 200;
+}
+
+.authSwitch {
+  margin-left: 5px;
+  font-weight: bolder;
+}
+
+@media screen and (max-width: 850px) {
+  .authPhone {
+    visibility: hidden;
+  }
+
+  .authMain {
+    width: 484px;
+  }
 }

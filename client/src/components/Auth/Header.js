@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <h1 className='header'>
       <div className='banner authBanner'>
-        swftli<span style={{ fontWeight: 500 }}>.me</span>
+        swftli.<span className='authMe'>me</span>
       </div>
     </h1>
   );
