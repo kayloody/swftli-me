@@ -5,8 +5,8 @@ import userImage from '../../../images/digitalia.PNG';
 
 const Header = (props) => {
   return (
-    <div class='userHeader'>
-      <div class='userBanner'>
+    <div class='header userHeader'>
+      <div class='banner userBanner'>
         <img className='userImage' src={userImage} alt='username' />{' '}
         {props.name}
       </div>

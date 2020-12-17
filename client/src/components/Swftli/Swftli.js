@@ -72,7 +72,7 @@ class Swftli extends React.Component {
     } else {
     }
 
-    return <div className='swftli'>{content}</div>;
+    return <div className='main'>{content}</div>;
   }
 }
 
