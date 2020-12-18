@@ -7,7 +7,7 @@ const Socials = (props) => {
     const socialClass = socialClasses[social.name];
     return (
       <a key={i} href={'https://' + social.name + '/' + social.uid}>
-        <i class={socialClass + ' userSocial'}></i>
+        <i className={socialClass + ' userSocial'}></i>
       </a>
     );
   });

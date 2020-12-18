@@ -4,7 +4,7 @@ function Card(props) {
   if (props.enabled === true) {
     return (
       <a className='userCard' href={props.url}>
-        <i class={props.social + ' cardSocial'}></i>
+        <i className={props.social + ' cardSocial'}></i>
         {props.name}
       </a>
     );

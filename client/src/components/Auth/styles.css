@@ -53,11 +53,17 @@ button:focus {
 .authPhone {
   z-index: 10;
   position: absolute;
-  left: 0;
-  right: calc(750px - 270px);
-  /* right: 0;
-  left: calc(750px - 270px); */
+
+  margin: auto;
+
+  height: 569px;
+  width: 0;
+
   text-align: center;
+
+  transition-timing-function: ease;
+  transition: left 0.3s;
+  transition: right 0.3s;
 }
 
 .authForm {
@@ -134,12 +140,22 @@ button:focus {
   font-weight: bolder;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1270px) {
   .authPhone {
     visibility: hidden;
+    right: 0;
+    left: 0;
+    width: 0;
+    margin: 0;
   }
 
   .authMain {
-    width: 484px;
+    width: 450px;
+  }
+
+  .login,
+  .signup {
+    right: auto;
+    left: auto;
   }
 }
