@@ -1,75 +1,83 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from './Header.js';
+import Phone from './Phone.js';
 import Footer from '../Footer.js';
 
 import './styles.css';
 
+const server = 'http://localhost:5500';
+
 class Auth extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { authScreen: 'login' };
+    this.state = {
+      authScreen: 'login',
+      email: '',
+      username: '',
+      password: '',
+    };
   }
 
   switchAuth = () => {
     this.setState({
       authScreen: this.state.authScreen === 'login' ? 'signup' : 'login',
+      email: '',
+      username: '',
+      password: '',
     });
+  };
+
+  handleChange = (event) => {
+    const target = event.target;
+    this.setState({ [target.name]: target.value });
+  };
+
+  handleSubmit = (event) => {
+    const target = event.target;
+
+    if (target === 'login') {
+    } else {
+      axios
+        .post(`${server}/auth/signup`, {
+          email: this.state.email,
+          username: this.state.username,
+          password: this.state.password,
+        })
+        .then((res) => {
+          const data = res.data;
+
+          if ('Error' in data) {
+            this.setState({ status: 'Error', data: data.Error });
+          } else {
+            this.setState({ status: 'OK', data });
+          }
+          this.props.history.push('./kLiddy');
+        })
+        .catch((err) => {
+          this.setState({
+            status: 'Error',
+            data: 'Error: Could not communicate with server',
+          });
+          this.props.history.push('./kLiddy');
+        });
+    }
+    event.preventDefault();
   };
 
   render() {
     return (
       <div className='main'>
         <Header />
-        <div
-          className='authPhone'
+        <Phone
           style={
             this.state.authScreen === 'login'
               ? { right: 'calc(750px + 100px)', left: 0 }
               : { right: 0, left: 'calc(750px - 610px)' }
           }
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='350'
-            height='585'
-            viewBox='0 0 352.568 701.067'
-          >
-            <g id='Phone' transform='translate(-601.184 -192)'>
-              <path
-                id='Path_65'
-                data-name='Path 65'
-                d='M859.293,252.71h-3.885V147.186c0-33.731-27.579-61.075-61.6-61.075H568.324c-34.02,0-61.6,27.344-61.6,61.075V726.1c0,33.731,27.579,61.075,61.6,61.075H793.809c34.02,0,61.6-27.344,61.6-61.075V327.824h3.885Z'
-                transform='translate(94.459 105.889)'
-                fill='#929b94'
-              />
-              <path
-                id='Path_66'
-                data-name='Path 66'
-                d='M797.141,102.606H767.67a21.5,21.5,0,0,1-2.1,20.274,21.941,21.941,0,0,1-18.161,9.584H618.066a21.94,21.94,0,0,1-18.16-9.583,21.5,21.5,0,0,1-2.1-20.275H570.279a45.84,45.84,0,0,0-46.06,45.618V726.387A45.84,45.84,0,0,0,570.279,772H797.141a45.841,45.841,0,0,0,46.06-45.618h0V148.224a45.841,45.841,0,0,0-46.06-45.618Z'
-                transform='translate(93.758 105.228)'
-                fill='#fff'
-              />
-              <rect
-                id='Rectangle_36'
-                data-name='Rectangle 36'
-                width='262.027'
-                height='442.873'
-                transform='translate(646.455 321.097)'
-                fill='#eef3ef'
-              />
-              <circle
-                id='Ellipse_12'
-                data-name='Ellipse 12'
-                cx='24.958'
-                cy='24.958'
-                r='24.958'
-                transform='translate(752.898 795.127)'
-                fill='#929b94'
-              />
-            </g>
-          </svg>
-        </div>
+        />
         <div className='authMain'>
           <div
             className='authForm login'
@@ -79,27 +87,37 @@ class Auth extends React.Component {
                 : { visibility: 'visible' }
             }
           >
-            <form>
-              <input className='authText' type='text' placeholder='Username' />
+            <form name='login' onSubmit={this.handleSubmit}>
+              <input
+                name='username '
+                className='authText'
+                type='text'
+                value={this.state.logUser}
+                onChange={this.handleChange}
+                placeholder='Username'
+              />
               <br />
               <input
+                name='password'
                 className='authText'
                 type='password'
+                value={this.state.logPass}
+                onChange={this.handleChange}
                 placeholder='Password'
               />
               <br />
               <input className='authSubmit' type='submit' value='Log In' />
             </form>
             <hr />
-            <div id='authGoogle'>
+            <div id='authGoogle' className='authLink'>
               <i className='fab fa-google' style={{ marginRight: '15px' }}></i>
               Log in with Google
             </div>
-            <div className='authSubtext'>Forgot password?</div>
+            <div className='authSubtext authLink'>Forgot password?</div>
             <hr />
             <div className='authSubtext'>
               Don't have an account?{' '}
-              <span className='authSwitch' onClick={this.switchAuth}>
+              <span className='authSwitch authLink' onClick={this.switchAuth}>
                 Sign Up
               </span>
             </div>
@@ -112,14 +130,31 @@ class Auth extends React.Component {
                 : { visibility: 'visible' }
             }
           >
-            <form>
-              <input className='authText' type='text' placeholder='Email' />
-              <br />
-              <input className='authText' type='text' placeholder='Username' />
+            <form name='signup' onSubmit={this.handleSubmit}>
+              <input
+                name='email'
+                className='authText'
+                type='text'
+                value={this.state.signEmail}
+                onChange={this.handleChange}
+                placeholder='Email'
+              />
               <br />
               <input
+                name='username'
+                className='authText'
+                type='text'
+                value={this.state.signUser}
+                onChange={this.handleChange}
+                placeholder='Username'
+              />
+              <br />
+              <input
+                name='password'
                 className='authText'
                 type='password'
+                value={this.state.signPass}
+                onChange={this.handleChange}
                 placeholder='Password'
               />
               <br />
@@ -128,7 +163,7 @@ class Auth extends React.Component {
             <hr />
             <div className='authSubtext'>
               Have an account?{' '}
-              <span className='authSwitch' onClick={this.switchAuth}>
+              <span className='authSwitch authLink' onClick={this.switchAuth}>
                 Log In
               </span>
             </div>
@@ -140,4 +175,4 @@ class Auth extends React.Component {
   }
 }
 
-export default Auth;
+export default withRouter(Auth);

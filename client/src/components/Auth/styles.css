@@ -117,6 +117,8 @@ button:focus {
   font-size: 27px;
   font-weight: 300;
   color: #ffffff;
+
+  cursor: pointer;
 }
 
 .authSubmit:active {
@@ -138,6 +140,16 @@ button:focus {
 .authSwitch {
   margin-left: 5px;
   font-weight: bolder;
+}
+
+.authLink:hover {
+  cursor: pointer;
+
+  filter: brightness(120%);
+}
+
+.authLink:active {
+  filter: brightness(80%);
 }
 
 @media screen and (max-width: 1270px) {
