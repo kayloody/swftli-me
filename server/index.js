@@ -1,16 +1,39 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-
-//import App from '../client/public/index.html';
+import passport from 'passport';
+import passportLocal from 'passport-local';
+import passportGoogle from 'passport-google-oauth';
 
 import authRoutes from './routes/Auth.js';
 import adminRoutes from './routes/Admin.js';
 import swftliRoutes from './routes/Swftli.js';
 
+import User from '../models/swftli.js';
+
 const app = express();
 
+const LocalStrategy = passportLocal.Strategy;
+const GoogleStrategy = passportGoogle.OAuth2Strategy;
+
 app.use(cors());
+
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    User.findOne({ username }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  })
+);
 
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
