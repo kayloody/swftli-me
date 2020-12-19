@@ -1,4 +1,5 @@
 hr {
+  background: var(--border-color);
   border: solid 1px var(--border-color);
 
   box-sizing: border-box;
