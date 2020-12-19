@@ -4,14 +4,15 @@ import mongoose from 'mongoose';
 
 //import App from '../client/public/index.html';
 
-import loginSignupRoutes from './routes/LoginSignup.js';
+import authRoutes from './routes/Auth.js';
 import adminRoutes from './routes/Admin.js';
 import swftliRoutes from './routes/Swftli.js';
 
 const app = express();
 
 app.use(cors());
-app.use('/auth', loginSignupRoutes);
+
+app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/users', swftliRoutes);
 

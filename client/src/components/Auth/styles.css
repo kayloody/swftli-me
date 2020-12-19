@@ -134,12 +134,15 @@ button:focus {
 
 .authSubtext {
   margin: 25px;
+  margin-bottom: 10px;
+
   font-size: 17px;
   font-weight: 200;
 }
 
 .authSwitch {
   margin-left: 5px;
+
   font-weight: bolder;
 }
 
@@ -150,6 +153,16 @@ button:focus {
 }
 
 .authLink:active {
+  filter: brightness(80%);
+}
+
+.authError {
+  margin: 25px;
+  margin-top: 0;
+
+  font-size: 17px;
+  font-weight: 200;
+  color: var(--bg-color1);
   filter: brightness(80%);
 }
 

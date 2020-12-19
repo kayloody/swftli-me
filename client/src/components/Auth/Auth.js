@@ -18,6 +18,7 @@ class Auth extends React.Component {
       email: '',
       username: '',
       password: '',
+      error: '',
     };
   }
 
@@ -27,6 +28,7 @@ class Auth extends React.Component {
       email: '',
       username: '',
       password: '',
+      error: '',
     });
   };
 
@@ -38,33 +40,42 @@ class Auth extends React.Component {
   handleSubmit = (event) => {
     const target = event.target;
 
+    event.preventDefault();
+
     if (target === 'login') {
     } else {
+      this.setState({ error: '' });
       axios
-        .post(`${server}/auth/signup`, {
-          email: this.state.email,
-          username: this.state.username,
-          password: this.state.password,
-        })
+        .post(
+          `${server}/auth/signup`,
+          {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'basic',
+            },
+          }
+        )
         .then((res) => {
           const data = res.data;
 
           if ('Error' in data) {
-            this.setState({ status: 'Error', data: data.Error });
+            this.setState({ error: data.Error });
           } else {
-            this.setState({ status: 'OK', data });
+            this.props.history.push('./' + data.Okay);
           }
-          this.props.history.push('./kLiddy');
         })
         .catch((err) => {
+          console.error(err);
           this.setState({
-            status: 'Error',
-            data: 'Error: Could not communicate with server',
+            error: 'Error: Could not communicate with server',
           });
-          this.props.history.push('./kLiddy');
         });
     }
-    event.preventDefault();
   };
 
   render() {
@@ -167,6 +178,7 @@ class Auth extends React.Component {
                 Log In
               </span>
             </div>
+            <div className='authError'>{this.state.error}</div>
           </div>
         </div>
         <Footer />
