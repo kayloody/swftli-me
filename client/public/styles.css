@@ -2,6 +2,8 @@
   font-family: 'Bahnschrift';
   user-select: none;
 
+  --warning-color: #d88087;
+
   /* User custom colors */
   color: #5f5d54;
   --bg-color1: #d4bec0;

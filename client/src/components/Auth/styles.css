@@ -156,14 +156,17 @@ button:focus {
   filter: brightness(80%);
 }
 
+.authTextError {
+  border: solid 5px var(--warning-color);
+}
+
 .authError {
   margin: 25px;
   margin-top: 0;
 
   font-size: 17px;
   font-weight: 200;
-  color: var(--bg-color1);
-  filter: brightness(80%);
+  color: var(--warning-color);
 }
 
 @media screen and (max-width: 1270px) {

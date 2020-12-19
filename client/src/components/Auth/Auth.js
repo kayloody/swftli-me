@@ -19,6 +19,7 @@ class Auth extends React.Component {
       username: '',
       password: '',
       error: '',
+      errorField: '',
     };
   }
 
@@ -29,12 +30,17 @@ class Auth extends React.Component {
       username: '',
       password: '',
       error: '',
+      errorField: '',
     });
   };
 
   handleChange = (event) => {
     const target = event.target;
-    this.setState({ [target.name]: target.value });
+    this.setState({
+      [target.name]: target.value,
+      errorField:
+        this.state.errorField === target.name ? '' : this.state.errorField,
+    });
   };
 
   handleSubmit = (event) => {
@@ -64,7 +70,7 @@ class Auth extends React.Component {
           const data = res.data;
 
           if ('Error' in data) {
-            this.setState({ error: data.Error });
+            this.setState({ error: data.Error, errorField: data.Field });
           } else {
             this.props.history.push('./' + data.Okay);
           }
@@ -101,7 +107,11 @@ class Auth extends React.Component {
             <form name='login' onSubmit={this.handleSubmit}>
               <input
                 name='username '
-                className='authText'
+                className={
+                  this.state.errorField !== 'username'
+                    ? 'authText'
+                    : 'authText authTextError'
+                }
                 type='text'
                 value={this.state.logUser}
                 onChange={this.handleChange}
@@ -110,7 +120,11 @@ class Auth extends React.Component {
               <br />
               <input
                 name='password'
-                className='authText'
+                className={
+                  this.state.errorField !== 'password'
+                    ? 'authText'
+                    : 'authText authTextError'
+                }
                 type='password'
                 value={this.state.logPass}
                 onChange={this.handleChange}
@@ -144,7 +158,11 @@ class Auth extends React.Component {
             <form name='signup' onSubmit={this.handleSubmit}>
               <input
                 name='email'
-                className='authText'
+                className={
+                  this.state.errorField !== 'email'
+                    ? 'authText'
+                    : 'authText authTextError'
+                }
                 type='text'
                 value={this.state.signEmail}
                 onChange={this.handleChange}
@@ -153,7 +171,11 @@ class Auth extends React.Component {
               <br />
               <input
                 name='username'
-                className='authText'
+                className={
+                  this.state.errorField !== 'username'
+                    ? 'authText'
+                    : 'authText authTextError'
+                }
                 type='text'
                 value={this.state.signUser}
                 onChange={this.handleChange}
@@ -162,7 +184,11 @@ class Auth extends React.Component {
               <br />
               <input
                 name='password'
-                className='authText'
+                className={
+                  this.state.errorField !== 'password'
+                    ? 'authText'
+                    : 'authText authTextError'
+                }
                 type='password'
                 value={this.state.signPass}
                 onChange={this.handleChange}

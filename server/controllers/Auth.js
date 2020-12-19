@@ -14,20 +14,24 @@ export const signup = (req, res) => {
       console.log(error);
       res.json({ Error: 'Database Error' });
     } else if (doc) {
-      res.json({ Error: `Another account is using ${email}.` });
+      res.json({ Error: `Another account is using ${email}.`, Field: 'email' });
     } else {
       User.findOne({ user_lower: username.toLowerCase() }).exec((err, doc) => {
         if (err) {
           console.log(err);
           res.json({ Error: 'Database Error' });
         } else if (doc) {
-          res.json({ Error: `${username} is already taken.` });
+          res.json({
+            Error: `${username} is already taken.`,
+            Field: 'username',
+          });
         } // FUTURE: Include username restrictions
         else {
           if (!passwordStrength(password)) {
             res.json({
               Error:
                 'Password must contain 8 characters, upper and lowercase letters, a number and a special character.',
+              Field: 'password',
             });
           } else {
             bcrypt.hash(password, saltRounds, function (err, hash) {
