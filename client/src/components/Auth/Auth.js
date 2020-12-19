@@ -8,7 +8,7 @@ import Footer from '../Footer.js';
 
 import './styles.css';
 
-const server = 'http://localhost:5500';
+const server = 'http://localhost:5000';
 
 class Auth extends React.Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import Footer from './Footer.js';
 
 import './userStyles.css';
 
-const server = 'http://localhost:5500';
+const server = 'http://localhost:5000';
 
 class Swftli extends React.Component {
   constructor(props) {

@@ -18,7 +18,7 @@ app.use('/users', swftliRoutes);
 
 const DB_URI =
   'mongodb+srv://admin:0Y5xa4luLzY1Cqaf@cluster0.vnm2t.mongodb.net/<dbname>?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 5500;
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(DB_URI, {
