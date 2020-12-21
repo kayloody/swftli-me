@@ -70,7 +70,7 @@ class Auth extends React.Component {
           this.props.history.push('./' + data.okay);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         this.setState({
           error: 'Error: Could not communicate with server',
         });
@@ -104,7 +104,7 @@ class Auth extends React.Component {
           this.props.history.push('./' + data.Okay);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         this.setState({
           error: 'Error: Could not communicate with server',
         });
