@@ -43,45 +43,72 @@ class Auth extends React.Component {
     });
   };
 
-  handleSubmit = (event) => {
-    const target = event.target;
+  handleLogin = (event) => {
+    event.preventDefault();
+    axios
+      .post(
+        `${server}/auth/login`,
+        {
+          username: this.state.username,
+          password: this.state.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((res) => {
+        const data = res.data;
 
+        if ('error' in data) {
+          this.setState({
+            error: data.error,
+            errorField: data.field,
+          });
+        } else {
+          this.props.history.push('./' + data.okay);
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          error: 'Error: Could not communicate with server',
+        });
+      });
+  };
+
+  handleSignup = (event) => {
     event.preventDefault();
 
-    if (target === 'login') {
-    } else {
-      this.setState({ error: '' });
-      axios
-        .post(
-          `${server}/auth/signup`,
-          {
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.password,
+    this.setState({ error: '' });
+    axios
+      .post(
+        `${server}/auth/signup`,
+        {
+          email: this.state.email,
+          username: this.state.username,
+          password: this.state.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'basic',
-            },
-          }
-        )
-        .then((res) => {
-          const data = res.data;
+        }
+      )
+      .then((res) => {
+        const data = res.data;
 
-          if ('Error' in data) {
-            this.setState({ error: data.Error, errorField: data.Field });
-          } else {
-            this.props.history.push('./' + data.Okay);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          this.setState({
-            error: 'Error: Could not communicate with server',
-          });
+        if ('Error' in data) {
+          this.setState({ error: data.Error, errorField: data.field });
+        } else {
+          this.props.history.push('./' + data.Okay);
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          error: 'Error: Could not communicate with server',
         });
-    }
+      });
   };
 
   render() {
@@ -104,9 +131,9 @@ class Auth extends React.Component {
                 : { visibility: 'visible' }
             }
           >
-            <form name='login' onSubmit={this.handleSubmit}>
+            <form name='login' onSubmit={this.handleLogin}>
               <input
-                name='username '
+                name='username'
                 className={
                   this.state.errorField !== 'username'
                     ? 'authText'
@@ -146,6 +173,7 @@ class Auth extends React.Component {
                 Sign Up
               </span>
             </div>
+            <div className='authError'>{this.state.error}</div>
           </div>
           <div
             className='authForm signup'
@@ -155,7 +183,7 @@ class Auth extends React.Component {
                 : { visibility: 'visible' }
             }
           >
-            <form name='signup' onSubmit={this.handleSubmit}>
+            <form name='signup' onSubmit={this.handleSignup}>
               <input
                 name='email'
                 className={

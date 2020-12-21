@@ -1,8 +1,23 @@
+import passport from 'passport';
 import bcrypt from 'bcrypt';
 
 import User from '../models/swftli.js';
 
-const saltRounds = 10;
+const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
+
+const saltRounds = bcrypt.genSaltSync(10);
+
+export const status = (req, res) => {
+  if (req.user) {
+    res.json({
+      auth: true,
+      user: req.user,
+      cookies: req.cookies,
+    });
+  } else {
+    res.json({ auth: false });
+  }
+};
 
 export const signup = (req, res) => {
   const email = req.body.email;
@@ -12,51 +27,46 @@ export const signup = (req, res) => {
   User.findOne({ email }).exec((err, doc) => {
     if (err) {
       console.log(error);
-      res.json({ Error: 'Database Error' });
+      res.json({ error: 'Database Error' });
     } else if (doc) {
-      res.json({ Error: `Another account is using ${email}.`, Field: 'email' });
+      res.json({ error: `Another account is using ${email}.`, field: 'email' });
     } else {
       User.findOne({ user_lower: username.toLowerCase() }).exec((err, doc) => {
         if (err) {
           console.log(err);
-          res.json({ Error: 'Database Error' });
+          res.json({ error: 'Database Error' });
         } else if (doc) {
           res.json({
-            Error: `${username} is already taken.`,
-            Field: 'username',
+            error: `${username} is already taken.`,
+            field: 'username',
           });
         } // FUTURE: Include username restrictions
         else {
           if (!passwordStrength(password)) {
             res.json({
-              Error:
+              error:
                 'Password must contain 8 characters, upper and lowercase letters, a number and a special character.',
-              Field: 'password',
+              field: 'password',
             });
           } else {
-            bcrypt.hash(password, saltRounds, function (err, hash) {
-              if (err) {
-                console.log(err);
-                res.json({ Error: 'Database Error' });
-              } else {
-                User.create(
-                  {
-                    username,
-                    user_lower: username.toLowerCase(),
-                    email,
-                    password: hash,
-                  },
-                  (err) => {
-                    if (err) {
-                      console.log(err);
-                      res.json({ Error: 'Database Error' });
-                    } else {
-                      res.json({ Okay: username });
-                    }
-                  }
-                );
+            var hash = bcrypt.hashSync(password, saltRounds);
+
+            User.create(
+              {
+                username,
+                user_lower: username.toLowerCase(),
+                email,
+                password: hash,
+              },
+              (err) => {
+                if (err) {
+                  console.log(err);
+                  res.json({ error: 'Database Error' });
+                } else {
+                  res.json({ okay: username });
+                }
               }
-            });
+            );
           }
         }
       });
@@ -75,4 +85,16 @@ const passwordStrength = (password) => {
   }
 };
 
-export const login = (req, res) => {};
+export const login = (req, res) => {
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err) {
+      res.json({ error: 'Database Error' });
+    } else if (user) {
+      res.json({ okay: user.username });
+    } else {
+      res.json(info);
+    }
+  })(req, res);
+};
+
+export const google = (req, res) => {};

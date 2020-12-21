@@ -3,48 +3,26 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import passportLocal from 'passport-local';
+import bcrypt from 'bcrypt';
 import passportGoogle from 'passport-google-oauth';
+import session from 'express-session';
+import cookieSession from 'cookie-session';
+import cookieParser from 'cookie-parser';
+
+import keys from './config/keys.js';
 
 import authRoutes from './routes/Auth.js';
 import adminRoutes from './routes/Admin.js';
 import swftliRoutes from './routes/Swftli.js';
 
-import User from '../models/swftli.js';
+import User from './models/swftli.js';
 
 const app = express();
 
-const LocalStrategy = passportLocal.Strategy;
-const GoogleStrategy = passportGoogle.OAuth2Strategy;
-
-app.use(cors());
-
-passport.use(
-  new LocalStrategy(function (username, password, done) {
-    User.findOne({ username }, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  })
-);
-
-app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes);
-app.use('/users', swftliRoutes);
-
-const DB_URI =
-  'mongodb+srv://admin:0Y5xa4luLzY1Cqaf@cluster0.vnm2t.mongodb.net/<dbname>?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(DB_URI, {
+  .connect(keys.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -53,4 +31,46 @@ mongoose
   .then(() =>
     app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
   )
-  .catch((error) => console.lof(error.message));
+  .catch((error) => console.log(error.message));
+
+const LocalStrategy = passportLocal.Strategy;
+const GoogleStrategy = passportGoogle.OAuth2Strategy;
+
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
+);
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ user_lower: username.toLowerCase() }).exec((err, doc) => {
+      if (err) {
+        return done(err);
+      }
+      if (!doc) {
+        return done(null, false, {
+          error: 'Invalid username.',
+          field: 'username',
+        });
+      }
+      if (!bcrypt.compareSync(password, doc.password)) {
+        return done(null, false, {
+          error: 'Invalid password.',
+          field: 'password',
+        });
+      }
+      return done(null, doc);
+    });
+  })
+);
+
+app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
+app.use('/users', swftliRoutes);
