@@ -98,7 +98,21 @@ export const login = (req, res) => {
   })(req, res);
 };
 
-export const google = (req, res) => {};
+export const google = (req, res) => {
+  passport.authenticate('google', { scope: ['profile'] })(req, res);
+};
+
+export const googleCB = (req, res) => {
+  passport.authenticate('google', { session: false }, (err, user, newUser) => {
+    if (err) {
+      res.json({ error: 'Database Error' });
+    } else if (newUser) {
+      res.json({ okay: user.username, newUser: true });
+    } else {
+      res.json({ okay: user.username, newUser: false });
+    }
+  })(req, res);
+};
 
 const passwordStrength = (password) => {
   if (

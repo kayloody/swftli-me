@@ -80,6 +80,29 @@ class Auth extends React.Component {
     }
   };
 
+  handleGoogle = (event) => {
+    event.preventDefault();
+    window.open('http://localhost:5000/auth/google', '_self');
+    axios
+      .get(`${server}/auth/google`)
+      .then((res) => {
+        console.log(res);
+        const data = res.data;
+
+        if (data.newUser === true) {
+          this.props.history.push('./simmer');
+        } else {
+          this.props.history.push('./' + data.okay);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({
+          error: 'Error: Could not communicate with Google',
+        });
+      });
+  };
+
   handleSignup = (event) => {
     event.preventDefault();
     if (
@@ -170,7 +193,11 @@ class Auth extends React.Component {
               <input className='authSubmit' type='submit' value='Log In' />
             </form>
             <hr />
-            <div id='authGoogle' className='authLink'>
+            <div
+              id='authGoogle'
+              className='authLink'
+              onClick={this.handleGoogle}
+            >
               <i className='fab fa-google' style={{ marginRight: '15px' }}></i>
               Log in with Google
             </div>

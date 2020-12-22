@@ -60,7 +60,7 @@ passport.use(
           field: 'username',
         });
       }
-      if (!bcrypt.compareSync(password, doc.password)) {
+      if (!bcrypt.compareSync(password, doc.password) || password === '') {
         return done(null, false, {
           error: 'Invalid password.',
           field: 'password',
@@ -69,6 +69,32 @@ passport.use(
       return done(null, doc);
     });
   })
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: keys.GOOGLE_CLIENT_ID,
+      clientSecret: keys.GOOGLE_CLIENT_SECRET,
+      callbackURL: '/auth/googleCB',
+    },
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ email: profile.email }).exec((err, doc) => {
+        if (err) {
+          return done(err);
+        } else if (doc) {
+          return done(null, doc, true);
+        } else {
+          User.create({
+            email: profile.emails,
+            password: '',
+            userImg: profile.photos,
+          });
+          return done(null, doc, false);
+        }
+      });
+    }
+  )
 );
 
 app.use('/auth', authRoutes);
