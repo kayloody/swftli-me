@@ -19,7 +19,7 @@ class Auth extends React.Component {
       username: '',
       password: '',
       error: '',
-      errorField: '',
+      field: '',
     };
   }
 
@@ -30,7 +30,7 @@ class Auth extends React.Component {
       username: '',
       password: '',
       error: '',
-      errorField: '',
+      field: '',
     });
   };
 
@@ -38,77 +38,86 @@ class Auth extends React.Component {
     const target = event.target;
     this.setState({
       [target.name]: target.value,
-      errorField:
-        this.state.errorField === target.name ? '' : this.state.errorField,
+      field: this.state.field === target.name ? '' : this.state.field,
     });
   };
 
   handleLogin = (event) => {
     event.preventDefault();
-    axios
-      .post(
-        `${server}/auth/login`,
-        {
-          username: this.state.username,
-          password: this.state.password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+    if (this.state.username === '' || this.state.password === '') {
+    } else {
+      axios
+        .post(
+          `${server}/auth/login`,
+          {
+            username: this.state.username,
+            password: this.state.password,
           },
-        }
-      )
-      .then((res) => {
-        const data = res.data;
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          const data = res.data;
 
-        if ('error' in data) {
+          if ('error' in data) {
+            this.setState({
+              error: data.error,
+              field: data.field,
+            });
+          } else {
+            this.props.history.push('./' + data.okay);
+          }
+        })
+        .catch(() => {
           this.setState({
-            error: data.error,
-            errorField: data.field,
+            error: 'Error: Could not communicate with server',
           });
-        } else {
-          this.props.history.push('./' + data.okay);
-        }
-      })
-      .catch(() => {
-        this.setState({
-          error: 'Error: Could not communicate with server',
         });
-      });
+    }
   };
 
   handleSignup = (event) => {
     event.preventDefault();
-
-    this.setState({ error: '' });
-    axios
-      .post(
-        `${server}/auth/signup`,
-        {
-          email: this.state.email,
-          username: this.state.username,
-          password: this.state.password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+    if (
+      this.state.email === '' ||
+      this.state.username === '' ||
+      this.state.password === ''
+    ) {
+    } else {
+      this.setState({ error: '' });
+      axios
+        .post(
+          `${server}/auth/signup`,
+          {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
           },
-        }
-      )
-      .then((res) => {
-        const data = res.data;
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((res) => {
+          const data = res.data;
 
-        if ('Error' in data) {
-          this.setState({ error: data.Error, errorField: data.field });
-        } else {
-          this.props.history.push('./' + data.Okay);
-        }
-      })
-      .catch(() => {
-        this.setState({
-          error: 'Error: Could not communicate with server',
+          if ('error' in data) {
+            this.setState({ error: data.error, field: data.field });
+          } else {
+            this.props.history.push('./' + data.okay);
+          }
+        })
+        .catch(() => {
+          this.setState({
+            error: 'Error: Could not communicate with server',
+          });
         });
-      });
+    }
   };
 
   render() {
@@ -135,7 +144,7 @@ class Auth extends React.Component {
               <input
                 name='username'
                 className={
-                  this.state.errorField !== 'username'
+                  this.state.field !== 'username'
                     ? 'authText'
                     : 'authText authTextError'
                 }
@@ -148,7 +157,7 @@ class Auth extends React.Component {
               <input
                 name='password'
                 className={
-                  this.state.errorField !== 'password'
+                  this.state.field !== 'password'
                     ? 'authText'
                     : 'authText authTextError'
                 }
@@ -187,7 +196,7 @@ class Auth extends React.Component {
               <input
                 name='email'
                 className={
-                  this.state.errorField !== 'email'
+                  this.state.field !== 'email'
                     ? 'authText'
                     : 'authText authTextError'
                 }
@@ -200,7 +209,7 @@ class Auth extends React.Component {
               <input
                 name='username'
                 className={
-                  this.state.errorField !== 'username'
+                  this.state.field !== 'username'
                     ? 'authText'
                     : 'authText authTextError'
                 }
@@ -213,7 +222,7 @@ class Auth extends React.Component {
               <input
                 name='password'
                 className={
-                  this.state.errorField !== 'password'
+                  this.state.field !== 'password'
                     ? 'authText'
                     : 'authText authTextError'
                 }
