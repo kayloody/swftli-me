@@ -60,7 +60,6 @@ class Auth extends React.Component {
           }
         )
         .then((res) => {
-          console.log(res);
           const data = res.data;
 
           if ('error' in data) {
@@ -83,24 +82,6 @@ class Auth extends React.Component {
   handleGoogle = (event) => {
     event.preventDefault();
     window.open('http://localhost:5000/auth/google', '_self');
-    axios
-      .get(`${server}/auth/google`)
-      .then((res) => {
-        console.log(res);
-        const data = res.data;
-
-        if (data.newUser === true) {
-          this.props.history.push('./simmer');
-        } else {
-          this.props.history.push('./' + data.okay);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({
-          error: 'Error: Could not communicate with Google',
-        });
-      });
   };
 
   handleSignup = (event) => {

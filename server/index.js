@@ -36,15 +36,11 @@ mongoose
 const LocalStrategy = passportLocal.Strategy;
 const GoogleStrategy = passportGoogle.OAuth2Strategy;
 
-app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(
-  cors({
-    origin: 'http://localhost:3000',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+  cookieSession({
+    name: 'session',
+    keys: [keys.COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 100,
   })
 );
 
@@ -79,22 +75,49 @@ passport.use(
       callbackURL: '/auth/googleCB',
     },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({ email: profile.email }).exec((err, doc) => {
+      User.findOne({ email: profile.emails[0].value }).exec((err, doc) => {
         if (err) {
           return done(err);
         } else if (doc) {
-          return done(null, doc, true);
+          return done(null, doc, false);
         } else {
           User.create({
-            email: profile.emails,
+            email: profile.emails[0].value,
             password: '',
-            userImg: profile.photos,
+            oauth: { service: 'google', new: true },
+            userImg: profile.photos[0].value,
           });
-          return done(null, doc, false);
+          return done(null, doc, true);
         }
       });
     }
   )
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((e) => {
+      done(new Error('Failed to deserialize an user'));
+    });
+});
+
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
 );
 
 app.use('/auth', authRoutes);

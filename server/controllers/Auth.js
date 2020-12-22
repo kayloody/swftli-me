@@ -99,30 +99,24 @@ export const login = (req, res) => {
 };
 
 export const google = (req, res) => {
-  passport.authenticate('google', { scope: ['profile'] })(req, res);
+  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res);
 };
 
 export const googleCB = (req, res) => {
   passport.authenticate('google', { session: false }, (err, user, newUser) => {
     if (err) {
-      res.json({ error: 'Database Error' });
-    } else if (newUser) {
-      res.json({ okay: user.username, newUser: true });
+      res.redirect(CLIENT_HOME_PAGE_URL);
+    } else if (newUser == true) {
+      res.redirect(`${CLIENT_HOME_PAGE_URL}/new`);
     } else {
-      res.json({ okay: user.username, newUser: false });
+      res.redirect(`${CLIENT_HOME_PAGE_URL}/${user.username}`);
     }
   })(req, res);
 };
 
 const passwordStrength = (password) => {
-  if (
-    password.length > 7 &&
-    /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/.test(password)
-  ) {
-    return true;
-  } else {
-    return false;
-  }
+  let reg = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/;
+  return password.length > 7 && reg.test(password);
 };
 
 const validateEmail = (email) => {

@@ -15,6 +15,7 @@ class Swftli extends React.Component {
     super(props);
     this.state = {};
   }
+
   componentDidMount() {
     const uid = this.props.match.params.uid;
 
