@@ -103,7 +103,7 @@ export const google = (req, res) => {};
 const passwordStrength = (password) => {
   if (
     password.length > 7 &&
-    /(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\s])/.test(password)
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/.test(password)
   ) {
     return true;
   } else {
