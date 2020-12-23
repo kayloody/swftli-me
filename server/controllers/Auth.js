@@ -8,6 +8,7 @@ const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
 const saltRounds = bcrypt.genSaltSync(10);
 
 export const status = (req, res) => {
+  console.log('Status', req.user);
   if (req.user) {
     res.json({
       auth: true,
@@ -87,7 +88,7 @@ export const signup = (req, res) => {
 };
 
 export const login = (req, res) => {
-  passport.authenticate('local', { session: false }, (err, user, info) => {
+  passport.authenticate('local', (err, user, info) => {
     if (err) {
       res.json({ error: 'Database Error' });
     } else if (user) {
@@ -98,20 +99,26 @@ export const login = (req, res) => {
   })(req, res);
 };
 
-export const google = (req, res) => {
-  passport.authenticate('google', { scope: ['profile', 'email'] })(req, res);
-};
+// export const google = (req, res) => {
+//   passport.authenticate('google', { scope: ['profile', 'email'] })(req, res);
+// };
+
+export const google = (req, res) => {};
+
+// export const googleCB = (req, res) => {
+//   passport.authenticate('google', (err, user, newUser) => {
+//     if (err) {
+//       res.redirect(CLIENT_HOME_PAGE_URL);
+//     } else if (newUser == true) {
+//       res.redirect(`${CLIENT_HOME_PAGE_URL}/new`);
+//     } else {
+//       res.redirect(`${CLIENT_HOME_PAGE_URL}/${user.username}`);
+//     }
+//   })(req, res);
+// };
 
 export const googleCB = (req, res) => {
-  passport.authenticate('google', { session: false }, (err, user, newUser) => {
-    if (err) {
-      res.redirect(CLIENT_HOME_PAGE_URL);
-    } else if (newUser == true) {
-      res.redirect(`${CLIENT_HOME_PAGE_URL}/new`);
-    } else {
-      res.redirect(`${CLIENT_HOME_PAGE_URL}/${user.username}`);
-    }
-  })(req, res);
+  res.redirect(CLIENT_HOME_PAGE_URL);
 };
 
 const passwordStrength = (password) => {

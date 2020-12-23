@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Auth from './components/Auth/Auth.js';
+import OauthUser from './components/OauthUser/OauthUser.js';
 import MyCards from './components/MyCards/MyCards.js';
 import Swftli from './components/Swftli/Swftli.js';
 import NoPage from './components/NoPage/NoPage.js';
@@ -21,7 +22,7 @@ class App extends React.Component {
   componentDidMount() {
     axios
       .get(`${server}/auth/status`, {
-        credentials: 'include',
+        withCredentials: true,
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -40,6 +41,7 @@ class App extends React.Component {
 
   render() {
     const { auth, user } = this.state;
+    console.log(user);
     return (
       <Router>
         <Switch>
@@ -50,10 +52,14 @@ class App extends React.Component {
           <Route path='/:uid' children={<Swftli />} />
           {!auth ? (
             <Route path='/' component={Auth} />
-          ) : !(user.oauth === null) && user.oauth.new === true ? (
-            <Route path='/' component={NoPage} />
-          ) : (
+          ) : !('oauth' in user) ? (
             <Route path='/' component={MyCards} />
+          ) : user.oauth.new === false ? (
+            <>
+              <Route path='/' component={OauthUser} />
+            </>
+          ) : (
+            <Route path='/' component={NoPage} />
           )}
         </Switch>
       </Router>
