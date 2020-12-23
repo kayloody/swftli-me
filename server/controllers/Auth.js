@@ -85,7 +85,6 @@ export const signup = (req, res) => {
 };
 
 export const login = (req, res) => {
-  console.log('Login Req:', req.user);
   res.json(req.user);
 };
 

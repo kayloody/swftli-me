@@ -34,6 +34,42 @@ class Auth extends React.Component {
     });
   };
 
+  login = () => {
+    axios
+      .post(
+        `${server}/auth/login`,
+        {
+          username: this.state.username,
+          password: this.state.password,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true,
+          },
+        }
+      )
+      .then((res) => {
+        const data = res.data;
+
+        if ('error' in data) {
+          this.setState({
+            error: data.error,
+            field: data.field,
+          });
+        } else {
+          window.open('./', '_self');
+        }
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Error: Could not communicate with server',
+        });
+      });
+  };
+
   handleChange = (event) => {
     const target = event.target;
     this.setState({
@@ -46,39 +82,7 @@ class Auth extends React.Component {
     event.preventDefault();
     if (this.state.username === '' || this.state.password === '') {
     } else {
-      axios
-        .post(
-          `${server}/auth/login`,
-          {
-            username: this.state.username,
-            password: this.state.password,
-          },
-          {
-            withCredentials: true,
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': true,
-            },
-          }
-        )
-        .then((res) => {
-          const data = res.data;
-
-          if ('error' in data) {
-            this.setState({
-              error: data.error,
-              field: data.field,
-            });
-          } else {
-            this.props.history.push('./' + data.username);
-          }
-        })
-        .catch(() => {
-          this.setState({
-            error: 'Error: Could not communicate with server',
-          });
-        });
+      this.login();
     }
   };
 
@@ -116,7 +120,7 @@ class Auth extends React.Component {
           if ('error' in data) {
             this.setState({ error: data.error, field: data.field });
           } else {
-            this.props.history.push('./' + data.okay);
+            this.login();
           }
         })
         .catch(() => {
