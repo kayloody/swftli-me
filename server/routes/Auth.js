@@ -17,13 +17,11 @@ router.use(bodyParser.json());
 router.get('/status', status);
 
 router.post('/signup', signup);
-router.post('/login', login);
-// router.get('/google', google);
+router.post('/login', passport.authenticate('local'), login);
 router.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
-// router.get('/googleCB', googleCB);
 router.get('/googleCB', passport.authenticate('google'), googleCB);
 
 export default router;

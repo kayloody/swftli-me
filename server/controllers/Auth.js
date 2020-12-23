@@ -9,7 +9,7 @@ const saltRounds = bcrypt.genSaltSync(10);
 
 export const status = (req, res) => {
   console.log('Status', req.user);
-  if (req.user) {
+  if (req.user && !('error' in req.user)) {
     res.json({
       auth: true,
       user: req.user,
@@ -28,7 +28,6 @@ export const signup = (req, res) => {
   if (validateEmail(email)) {
     User.findOne({ email }).exec((err, doc) => {
       if (err) {
-        console.log(error);
         res.json({ error: 'Database Error' });
       } else if (doc) {
         res.json({
@@ -39,14 +38,13 @@ export const signup = (req, res) => {
         User.findOne({ user_lower: username.toLowerCase() }).exec(
           (err, doc) => {
             if (err) {
-              console.log(err);
               res.json({ error: 'Database Error' });
             } else if (doc) {
               res.json({
                 error: `${username} is already taken.`,
                 field: 'username',
               });
-            } // FUTURE: Include username restrictions
+            } // FUTURE: Include username restrictions (illegal paths, bad usernames)
             else {
               if (!passwordStrength(password)) {
                 res.json({
@@ -66,7 +64,6 @@ export const signup = (req, res) => {
                   },
                   (err) => {
                     if (err) {
-                      console.log(err);
                       res.json({ error: 'Database Error' });
                     } else {
                       res.json({ okay: username });
@@ -88,34 +85,11 @@ export const signup = (req, res) => {
 };
 
 export const login = (req, res) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      res.json({ error: 'Database Error' });
-    } else if (user) {
-      res.json({ okay: user.username });
-    } else {
-      res.json(info);
-    }
-  })(req, res);
+  console.log('Login Req:', req.user);
+  res.json(req.user);
 };
 
-// export const google = (req, res) => {
-//   passport.authenticate('google', { scope: ['profile', 'email'] })(req, res);
-// };
-
 export const google = (req, res) => {};
-
-// export const googleCB = (req, res) => {
-//   passport.authenticate('google', (err, user, newUser) => {
-//     if (err) {
-//       res.redirect(CLIENT_HOME_PAGE_URL);
-//     } else if (newUser == true) {
-//       res.redirect(`${CLIENT_HOME_PAGE_URL}/new`);
-//     } else {
-//       res.redirect(`${CLIENT_HOME_PAGE_URL}/${user.username}`);
-//     }
-//   })(req, res);
-// };
 
 export const googleCB = (req, res) => {
   res.redirect(CLIENT_HOME_PAGE_URL);

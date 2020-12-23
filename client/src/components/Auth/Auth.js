@@ -54,8 +54,11 @@ class Auth extends React.Component {
             password: this.state.password,
           },
           {
+            withCredentials: true,
             headers: {
+              Accept: 'application/json',
               'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': true,
             },
           }
         )
@@ -68,7 +71,7 @@ class Auth extends React.Component {
               field: data.field,
             });
           } else {
-            this.props.history.push('./' + data.okay);
+            this.props.history.push('./' + data.username);
           }
         })
         .catch(() => {
