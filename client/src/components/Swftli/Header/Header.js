@@ -1,14 +1,14 @@
 import React from 'react';
 import Socials from './Socials.js';
 
-import userImage from '../../../images/digitalia.PNG';
+import defaultImg from '../../../images/digitalia.PNG';
 
 const Header = (props) => {
+  const userImg = props.userImg === '' ? defaultImg : props.userImg;
   return (
-    <div class='header userHeader'>
-      <div class='banner userBanner'>
-        <img className='userImage' src={userImage} alt='username' />{' '}
-        {props.name}
+    <div className='header userHeader'>
+      <div className='banner userBanner'>
+        <img className='userImage' src={userImg} alt='username' /> {props.name}
       </div>
       <Socials socials={props.socials} />
     </div>

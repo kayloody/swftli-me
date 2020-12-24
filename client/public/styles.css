@@ -2,6 +2,7 @@
   font-family: 'Bahnschrift';
   user-select: none;
 
+  --button-color: #707070;
   --warning-color: #d88087;
 
   /* User custom colors */

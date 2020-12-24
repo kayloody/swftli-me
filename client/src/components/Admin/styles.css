@@ -1,0 +1,43 @@
+.adminBanner {
+  background: var(--card-color1);
+  border-radius: 100px 0px 100px 100px;
+  border: solid 8px var(--border-color);
+
+  height: 100px;
+  width: calc(100vw - 80px);
+
+  padding: auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  font-weight: 100;
+  font-size: 50px;
+}
+
+.bannerLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bannerLogout {
+  background: var(--button-color);
+  border-radius: 100px 0px 100px 100px;
+
+  height: 60px;
+  width: 160px;
+
+  padding: auto;
+  margin: auto;
+  margin-right: 20px;
+
+  font-weight: 100;
+  font-size: 30px;
+  color: var(--social-color);
+  text-align: center;
+  line-height: 60px;
+}

@@ -47,7 +47,7 @@ class Swftli extends React.Component {
         <>
           <Header
             name={`@${user.username}`}
-            img={user.userImg}
+            userImg={user.userImg}
             socials={user.socials}
           />
           <Cards links={user.links} settings={user.settings} />

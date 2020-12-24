@@ -46,7 +46,16 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route
-            path={['/home', '/login', 'signin', 'logout', 'signout', 'signup']}
+            path={[
+              '/home',
+              '/admin',
+              '/settings',
+              '/login',
+              '/signin',
+              '/logout',
+              '/signout',
+              '/signup',
+            ]}
             component={NoPage}
           />
           <Route path='/:uid' children={<Swftli />} />
