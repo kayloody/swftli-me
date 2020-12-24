@@ -10,6 +10,7 @@ function MyCards(props) {
         userImg={props.user.userImg}
         name={'@' + props.user.username}
         handleLogout={props.handleLogout}
+        calledFrom='MyCards'
       />
       <p class='footer'>
         <br />

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from './components/Auth/Auth.js';
 import OauthUser from './components/Admin/OauthUser/OauthUser.js';
 import MyCards from './components/Admin/MyCards/MyCards.js';
+import MySettings from './components/Admin/MySettings/MySettings.js';
 import Swftli from './components/Swftli/Swftli.js';
 import NoPage from './components/NoPage/NoPage.js';
 
@@ -35,7 +36,7 @@ class App extends React.Component {
           auth: false,
           user: {},
         });
-        window.open('./', '_self');
+        window.open('/', '_self');
       })
       .catch(this.setState({ server: false }));
   };
@@ -66,50 +67,58 @@ class App extends React.Component {
     const mainPaths = ['/', '/home', '/admin', '/settings'];
     const noPaths = ['/login', '/signin', '/logout', '/signout', '/signup'];
 
+    const routeCards = (
+      <Route
+        exact
+        path={[...mainPaths, '/admin/cards']}
+        render={(props) => (
+          <MyCards
+            {...props}
+            user={this.state.user}
+            handleLogout={this.handleLogout}
+          />
+        )}
+      />
+    );
+
+    const routeSettings = (
+      <Route
+        path={'/admin/settings'}
+        render={(props) => (
+          <MySettings
+            {...props}
+            user={this.state.user}
+            handleLogout={this.handleLogout}
+          />
+        )}
+      />
+    );
+
+    const routeOauth = (
+      <Route
+        exact
+        path={mainPaths}
+        render={(props) => (
+          <OauthUser
+            {...props}
+            user={this.state.user}
+            handleLogout={this.handleLogout}
+          />
+        )}
+      />
+    );
+
+    const routeUsers = <Route path='/:uid' children={<Swftli />} />;
+
     return (
       <Router>
         <Switch>
           <Route path={noPaths} component={NoPage} />
-          {!auth ? (
-            <Route exact path={mainPaths} component={Auth} />
-          ) : !('oauth' in user) ? (
-            <Route
-              exact
-              path={mainPaths}
-              render={(props) => (
-                <MyCards
-                  {...props}
-                  user={this.state.user}
-                  handleLogout={this.handleLogout}
-                />
-              )}
-            />
-          ) : user.oauth.new === false ? (
-            <Route
-              exact
-              path={mainPaths}
-              render={(props) => (
-                <MyCards
-                  {...props}
-                  user={this.state.user}
-                  handleLogout={this.handleLogout}
-                />
-              )}
-            />
-          ) : (
-            <Route
-              exact
-              path={mainPaths}
-              render={(props) => (
-                <OauthUser
-                  {...props}
-                  user={this.state.user}
-                  handleLogout={this.handleLogout}
-                />
-              )}
-            />
-          )}
-          <Route path='/:uid' children={<Swftli />} />
+          {!auth && <Route exact path={mainPaths} component={Auth} />}
+          {auth && user.oauth.new === false && routeSettings}
+          {auth && user.oauth.new === false && routeCards}
+          {auth && user.oauth.new === true && routeOauth}
+          {routeUsers}
         </Switch>
       </Router>
     );

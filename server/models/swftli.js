@@ -5,7 +5,10 @@ const userSchema = new mongoose.Schema({
   user_lower: { type: String, lowercase: true },
   email: { type: String, required: true, unique: true },
   password: String,
-  oauth: { service: String, new: Boolean },
+  oauth: {
+    service: { type: String, default: 'local' },
+    new: { type: Boolean, default: false },
+  },
   userImg: { type: String, default: '' },
   socials: [{ name: String, uid: String }],
   links: [{ name: String, url: String, enabled: Boolean }],

@@ -3,21 +3,21 @@ import React from 'react';
 import Header from '../Header.js';
 import './styles.css';
 
-function OauthUser(props) {
+function MySettings(props) {
   return (
     <div className='main'>
       <Header
         userImg={props.user.userImg}
-        name={''}
+        name={'@' + props.user.username}
         handleLogout={props.handleLogout}
-        calledFrom='OauthUser'
+        calledFrom='MySettings'
       />
       <p class='footer'>
         <br />
-        Please select a username.
+        Settings
       </p>
     </div>
   );
 }
 
-export default OauthUser;
+export default MySettings;
