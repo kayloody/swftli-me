@@ -19,6 +19,27 @@ class App extends React.Component {
     };
   }
 
+  handleLogout = () => {
+    axios
+      .get(`${server}/auth/logout`, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      })
+      .then(() => {
+        this.setState({
+          server: true,
+          auth: false,
+          user: {},
+        });
+        window.open('./', '_self');
+      })
+      .catch(this.setState({ server: false }));
+  };
+
   componentDidMount() {
     axios
       .get(`${server}/auth/status`, {
@@ -41,44 +62,54 @@ class App extends React.Component {
 
   render() {
     const { auth, user } = this.state;
-    console.log(user);
+
+    const mainPaths = ['/', '/home', '/admin', '/settings'];
+    const noPaths = ['/login', '/signin', '/logout', '/signout', '/signup'];
+
     return (
       <Router>
         <Switch>
-          <Route
-            path={[
-              '/home',
-              '/admin',
-              '/settings',
-              '/login',
-              '/signin',
-              '/logout',
-              '/signout',
-              '/signup',
-            ]}
-            component={NoPage}
-          />
-          <Route path='/:uid' children={<Swftli />} />
+          <Route path={noPaths} component={NoPage} />
           {!auth ? (
-            <Route path='/' component={Auth} />
+            <Route exact path={mainPaths} component={Auth} />
           ) : !('oauth' in user) ? (
             <Route
-              path='/'
-              render={(props) => <MyCards {...props} user={this.state.user} />}
+              exact
+              path={mainPaths}
+              render={(props) => (
+                <MyCards
+                  {...props}
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                />
+              )}
             />
           ) : user.oauth.new === false ? (
             <Route
-              path='/'
-              render={(props) => <MyCards {...props} user={this.state.user} />}
+              exact
+              path={mainPaths}
+              render={(props) => (
+                <MyCards
+                  {...props}
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                />
+              )}
             />
           ) : (
             <Route
-              path='/'
+              exact
+              path={mainPaths}
               render={(props) => (
-                <OauthUser {...props} user={this.state.user} />
+                <OauthUser
+                  {...props}
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                />
               )}
             />
           )}
+          <Route path='/:uid' children={<Swftli />} />
         </Switch>
       </Router>
     );

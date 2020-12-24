@@ -15,7 +15,9 @@ const Header = (props) => {
         </div>
         <div className='bannerLinks'>
           <div className='bannerOtherLinks'></div>
-          <div className='bannerLogout'>Log Out</div>
+          <div className='bannerLogout' onClick={props.handleLogout}>
+            Log Out
+          </div>
         </div>
       </div>
     </div>

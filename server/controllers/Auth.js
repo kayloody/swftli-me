@@ -1,4 +1,3 @@
-import passport from 'passport';
 import bcrypt from 'bcrypt';
 
 import User from '../models/swftli.js';
@@ -88,10 +87,13 @@ export const login = (req, res) => {
   res.json(req.user);
 };
 
-export const google = (req, res) => {};
-
 export const googleCB = (req, res) => {
   res.redirect(CLIENT_HOME_PAGE_URL);
+};
+
+export const logout = (req, res) => {
+  req.logout();
+  res.json({ okay: 'Logout successful' });
 };
 
 const passwordStrength = (password) => {

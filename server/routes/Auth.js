@@ -6,8 +6,8 @@ import {
   status,
   signup,
   login,
-  google,
   googleCB,
+  logout,
 } from '../controllers/Auth.js';
 
 const router = express.Router();
@@ -23,5 +23,7 @@ router.get(
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 router.get('/googleCB', passport.authenticate('google'), googleCB);
+
+router.get('/logout', logout);
 
 export default router;

@@ -6,7 +6,11 @@ import './styles.css';
 function OauthUser(props) {
   return (
     <div className='main'>
-      <Header userImg={props.user.userImg} name={''} />
+      <Header
+        userImg={props.user.userImg}
+        name={''}
+        handleLogout={props.handleLogout}
+      />
       <p class='footer'>
         <br />
         Please select a username.
