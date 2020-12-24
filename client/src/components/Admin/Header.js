@@ -7,30 +7,42 @@ import defaultImg from '../../images/digitalia.PNG';
 const Header = (props) => {
   const userImg = props.userImg === '' ? defaultImg : props.userImg;
 
-  let links = <div className='bannerOtherLinks'></div>;
+  let links = <div></div>;
   switch (props.calledFrom) {
     case 'MyCards':
       links = (
-        <div className='bannerOtherLinks'>
-          <Link to={`/${props.name.split('@')[1]}`} target='_blank'>
+        <div>
+          <Link
+            to={`/${props.name.split('@')[1]}`}
+            target='_blank'
+            className='bannerOtherLinks'
+          >
             Preview
           </Link>
-          <Link to='/admin/settings'>Settings</Link>
+          <Link to='/admin/settings' className='bannerOtherLinks'>
+            Settings
+          </Link>
         </div>
       );
       break;
     case 'MySettings':
       links = (
-        <div className='bannerOtherLinks'>
-          <Link to={`/${props.name.split('@')[1]}`} target='_blank'>
+        <div>
+          <Link
+            to={`/${props.name.split('@')[1]}`}
+            target='_blank'
+            className='bannerOtherLinks'
+          >
             Preview
           </Link>
-          <Link to='/admin/cards'>Cards</Link>
+          <Link to='/admin/cards' className='bannerOtherLinks'>
+            Cards
+          </Link>
         </div>
       );
       break;
     default:
-      links = <div className='bannerOtherLinks'></div>;
+      links = <div></div>;
   }
 
   return (

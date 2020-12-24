@@ -20,8 +20,21 @@
 .bannerLinks {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+
+  font-size: 30px;
+}
+
+.bannerOtherLinks {
+  margin-right: 30px;
+
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.bannerOtherLinks:hover {
+  filter: brightness(110%);
 }
 
 .bannerLogout {
@@ -40,4 +53,10 @@
   color: var(--social-color);
   text-align: center;
   line-height: 60px;
+
+  cursor: pointer;
+}
+
+.bannerLogout:hover {
+  filter: brightness(110%);
 }
