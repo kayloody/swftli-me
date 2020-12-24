@@ -72,6 +72,7 @@ passport.use(
         } else {
           User.create(
             {
+              username: `tmp${profile.emails[0].value}`,
               email: profile.emails[0].value,
               password: '',
               oauth: { service: 'google', new: true },

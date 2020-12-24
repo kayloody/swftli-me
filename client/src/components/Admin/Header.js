@@ -11,7 +11,7 @@ const Header = (props) => {
         <div className='userBanner'>
           <img className='userImage' src={userImg} alt='User' />
           {''}
-          {'@' + props.name}
+          {props.name}
         </div>
         <div className='bannerLinks'>
           <div className='bannerOtherLinks'></div>
