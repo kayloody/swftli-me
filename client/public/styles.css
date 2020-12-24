@@ -92,3 +92,28 @@
   color: white;
   mix-blend-mode: difference;
 }
+
+.noPage {
+  width: 100%;
+
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.noPageLink {
+  margin-left: 5px;
+
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+.noPageLink:hover {
+  cursor: pointer;
+
+  filter: brightness(120%);
+}
+
+.noPageLink:active {
+  filter: brightness(80%);
+}

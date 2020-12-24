@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Auth from './components/Auth/Auth.js';
-import OauthUser from './components/OauthUser/OauthUser.js';
-import MyCards from './components/MyCards/MyCards.js';
+import OauthUser from './components/Admin/OauthUser/OauthUser.js';
+import MyCards from './components/Admin/MyCards/MyCards.js';
 import Swftli from './components/Swftli/Swftli.js';
 import NoPage from './components/NoPage/NoPage.js';
 
@@ -53,13 +53,22 @@ class App extends React.Component {
           {!auth ? (
             <Route path='/' component={Auth} />
           ) : !('oauth' in user) ? (
-            <Route path='/' component={MyCards} />
+            <Route
+              path='/'
+              render={(props) => <MyCards {...props} user={this.state.user} />}
+            />
           ) : user.oauth.new === false ? (
-            <>
-              <Route path='/' component={OauthUser} />
-            </>
+            <Route
+              path='/'
+              render={(props) => <MyCards {...props} user={this.state.user} />}
+            />
           ) : (
-            <Route path='/' component={NoPage} />
+            <Route
+              path='/'
+              render={(props) => (
+                <OauthUser {...props} user={this.state.user} />
+              )}
+            />
           )}
         </Switch>
       </Router>

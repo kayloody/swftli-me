@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <p class='footer'>
+    <p className='footer'>
       <br />© swftli.me 2020
     </p>
   );

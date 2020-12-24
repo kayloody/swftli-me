@@ -70,13 +70,21 @@ passport.use(
         } else if (doc) {
           return done(null, doc);
         } else {
-          User.create({
-            email: profile.emails[0].value,
-            password: '',
-            oauth: { service: 'google', new: true },
-            userImg: profile.photos[0].value,
-          });
-          return done(null, doc);
+          User.create(
+            {
+              email: profile.emails[0].value,
+              password: '',
+              oauth: { service: 'google', new: true },
+              userImg: profile.photos[0].value,
+            },
+            (err, doc) => {
+              if (err) {
+                return done(err);
+              } else {
+                return done(null, doc);
+              }
+            }
+          );
         }
       });
     }

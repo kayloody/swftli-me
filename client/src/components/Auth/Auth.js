@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-import Header from './Header.js';
+import Logo from '../Logo.js';
 import Phone from './Phone.js';
 import Footer from '../Footer.js';
 
@@ -134,7 +134,7 @@ class Auth extends React.Component {
   render() {
     return (
       <div className='main'>
-        <Header />
+        <Logo />
         <Phone
           style={
             this.state.authScreen === 'login'
