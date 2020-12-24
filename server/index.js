@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import passportSetup from './config/passport-setup.js';
 import cookieSession from 'cookie-session';
-import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
 import keys from './config/keys.js';
