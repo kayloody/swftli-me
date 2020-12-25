@@ -64,8 +64,6 @@
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
-
-  font-size: 10px;
 }
 
 .banner {
@@ -117,4 +115,51 @@
 
 .noPageLink:active {
   filter: brightness(80%);
+}
+
+@media screen and (max-width: 900px) and (min-width: 500px) {
+  .userImage {
+    width: 8.9vw;
+    height: 8.9vw;
+    padding: 1vw;
+  }
+
+  .banner {
+    border: solid 0.9vw var(--border-color);
+
+    height: 11vw;
+    width: calc(100vw - 80px);
+    max-width: 700px;
+
+    font-size: 5.6vw;
+  }
+
+  .noPage {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .userImage {
+    width: 45px;
+    height: 45px;
+    padding: 6px;
+  }
+
+  .banner {
+    border: solid 4px var(--border-color);
+
+    height: 55px;
+    width: calc(100vw - 80px);
+    max-width: 700px;
+
+    font-size: 29px;
+  }
+
+  .noPage {
+    width: 70%;
+    margin: auto;
+
+    font-size: 16px;
+  }
 }
