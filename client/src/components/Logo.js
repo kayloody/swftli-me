@@ -1,12 +1,12 @@
 import React from 'react';
 
+import './styles.css';
+
 const Header = () => {
   return (
-    <h1 className='header'>
-      <div className='banner authBanner'>
-        swftli.<span className='authMe'>me</span>
-      </div>
-    </h1>
+    <div className='logoBanner'>
+      swftli.<span className='logoMe'>me</span>
+    </div>
   );
 };
 

@@ -144,7 +144,7 @@ class Auth extends React.Component {
         />
         <div className='authMain'>
           <div
-            className='authForm login'
+            className='authForm authLogin'
             style={
               this.state.authScreen === 'signup'
                 ? { visibility: 'hidden' }
@@ -200,7 +200,7 @@ class Auth extends React.Component {
             <div className='authError'>{this.state.error}</div>
           </div>
           <div
-            className='authForm signup'
+            className='authForm authSignup'
             style={
               this.state.authScreen === 'login'
                 ? { visibility: 'hidden' }

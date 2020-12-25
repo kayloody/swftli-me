@@ -20,23 +20,6 @@ button:focus {
   align-items: center;
 }
 
-.authBanner {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-items: center;
-
-  padding-left: 30px;
-
-  width: 240px;
-}
-
-.authMe {
-  font-weight: 500;
-  color: var(--border-color);
-}
-
 .authMain {
   position: relative;
   margin: auto;
@@ -72,13 +55,13 @@ button:focus {
   width: 450px;
 }
 
-.login {
+.authLogin {
   right: 17px;
 
   top: 60px;
 }
 
-.signup {
+.authSignup {
   left: 17px;
 
   top: 80px;
@@ -169,7 +152,7 @@ button:focus {
   color: var(--warning-color);
 }
 
-@media screen and (max-width: 1270px) {
+@media screen and (max-width: 1270px) and (min-width: 900px) {
   .authPhone {
     visibility: hidden;
     right: 0;
@@ -182,8 +165,53 @@ button:focus {
     width: 450px;
   }
 
-  .login,
-  .signup {
+  .authLogin,
+  .authSignup {
+    right: auto;
+    left: auto;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 500px) {
+  .authPhone {
+    visibility: hidden;
+    right: 0;
+    left: 0;
+    width: 0;
+    margin: 0;
+  }
+
+  .authMain {
+    border: solid 0.9vw var(--border-color);
+
+    width: 50vw;
+    min-width: 360px;
+  }
+
+  .authLogin,
+  .authSignup {
+    right: auto;
+    left: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .authPhone {
+    visibility: hidden;
+    right: 0;
+    left: 0;
+    width: 0;
+    margin: 0;
+  }
+
+  .authMain {
+    border: solid 4px var(--border-color);
+
+    width: calc(160px + 40vw);
+  }
+
+  .authLogin,
+  .authSignup {
     right: auto;
     left: auto;
   }
