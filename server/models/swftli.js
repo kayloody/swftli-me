@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: String,
   oauth: {
-    service: { type: String, default: 'local' },
+    service: { type: String, default: 'local', immutable: true },
     new: { type: Boolean, default: false },
   },
   userImg: { type: String, default: '' },

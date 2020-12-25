@@ -12,7 +12,7 @@ function MyCards(props) {
         handleLogout={props.handleLogout}
         calledFrom='MyCards'
       />
-      <p class='footer'>
+      <p className='footer'>
         <br />
         Signed In.
       </p>

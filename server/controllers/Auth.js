@@ -7,7 +7,6 @@ const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
 const saltRounds = bcrypt.genSaltSync(10);
 
 export const status = (req, res) => {
-  console.log('Status', req.user);
   if (req.user && !('error' in req.user)) {
     res.json({
       auth: true,

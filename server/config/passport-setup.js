@@ -10,7 +10,6 @@ const LocalStrategy = passportLocal.Strategy;
 const GoogleStrategy = passportGoogle.OAuth2Strategy;
 
 passport.serializeUser((user, done) => {
-  console.log('Serialize', user);
   if ('error' in user) {
     done(null, user);
   } else {
@@ -19,7 +18,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('Deserialize', id);
   if (typeof id === 'string') {
     User.findById(id)
       .then((user) => {

@@ -52,7 +52,6 @@ class App extends React.Component {
         },
       })
       .then((res) => {
-        console.log(res);
         const data = res.data;
         if (data.auth) {
           this.setState({ auth: true, user: data.user });
@@ -64,7 +63,7 @@ class App extends React.Component {
   render() {
     const { auth, user } = this.state;
 
-    const mainPaths = ['/', '/home', '/admin', '/settings'];
+    const mainPaths = ['/', '/home', '/admin', '/administrator', '/settings'];
     const noPaths = ['/login', '/signin', '/logout', '/signout', '/signup'];
 
     const routeCards = (

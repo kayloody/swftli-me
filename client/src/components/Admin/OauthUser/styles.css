@@ -1,0 +1,50 @@
+.usernameContainer {
+  font-size: 30px;
+  font-weight: 400;
+
+  margin-top: 60px;
+  margin-bottom: -20px;
+}
+
+.usernameForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  line-height: 40px;
+}
+
+.usernameInput {
+  background: #ffffff;
+  border-radius: 5px;
+  border: solid 5px var(--border-color);
+
+  box-sizing: border-box;
+  width: 300px;
+  height: 40px;
+  padding: 20px;
+
+  font-size: 27px;
+  font-weight: 300;
+}
+
+.usernameSubmit {
+  background: none;
+  border: none;
+
+  margin-left: 15px;
+
+  line-height: 40px;
+  font-size: 40px;
+
+  cursor: pointer;
+}
+
+.usernameSubmit:hover {
+  filter: brightness(120%);
+}
+
+.usernameSubmit:active {
+  filter: brightness(80%);
+}

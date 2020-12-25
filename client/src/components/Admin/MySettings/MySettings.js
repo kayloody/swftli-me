@@ -12,7 +12,7 @@ function MySettings(props) {
         handleLogout={props.handleLogout}
         calledFrom='MySettings'
       />
-      <p class='footer'>
+      <p className='footer'>
         <br />
         Settings
       </p>
