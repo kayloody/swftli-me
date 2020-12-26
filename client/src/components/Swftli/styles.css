@@ -1,8 +1,41 @@
+.userHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 25px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 .userBanner {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+
+  background: var(--card-color1);
+  border-radius: 100px 0px 100px 100px;
+  border: solid 8px var(--border-color);
+
+  height: 100px;
+  width: calc(100vw - 80px);
+  max-width: 700px;
+  box-sizing: border-box;
+
+  padding: auto;
+
+  font-weight: 100;
+  font-size: 50px;
+}
+
+.userImage {
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  padding: 7.5px;
 }
 
 .userSocials {
@@ -31,6 +64,8 @@
   align-items: center;
 
   font-size: 30px;
+
+  gap: 30px;
 }
 
 .userCard {
@@ -49,8 +84,8 @@
   height: 80px;
   width: calc(100vw - 120px);
   max-width: 800px;
+  box-sizing: border-box;
 
-  margin-bottom: 30px;
   padding: auto;
   padding-left: 20px;
   padding-right: 20px;
@@ -70,6 +105,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+
+  line-height: 80px;
 }
 
 .cardSocial {
@@ -87,5 +124,101 @@
 
   .userSocials {
     margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 500px) {
+  .userHeader {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  .userBanner {
+    border-width: 0.9vw;
+
+    height: 11.1vw;
+    min-height: 60px;
+    width: 91vw;
+
+    font-size: 5.6vw;
+  }
+
+  .userImage {
+    width: 7.8vw;
+    height: 7.8vw;
+    min-width: 45px;
+    min-height: 45px;
+
+    padding: 0.8vw;
+  }
+
+  .userSocials {
+    gap: 2.2vw;
+
+    font-size: 5.6vw;
+  }
+
+  .userCards {
+    font-size: 3.3vw;
+    gap: 3.3vw;
+  }
+
+  .userCard {
+    height: 8.8vw;
+    width: 91vw;
+  }
+
+  .userCardName {
+    line-height: 3.3vw;
+  }
+
+  .cardSocial {
+    margin-right: 2.2vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .userHeader {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  .userBanner {
+    border-width: 4px;
+
+    height: 60px;
+    width: 91vw;
+
+    font-size: 23px;
+  }
+
+  .userImage {
+    width: 45px;
+    height: 45px;
+    padding: 5px;
+  }
+
+  .userSocials {
+    gap: 15px;
+
+    font-size: 30px;
+  }
+
+  .userCards {
+    font-size: 15px;
+    gap: 15px;
+  }
+
+  .userCard {
+    height: 30px;
+    width: 91vw;
+  }
+
+  .userCardName {
+    line-height: 15px;
+  }
+
+  .cardSocial {
+    margin-right: 10px;
   }
 }
