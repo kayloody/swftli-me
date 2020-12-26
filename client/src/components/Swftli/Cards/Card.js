@@ -5,7 +5,7 @@ function Card(props) {
     return (
       <a className='userCard' href={props.url}>
         <i className={props.social + ' cardSocial'}></i>
-        {props.name}
+        <div className='userCardName'>{props.name}</div>
       </a>
     );
   } else {
