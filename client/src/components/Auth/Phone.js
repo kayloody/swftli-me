@@ -6,6 +6,7 @@ const Phone = (props) => {
   return (
     <div className='authPhone' style={props.style}>
       <svg
+        className='authPhoneSVG'
         xmlns='http://www.w3.org/2000/svg'
         width='350'
         height='585'

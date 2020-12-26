@@ -83,7 +83,7 @@ button:focus {
 }
 
 .authText:focus {
-  border: solid 5px #5f5d54;
+  border-color: #5f5d54;
 }
 
 .authSubmit {
@@ -140,7 +140,7 @@ button:focus {
 }
 
 .authTextError {
-  border: solid 5px var(--warning-color);
+  border-color: var(--warning-color);
 }
 
 .authError {
@@ -152,67 +152,137 @@ button:focus {
   color: var(--warning-color);
 }
 
-@media screen and (max-width: 1270px) and (min-width: 900px) {
+@media screen and (max-width: 1270px) and (min-width: 900px),
+  screen and (max-width: 900px) and (min-width: 500px),
+  screen and (max-width: 500px) {
   .authPhone {
     visibility: hidden;
     right: 0;
     left: 0;
-    width: 0;
+    width: 1px;
+    height: 1px;
     margin: 0;
   }
 
+  .authPhoneSVG {
+    width: 1px;
+    height: 1px;
+  }
   .authMain {
-    width: 450px;
+    border-radius: 50px 0 50px 50px;
   }
 
   .authLogin,
   .authSignup {
     right: auto;
     left: auto;
+  }
+}
+
+@media screen and (max-width: 1270px) and (min-width: 900px) {
+  .authMain {
+    width: 450px;
   }
 }
 
 @media screen and (max-width: 900px) and (min-width: 500px) {
-  .authPhone {
-    visibility: hidden;
-    right: 0;
-    left: 0;
-    width: 0;
-    margin: 0;
+  hr {
+    width: 44.4vw;
+    min-width: 270px;
   }
 
   .authMain {
-    border: solid 0.9vw var(--border-color);
+    border-width: 0.9vw;
 
     width: 50vw;
-    min-width: 360px;
+    min-width: 330px;
   }
 
-  .authLogin,
-  .authSignup {
-    right: auto;
-    left: auto;
+  .authForm {
+    width: 50vw;
+    min-width: 330px;
+  }
+
+  .authText {
+    border-width: 0.6vw;
+
+    width: 44.4vw;
+    min-width: 270px;
+  }
+
+  .authSubmit {
+    border-width: 0.6vw;
+
+    width: 44.4vw;
+    min-width: 270px;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .authPhone {
-    visibility: hidden;
-    right: 0;
-    left: 0;
-    width: 0;
-    margin: 0;
+  hr {
+    width: calc(70px + 40vw);
   }
 
   .authMain {
-    border: solid 4px var(--border-color);
+    border-width: 4px;
 
-    width: calc(160px + 40vw);
+    width: calc(130px + 40vw);
+    height: 350px;
   }
 
-  .authLogin,
+  .authForm {
+    width: calc(130px + 40vw);
+  }
+
+  .authLogin {
+    top: 50px;
+  }
+
   .authSignup {
-    right: auto;
-    left: auto;
+    top: 60px;
+  }
+
+  .authText {
+    border-width: 2px;
+
+    width: calc(70px + 40vw);
+    height: 30px;
+    margin-bottom: 15px;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    font-size: 18px;
+  }
+
+  .authSubmit {
+    border-width: 2px;
+
+    width: calc(70px + 40vw);
+    height: 30px;
+    margin-bottom: 15px;
+
+    font-size: 18px;
+  }
+
+  #authGoogle {
+    margin: 15px;
+    font-size: 18px;
+  }
+
+  .authSubtext {
+    margin: 15px;
+    margin-bottom: 10px;
+
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  .authError {
+    margin: 15px;
+    margin-top: -5px;
+
+    font-size: 13px;
+    font-weight: 300;
   }
 }

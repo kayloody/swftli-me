@@ -160,7 +160,7 @@ class Auth extends React.Component {
                     : 'authText authTextError'
                 }
                 type='text'
-                value={this.state.logUser}
+                value={this.state.username}
                 onChange={this.handleChange}
                 placeholder='Username'
               />
@@ -173,7 +173,7 @@ class Auth extends React.Component {
                     : 'authText authTextError'
                 }
                 type='password'
-                value={this.state.logPass}
+                value={this.state.password}
                 onChange={this.handleChange}
                 placeholder='Password'
               />
@@ -216,7 +216,7 @@ class Auth extends React.Component {
                     : 'authText authTextError'
                 }
                 type='text'
-                value={this.state.signEmail}
+                value={this.state.email}
                 onChange={this.handleChange}
                 placeholder='Email'
               />
@@ -229,7 +229,7 @@ class Auth extends React.Component {
                     : 'authText authTextError'
                 }
                 type='text'
-                value={this.state.signUser}
+                value={this.state.username}
                 onChange={this.handleChange}
                 placeholder='Username'
               />
@@ -242,7 +242,7 @@ class Auth extends React.Component {
                     : 'authText authTextError'
                 }
                 type='password'
-                value={this.state.signPass}
+                value={this.state.password}
                 onChange={this.handleChange}
                 placeholder='Password'
               />

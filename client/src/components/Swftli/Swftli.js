@@ -6,7 +6,7 @@ import Cards from './Cards/Cards';
 import Header from './Header/Header.js';
 import Footer from './Footer.js';
 
-import './userStyles.css';
+import './styles.css';
 
 const server = 'http://localhost:5000';
 
