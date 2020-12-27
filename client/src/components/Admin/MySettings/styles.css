@@ -18,7 +18,7 @@
   max-width: 90vw;
 
   margin: auto;
-  padding: 15px;
+  padding: 20px;
 
   background: linear-gradient(
     var(--card-angle),
@@ -162,6 +162,10 @@
   align-items: center;
 
   width: 300px;
+}
+
+.settingsMiscText {
+  font-weight: 300;
 }
 
 .settingsMiscText {
