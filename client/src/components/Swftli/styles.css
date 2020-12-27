@@ -74,11 +74,13 @@
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(
-    var(--card-angle),
-    var(--card-color1) 0%,
-    var(--card-color2) 100%
-  );
+  background: var(--card-image),
+    linear-gradient(
+      var(--card-angle),
+      var(--card-color1) 0%,
+      var(--card-color2) 100%
+    );
+  background-position: center;
   border-radius: 50px;
 
   height: 80px;
@@ -91,6 +93,7 @@
   padding-right: 20px;
 
   text-decoration: none;
+  color: inherit;
 
   cursor: pointer;
 }

@@ -8,6 +8,8 @@ import Footer from './Footer.js';
 
 import './styles.css';
 
+import meow from '../../images/meow.jpg';
+
 const server = 'http://localhost:5000';
 
 class Swftli extends React.Component {
@@ -18,16 +20,45 @@ class Swftli extends React.Component {
 
   componentDidMount() {
     const uid = this.props.match.params.uid;
+    const style = document.documentElement.style;
 
     axios
       .get(`${server}/users/${uid}`)
       .then((res) => {
         const data = res.data;
-
         if ('Error' in data) {
           this.setState({ status: 'Error', data: data.Error });
         } else {
           this.setState({ status: 'OK', data });
+          if ('settings' in data) {
+            const custom = data.settings;
+
+            if (custom.bgChoice === '1') {
+              style.setProperty('--bg-color1', custom.bgColor1);
+              style.setProperty('--bg-color2', custom.bgColor1);
+            } else if (custom.bgChoice === '2') {
+              style.setProperty('--bg-color1', custom.bgColor1);
+              style.setProperty('--bg-color2', custom.bgColor2);
+              style.setProperty('--bg-angle', custom.bgAngle);
+            } else {
+              style.setProperty('--bg-image', `url(${meow})`);
+            }
+
+            if (custom.cardChoice === '1') {
+              style.setProperty('--card-color1', custom.cardColor1);
+              style.setProperty('--card-color2', custom.cardColor1);
+            } else if (custom.cardChoice === '2') {
+              style.setProperty('--card-color1', custom.cardColor1);
+              style.setProperty('--card-color2', custom.cardColor2);
+              style.setProperty('--card-angle', custom.cardAngle);
+            } else {
+              style.setProperty('--card-image', `url(${meow})`);
+            }
+
+            style.setProperty('color', custom.textColor);
+            style.setProperty('--border-color', custom.borderColor);
+            style.setProperty('--social-color', custom.socialColor);
+          }
         }
       })
       .catch((err) => {

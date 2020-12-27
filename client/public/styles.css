@@ -1,4 +1,4 @@
-* {
+:root {
   font-family: 'Bahnschrift';
   user-select: none;
 
@@ -10,9 +10,11 @@
   --bg-color1: #d4bec0;
   --bg-color2: #a2c6ca;
   --bg-angle: 45deg;
+  --bg-image: none;
   --card-color1: #f8f8f5;
   --card-color2: #f8f8f5;
   --card-angle: 45deg;
+  --card-image: none;
   --border-color: #929b94;
   --social-color: #f2f3ef;
 }
@@ -28,11 +30,8 @@
   display: block;
   overflow: auto;
 
-  background: linear-gradient(
-    var(--bg-angle),
-    var(--bg-color1) 0%,
-    var(--bg-color2) 100%
-  );
+  background: var(--bg-image),
+    linear-gradient(var(--bg-angle), var(--bg-color1) 0%, var(--bg-color2) 100%);
   background-position: center;
 }
 
@@ -85,7 +84,8 @@
   font-weight: 500;
   font-size: 20px;
   text-align: center;
-  text-shadow: 0 0 100px var(--card-color1);
+  text-shadow: 0 0 3px #5f5d54;
+  color: #f8f8f5;
 }
 
 .noPage {
