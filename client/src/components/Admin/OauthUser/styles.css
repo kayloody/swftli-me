@@ -1,7 +1,4 @@
 .usernameContainer {
-  font-size: 30px;
-  font-weight: 400;
-
   margin-top: 60px;
   margin-bottom: -20px;
 }
@@ -11,8 +8,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  line-height: 40px;
 }
 
 .usernameInput {
@@ -34,6 +29,7 @@
   border: none;
 
   margin-left: 15px;
+  padding: 0;
 
   line-height: 40px;
   font-size: 40px;
@@ -47,4 +43,43 @@
 
 .usernameSubmit:active {
   filter: brightness(80%);
+}
+
+@media screen and (max-width: 900px) and (min-width: 500px) {
+  .usernameContainer {
+    margin-top: 6.6vw;
+  }
+
+  .usernameInput {
+    border-width: 0.6vw;
+
+    width: 33.3vw;
+    min-width: 200px;
+    padding-left: 15px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .usernameContainer {
+    margin-top: 30px;
+  }
+
+  .usernameInput {
+    border-width: 2px;
+
+    width: 200px;
+    height: 30px;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    font-size: 18px;
+  }
+
+  .usernameSubmit {
+    margin-left: 10px;
+
+    line-height: 30px;
+    font-size: 30px;
+  }
 }

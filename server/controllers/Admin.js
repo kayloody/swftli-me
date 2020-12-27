@@ -9,7 +9,7 @@ export const oauthuser = (req, res) => {
       res.json({ error: 'Database Error' });
     } else if (doc) {
       res.json({
-        error: `${username} is already taken.`,
+        error: `${username} is taken`,
       });
     } else {
       User.findOneAndUpdate(

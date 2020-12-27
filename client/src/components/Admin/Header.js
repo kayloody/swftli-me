@@ -11,7 +11,7 @@ const Header = (props) => {
   switch (props.calledFrom) {
     case 'MyCards':
       links = (
-        <div>
+        <div className='bannerSettings'>
           <Link
             to={`/${props.name.split('@')[1]}`}
             target='_blank'
@@ -27,7 +27,7 @@ const Header = (props) => {
       break;
     case 'MySettings':
       links = (
-        <div>
+        <div className='bannerSettings'>
           <Link
             to={`/${props.name.split('@')[1]}`}
             target='_blank'
@@ -46,18 +46,16 @@ const Header = (props) => {
   }
 
   return (
-    <div className='header'>
-      <div className='adminBanner'>
-        <div className='userBanner'>
-          <img className='userImage' src={userImg} alt='User' />
-          {''}
-          {props.name}
-        </div>
-        <div className='bannerLinks'>
-          {links}
-          <div className='bannerLogout' onClick={props.handleLogout}>
-            Log Out
-          </div>
+    <div className='adminBanner'>
+      <div className='adminUser'>
+        <img className='adminImage' src={userImg} alt='User' />
+        {''}
+        {props.name}
+      </div>
+      <div className='bannerLinks'>
+        {links}
+        <div className='bannerLogout' onClick={props.handleLogout}>
+          Log Out
         </div>
       </div>
     </div>

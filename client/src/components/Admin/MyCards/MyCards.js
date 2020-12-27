@@ -8,7 +8,7 @@ function MyCards(props) {
     <div className='main'>
       <Header
         userImg={props.user.userImg}
-        name={'@' + props.user.username}
+        name=''
         handleLogout={props.handleLogout}
         calledFrom='MyCards'
       />
