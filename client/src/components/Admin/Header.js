@@ -13,7 +13,7 @@ const Header = (props) => {
       links = (
         <div className='bannerSettings'>
           <Link
-            to={`/${props.name.split('@')[1]}`}
+            to={`/${props.name}`}
             target='_blank'
             className='bannerOtherLinks'
           >
@@ -29,7 +29,7 @@ const Header = (props) => {
       links = (
         <div className='bannerSettings'>
           <Link
-            to={`/${props.name.split('@')[1]}`}
+            to={`/${props.name}`}
             target='_blank'
             className='bannerOtherLinks'
           >
@@ -49,8 +49,6 @@ const Header = (props) => {
     <div className='adminBanner'>
       <div className='adminUser'>
         <img className='adminImage' src={userImg} alt='User' />
-        {''}
-        {props.name}
       </div>
       <div className='bannerLinks'>
         {links}
