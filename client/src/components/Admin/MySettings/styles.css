@@ -55,6 +55,7 @@
 
 .settingsButton {
   width: 250px;
+  max-width: 90%;
   height: 40px;
   border-radius: 10px;
 
@@ -66,6 +67,8 @@
   font-size: 20px;
   font-weight: 500;
   color: var(--social-color);
+
+  cursor: pointer;
 }
 
 .settingsButtonRed {
@@ -91,6 +94,15 @@
   background: var(--social-color);
 
   height: 40px;
+}
+
+.settingsImageIcon {
+  width: 100%;
+
+  text-align: center;
+  font-size: 30px;
+
+  margin-top: 100px;
 }
 
 .settingsColor {
@@ -168,19 +180,101 @@
 
 .settingsMiscText {
   font-weight: 300;
-}
-
-.settingsMiscText {
   font-size: 25px;
 }
 
 @media screen and (max-width: 900px) and (min-width: 500px) {
-  .settingsSection {
+  .settingsH {
+    gap: 5px;
+  }
+
+  .settingsColor {
+    width: 140px;
+  }
+
+  .settingsColorText {
+    padding-left: 10px;
+  }
+
+  .settingsSelect {
+    width: 140px;
   }
 }
 
 @media screen and (max-width: 500px) {
   .settingsSection {
     width: 90vw;
+
+    padding: 15px;
+  }
+
+  .settingsName {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .settingsV {
+    gap: 15px;
+  }
+
+  .settingsH {
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  .settingsButton {
+    height: 30px;
+
+    line-height: 30px;
+
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .settingsColor {
+    border-width: 1.5px;
+
+    height: 20px;
+    width: 110px;
+  }
+
+  .settingsColorPreview {
+    border-width: 1.5px;
+
+    width: 20px;
+    height: 20px;
+    margin-left: -1.5px;
+  }
+
+  .settingsColorText {
+    font-size: 15px;
+
+    padding-left: 10px;
+  }
+
+  .settingsSelect {
+    border-radius: 100px;
+    border-width: 1px;
+
+    width: 110px;
+    height: 20px;
+
+    padding-left: 3px;
+
+    font-size: 15px;
+  }
+
+  .settingsLeft {
+    gap: 10px;
+  }
+
+  .settingsMisc {
+    width: 220px;
+  }
+
+  .settingsMiscText {
+    font-weight: 300;
+    font-size: 15px;
   }
 }

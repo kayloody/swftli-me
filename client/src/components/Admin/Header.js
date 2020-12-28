@@ -7,6 +7,7 @@ import defaultImg from '../../images/digitalia.PNG';
 const Header = (props) => {
   const userImg = props.userImg === '' ? defaultImg : props.userImg;
 
+  let userName = props.name;
   let links = <div></div>;
   switch (props.calledFrom) {
     case 'MyCards':
@@ -19,11 +20,12 @@ const Header = (props) => {
           >
             Preview
           </Link>
-          <Link to='/admin/settings' className='bannerOtherLinks'>
+          <Link to='../admin/settings' className='bannerOtherLinks'>
             Settings
           </Link>
         </div>
       );
+      userName = '';
       break;
     case 'MySettings':
       links = (
@@ -35,20 +37,23 @@ const Header = (props) => {
           >
             Preview
           </Link>
-          <Link to='/admin/cards' className='bannerOtherLinks'>
+          <Link to='../admin/cards' className='bannerOtherLinks'>
             Cards
           </Link>
         </div>
       );
+      userName = '';
       break;
     default:
       links = <div></div>;
+      userName = props.name;
   }
 
   return (
     <div className='adminBanner'>
       <div className='adminUser'>
         <img className='adminImage' src={userImg} alt='User' />
+        {userName}
       </div>
       <div className='bannerLinks'>
         {links}

@@ -1,5 +1,19 @@
 import User from '../models/swftli.js';
 
+export const deleteAccount = (req, res) => {
+  const username = req.user.username;
+
+  User.findOneAndDelete({ user_lower: username.toLowerCase() }).exec(
+    (err, doc) => {
+      if (err) {
+        res.json({ status: 'Error' });
+      } else {
+        res.json({ status: 'Okay' });
+      }
+    }
+  );
+};
+
 export const oauthuser = (req, res) => {
   const username = req.body.username;
   const email = req.user.email;
