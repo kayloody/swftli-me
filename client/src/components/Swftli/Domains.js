@@ -1,8 +1,10 @@
 export const socialClasses = {
   'facebook.com': 'fab fa-facebook',
   'fb.me': 'fab fa-facebook',
+  'discord.gg': 'fab fa-discord',
   'github.com': 'fab fa-github',
   'instagram.com': 'fab fa-instagram',
+  'patreon.com': 'fab fa-patreon',
   'pinterest.com': 'fab fa-pinterest',
   'spotify.com': 'fab fa-spotify',
   'tiktok.com': 'fab fa-tiktok',
