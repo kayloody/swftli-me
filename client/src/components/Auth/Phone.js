@@ -2,6 +2,8 @@ import React from 'react';
 
 import './styles.css';
 
+import phoneImage from '../../images/digitalia.PNG';
+
 const Phone = (props) => {
   return (
     <div className='authPhone' style={props.style}>
@@ -46,6 +48,28 @@ const Phone = (props) => {
           />
         </g>
       </svg>
+      <div className='authPhoneContent'>
+        <div className='authPhoneHeader'>
+          <img className='authPhoneImage' src={phoneImage} alt='' />
+          @swftlime
+        </div>
+        <div className='authPhoneSocials'>
+          <i className='fab fa-instagram'></i>
+          <i className='fab fa-patreon'></i>
+          <i className='fab fa-spotify'></i>
+          <i className='fab fa-twitch'></i>
+        </div>
+        <div className='authPhoneButton'>
+          <i className='fab fa-youtube'></i> Funny cats
+        </div>
+        <div className='authPhoneButton'>
+          <i className='fab fa-twitter'></i> My latest tweet
+        </div>
+        <div className='authPhoneButton'>Check out my latest podcast</div>
+        <div className='authPhoneButton'>
+          <i className='fab fa-discord'></i> Join my Discord channel
+        </div>
+      </div>
     </div>
   );
 };

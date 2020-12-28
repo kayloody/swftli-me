@@ -50,6 +50,81 @@ button:focus {
   transition: right 0.3s;
 }
 
+.authPhoneSVG {
+  position: absolute;
+  margin: auto;
+}
+
+.authPhoneContent {
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 350px;
+  height: 330px;
+  margin: auto;
+
+  gap: 15px;
+}
+
+.authPhoneHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  gap: 5px;
+
+  border: solid 4px var(--border-color);
+  border-radius: 50px 0 50px 50px;
+  background: var(--card-color1);
+
+  height: 40px;
+  width: 190px;
+
+  line-height: 30px;
+
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.authPhoneImage {
+  border-radius: 100%;
+
+  width: 32px;
+  height: 32px;
+
+  margin-left: 3px;
+}
+
+.authPhoneSocials {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+
+  gap: 10px;
+
+  font-weight: 100;
+  font-size: 20px;
+}
+
+.authPhoneButton {
+  border: solid 2px var(--border-color);
+  border-radius: 50px;
+  background: var(--card-color1);
+
+  height: 30px;
+  width: 190px;
+
+  line-height: 30px;
+
+  font-size: 13px;
+}
+
 .authForm {
   position: absolute;
   width: 450px;
