@@ -172,7 +172,15 @@ class MySettings extends React.Component {
                   className='settingsCard settingsBgCard'
                   style={{ background: this.state.bgColor1 }}
                   onClick={this.cardSelect}
-                ></div>
+                >
+                  <i
+                    className={`fas fa-check ${
+                      this.state.bgChoice === '1'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
+                </div>
                 <div
                   id='bgChoice2'
                   className='settingsCard settingsBgCard'
@@ -184,14 +192,35 @@ class MySettings extends React.Component {
                       )`,
                   }}
                   onClick={this.cardSelect}
-                ></div>
+                >
+                  <i
+                    className={`fas fa-check ${
+                      this.state.bgChoice === '2'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
+                </div>
                 <div
                   id='bgChoice3'
                   className='settingsCard settingsBgCard'
                   style={{ background: this.state.bgImage }}
                   onClick={this.cardSelect}
                 >
-                  <i className='far fa-image settingsImageIcon'></i>
+                  <i
+                    className={`far fa-image ${
+                      this.state.bgChoice === '3'
+                        ? 'settingsImageIconNo'
+                        : 'settingsImageIconYes'
+                    }`}
+                  ></i>
+                  <i
+                    className={`fas fa-check ${
+                      this.state.bgChoice === '3'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
                 </div>
               </div>
               <div className='settingsH'>
@@ -247,13 +276,21 @@ class MySettings extends React.Component {
               <div className='settingsH'>
                 <div
                   id='cardChoice1'
-                  className='settingsCard settingsCardCard'
+                  className={`settingsCard settingsCardCard`}
                   style={{ background: this.state.cardColor1 }}
                   onClick={this.cardSelect}
-                ></div>
+                >
+                  <i
+                    className={`fas fa-check ${
+                      this.state.cardChoice === '1'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
+                </div>
                 <div
                   id='cardChoice2'
-                  className='settingsCard settingsCardCard'
+                  className={`settingsCard settingsCardCard`}
                   style={{
                     background: `linear-gradient(
                         ${this.state.cardAngle},
@@ -262,13 +299,34 @@ class MySettings extends React.Component {
                       )`,
                   }}
                   onClick={this.cardSelect}
-                ></div>
+                >
+                  <i
+                    className={`fas fa-check ${
+                      this.state.cardChoice === '2'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
+                </div>
                 <div
                   id='cardChoice3'
-                  className='settingsCard settingsCardCard'
+                  className={`settingsCard settingsCardCard`}
                   onClick={this.cardSelect}
                 >
-                  <i className='far fa-image settingsImageIcon'></i>
+                  <i
+                    className={`far fa-image ${
+                      this.state.cardChoice === '3'
+                        ? 'settingsImageIconNo'
+                        : 'settingsImageIconYes'
+                    }`}
+                  ></i>
+                  <i
+                    className={`fas fa-check ${
+                      this.state.cardChoice === '3'
+                        ? 'settingsCardYes'
+                        : 'settingsCardNo'
+                    }`}
+                  ></i>
                 </div>
               </div>
               <div className='settingsH'>

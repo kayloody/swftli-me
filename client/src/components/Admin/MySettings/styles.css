@@ -111,8 +111,31 @@
   height: 40px;
 }
 
-.settingsImageIcon {
+/* .settingsCardHighlight {
+  box-shadow: 0 0 40px var(--button-dark);
+} */
+
+.settingsCardYes {
+  -webkit-text-stroke: 2px var(--button-dark);
+
   font-size: 30px;
+  color: var(--social-color);
+
+  pointer-events: none;
+}
+
+.settingsCardNo {
+  display: none;
+}
+
+.settingsImageIconYes {
+  font-size: 30px;
+
+  pointer-events: none;
+}
+
+.settingsImageIconNo {
+  display: none;
 }
 
 .settingsColor {
