@@ -51,6 +51,8 @@
   align-items: center;
 
   gap: 30px;
+
+  margin-bottom: 50px;
 }
 
 .settingsButton {
@@ -71,11 +73,24 @@
   cursor: pointer;
 }
 
+.settingsButton:hover {
+  filter: brightness(110%);
+}
+
+.settingsButton:active {
+  filter: brightness(90%);
+}
+
 .settingsButtonRed {
   background-color: var(--warning-color);
 }
 
 .settingsCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
   border: solid 2px var(--button-dark);
 
   width: 200px;
@@ -97,12 +112,7 @@
 }
 
 .settingsImageIcon {
-  width: 100%;
-
-  text-align: center;
   font-size: 30px;
-
-  margin-top: 100px;
 }
 
 .settingsColor {
@@ -167,6 +177,8 @@
   align-items: left;
 
   gap: 20px;
+
+  margin-bottom: 50px;
 }
 
 .settingsMisc {
@@ -181,6 +193,39 @@
 .settingsMiscText {
   font-weight: 300;
   font-size: 25px;
+}
+
+.settingsStatus {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+
+  background: var(--card-color1);
+  padding: 10px;
+  min-width: 20px;
+
+  border: solid 2px;
+  border-radius: 10px;
+
+  text-align: center;
+  line-height: 20px;
+  font-size: 20px;
+}
+
+.settingsStatusGood {
+  background-color: var(--bg-color2);
+}
+
+.settingsStatusBad {
+  background-color: var(--bg-color1);
+}
+
+.settingsStatusNeutral {
+  background-color: var(--card-color1);
+}
+
+.settingsStatusHide {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 900px) and (min-width: 500px) {
@@ -215,6 +260,8 @@
 
   .settingsV {
     gap: 15px;
+
+    margin-bottom: 30px;
   }
 
   .settingsH {
@@ -267,6 +314,8 @@
 
   .settingsLeft {
     gap: 10px;
+
+    margin-bottom: 30px;
   }
 
   .settingsMisc {

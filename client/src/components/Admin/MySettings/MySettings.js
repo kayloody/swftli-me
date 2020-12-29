@@ -15,17 +15,19 @@ class MySettings extends React.Component {
     super(props);
 
     this.state = {
+      status: '',
       userImg: defaultImg,
       bgColor1: '#d4bec0',
       bgColor2: '#a2c6ca',
       bgAngle: '45deg',
-      bgImage: '',
+      bgImage: 'none',
       bgChoice: '2',
       cardColor1: '#f8f8f5',
       cardColor2: '#f8f8f5',
       cardAngle: '45deg',
-      cardImage: '',
+      cardImage: 'none',
       cardChoice: '2',
+      textColor: '#5f5d54',
       borderColor: '#929b94',
       socialColor: '#f2f3ef',
     };
@@ -33,24 +35,39 @@ class MySettings extends React.Component {
 
   handleChange = (event) => {
     const target = event.target;
-    console.log(event);
-    this.setState({ [target.name]: target.value });
+    this.setState({ [target.name]: target.value, status: '' });
+  };
+
+  saveSettings = () => {
+    this.setState({ status: 'Saving' });
+
+    axios
+      .post(`${server}/admin/settings`, this.state, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      })
+      .then((res) => {
+        this.setState({ status: res.data.status });
+      })
+      .catch(() => {
+        this.setState({ status: 'Error' });
+      });
   };
 
   deleteAccount = () => {
     axios
-      .post(
-        `${server}/admin/delete`,
-        { username: this.state.username, password: this.state.password },
-        {
-          withCredentials: true,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
-          },
-        }
-      )
+      .get(`${server}/admin/delete`, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      })
       .then((res) => {
         if (res.data.status === 'Okay') {
           window.open('../', '_self');
@@ -74,6 +91,35 @@ class MySettings extends React.Component {
   }
 
   render() {
+    let statusMessage = '';
+    let settingsStatus = '';
+    switch (this.state.status) {
+      case 'Okay':
+        statusMessage = <i className='fas fa-check'></i>;
+        settingsStatus = 'settingsStatusGood';
+        break;
+      case 'Error':
+        statusMessage = <i className='fas fa-times'></i>;
+        settingsStatus = 'settingsStatusBad';
+        break;
+      case 'Invalid Color':
+        statusMessage = (
+          <div>
+            <i className='fas fa-times'></i>
+            <span style={{ marginLeft: '10px' }}>Invalid Color</span>
+          </div>
+        );
+        settingsStatus = 'settingsStatusBad';
+        break;
+      case 'Saving':
+        statusMessage = <i className='fas fa-spinner'></i>;
+        settingsStatus = 'settingsStatusNeutral';
+        break;
+      default:
+        settingsStatus = 'settingsStatusHide';
+        break;
+      // code block
+    }
     return (
       <div className='main'>
         <Header
@@ -113,9 +159,9 @@ class MySettings extends React.Component {
                 ></div>
                 <div
                   className='settingsCard settingsBgCard'
-                  style={{ background: this.state.bgColor2 }}
+                  style={{ background: this.state.bgImage }}
                 >
-                  <i class='far fa-image settingsImageIcon'></i>
+                  <i className='far fa-image settingsImageIcon'></i>
                 </div>
               </div>
               <div className='settingsH'>
@@ -153,20 +199,19 @@ class MySettings extends React.Component {
                   <select
                     name='bgAngle'
                     className='settingsSelect'
+                    defaultValue='45deg'
                     onChange={this.handleChange}
                   >
                     <option value='90deg'>Horizontal</option>
                     <option value='180deg'>Vertical</option>
-                    <option selected value='45deg'>
-                      Diagonal A
-                    </option>
+                    <option value='45deg'>Diagonal A</option>
                     <option value='-45deg'>Diagonal B</option>
                   </select>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='settingsSection'>
+            {/* </div>
+          <div className='settingsSection'> */}
             <div className='settingsName'>Buttons</div>
             <div className='settingsV'>
               <div className='settingsH'>
@@ -184,7 +229,9 @@ class MySettings extends React.Component {
                       )`,
                   }}
                 ></div>
-                <div className='settingsCard settingsCardCard'></div>
+                <div className='settingsCard settingsCardCard'>
+                  <i className='far fa-image settingsImageIcon'></i>
+                </div>
               </div>
               <div className='settingsH'>
                 <div className='settingsColor'>
@@ -221,64 +268,84 @@ class MySettings extends React.Component {
                   <select
                     name='cardAngle'
                     className='settingsSelect'
+                    defaultValue='45deg'
                     onChange={this.handleChange}
                   >
                     <option value='90deg'>Horizontal</option>
                     <option value='180deg'>Vertical</option>
-                    <option selected value='45deg'>
-                      Diagonal A
-                    </option>
+                    <option value='45deg'>Diagonal A</option>
                     <option value='-45deg'>Diagonal B</option>
                   </select>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='settingsSection'>
+            {/* </div>
+          <div className='settingsSection'> */}
             <div className='settingsName'>Miscellaneous</div>
             <div className='settingsLeft'>
               <div className='settingsMisc'>
                 <span className='settingsMiscText'>Text</span>
                 <div className='settingsColor'>
-                  <div className='settingsColorPreview'></div>
+                  <div
+                    className='settingsColorPreview'
+                    style={{ background: this.state.textColor }}
+                  ></div>
                   <textarea
-                    name='cardColor1'
+                    name='textColor'
                     rows='1'
                     cols='10'
                     maxLength='7'
                     className='settingsColorText'
-                    value='#d4bec0'
+                    value={this.state.textColor}
+                    onChange={this.handleChange}
                   ></textarea>
                 </div>
               </div>
               <div className='settingsMisc'>
                 <span className='settingsMiscText'>Socials</span>
                 <div className='settingsColor'>
-                  <div className='settingsColorPreview'></div>
+                  <div
+                    className='settingsColorPreview'
+                    style={{ background: this.state.socialColor }}
+                  ></div>
                   <textarea
-                    name='cardColor1'
+                    name='socialColor'
                     rows='1'
                     cols='10'
                     maxLength='7'
                     className='settingsColorText'
-                    value='#d4bec0'
+                    value={this.state.socialColor}
+                    onChange={this.handleChange}
                   ></textarea>
                 </div>
               </div>
               <div className='settingsMisc'>
                 <span className='settingsMiscText'>Borders</span>
                 <div className='settingsColor'>
-                  <div className='settingsColorPreview'></div>
+                  <div
+                    className='settingsColorPreview'
+                    style={{ background: this.state.borderColor }}
+                  ></div>
                   <textarea
-                    name='cardColor1'
+                    name='borderColor'
                     rows='1'
                     cols='10'
                     maxLength='7'
                     className='settingsColorText'
-                    value='#d4bec0'
+                    value={this.state.borderColor}
+                    onChange={this.handleChange}
                   ></textarea>
                 </div>
               </div>
+            </div>
+            {/* </div>
+          <div className='settingsSection'> */}
+            <div
+              className='settingsButton'
+              style={{ margin: 'auto' }}
+              onClick={this.saveSettings}
+            >
+              Save
             </div>
           </div>
           <div className='settingsSection'>
@@ -293,6 +360,9 @@ class MySettings extends React.Component {
           </div>
         </div>
         <Footer />
+        <div className={`settingsStatus ${settingsStatus}`}>
+          {statusMessage}
+        </div>
       </div>
     );
   }
