@@ -38,11 +38,19 @@ class MySettings extends React.Component {
     this.setState({ [target.name]: target.value, status: '' });
   };
 
+  cardSelect = (event) => {
+    const card = event.target.id;
+    const name = card.slice(0, -1);
+    const choice = card.slice(-1);
+
+    this.setState({ [name]: choice, status: '' });
+  };
+
   saveSettings = () => {
     this.setState({ status: 'Saving' });
 
     axios
-      .post(`${server}/admin/settings`, this.state, {
+      .post(`${server}/admin/saveSettings`, this.state, {
         withCredentials: true,
         headers: {
           Accept: 'application/json',
@@ -81,13 +89,29 @@ class MySettings extends React.Component {
   };
 
   componentDidMount() {
-    const user = this.props.user;
-
-    this.setState({
-      userImg: user.userImg === '' ? this.state.userImg : user.userImg,
-    });
-
-    this.setState(this.props.user.settings);
+    axios
+      .get(`${server}/admin/loadSettings`, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      })
+      .then((res) => {
+        if (!('status' in res.data)) {
+          this.setState(res.data);
+          this.setState({
+            userImg:
+              res.data.userImg === '' || !('userImg' in res.data)
+                ? this.state.userImg
+                : res.data.userImg,
+          });
+        }
+      })
+      .catch(() => {
+        this.setState({ status: 'Error' });
+      });
   }
 
   render() {
@@ -144,10 +168,13 @@ class MySettings extends React.Component {
             <div className='settingsV'>
               <div className='settingsH'>
                 <div
+                  id='bgChoice1'
                   className='settingsCard settingsBgCard'
                   style={{ background: this.state.bgColor1 }}
+                  onClick={this.cardSelect}
                 ></div>
                 <div
+                  id='bgChoice2'
                   className='settingsCard settingsBgCard'
                   style={{
                     background: `linear-gradient(
@@ -156,10 +183,13 @@ class MySettings extends React.Component {
                         ${this.state.bgColor2} 100%
                       )`,
                   }}
+                  onClick={this.cardSelect}
                 ></div>
                 <div
+                  id='bgChoice3'
                   className='settingsCard settingsBgCard'
                   style={{ background: this.state.bgImage }}
+                  onClick={this.cardSelect}
                 >
                   <i className='far fa-image settingsImageIcon'></i>
                 </div>
@@ -199,7 +229,7 @@ class MySettings extends React.Component {
                   <select
                     name='bgAngle'
                     className='settingsSelect'
-                    defaultValue='45deg'
+                    value={this.state.bgAngle}
                     onChange={this.handleChange}
                   >
                     <option value='90deg'>Horizontal</option>
@@ -216,10 +246,13 @@ class MySettings extends React.Component {
             <div className='settingsV'>
               <div className='settingsH'>
                 <div
+                  id='cardChoice1'
                   className='settingsCard settingsCardCard'
                   style={{ background: this.state.cardColor1 }}
+                  onClick={this.cardSelect}
                 ></div>
                 <div
+                  id='cardChoice2'
                   className='settingsCard settingsCardCard'
                   style={{
                     background: `linear-gradient(
@@ -228,8 +261,13 @@ class MySettings extends React.Component {
                         ${this.state.cardColor2} 100%
                       )`,
                   }}
+                  onClick={this.cardSelect}
                 ></div>
-                <div className='settingsCard settingsCardCard'>
+                <div
+                  id='cardChoice3'
+                  className='settingsCard settingsCardCard'
+                  onClick={this.cardSelect}
+                >
                   <i className='far fa-image settingsImageIcon'></i>
                 </div>
               </div>
@@ -268,7 +306,7 @@ class MySettings extends React.Component {
                   <select
                     name='cardAngle'
                     className='settingsSelect'
-                    defaultValue='45deg'
+                    value={this.state.cardAngle}
                     onChange={this.handleChange}
                   >
                     <option value='90deg'>Horizontal</option>

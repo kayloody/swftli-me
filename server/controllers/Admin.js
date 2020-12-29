@@ -34,7 +34,22 @@ export const oauthuser = (req, res) => {
   });
 };
 
-export const settings = (req, res) => {
+export const loadSettings = (req, res) => {
+  const username = req.user.username;
+  User.findOne({ user_lower: username.toLowerCase() }).exec((err, doc) => {
+    if (err) {
+      res.json({ status: 'Error' });
+    } else {
+      if ('settings' in doc) {
+        res.json(doc.settings);
+      } else {
+        res.json({ status: 'No custom settings' });
+      }
+    }
+  });
+};
+
+export const saveSettings = (req, res) => {
   const username = req.user.username;
   const data = req.body;
   delete data.status;
