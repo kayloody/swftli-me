@@ -46,6 +46,36 @@ class MySettings extends React.Component {
     this.setState({ [name]: choice, status: '' });
   };
 
+  imageUpload = (event) => {
+    const name = event.target.id;
+    const image = event.target.files[0];
+
+    const formats = [
+      'image/bmp',
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/tiff',
+    ];
+
+    if (formats.some((format) => image.type.includes(format))) {
+      switch (name) {
+        case 'profileImage':
+          break;
+        case 'bgImage':
+          break;
+        case 'cardImage':
+          console.log('3', event);
+          break;
+        default:
+          console.log('Def', event);
+          break;
+      }
+    } else {
+      this.setState({ status: 'Invalid File' });
+    }
+  };
+
   saveSettings = () => {
     this.setState({ status: 'Saving' });
 
@@ -99,13 +129,15 @@ class MySettings extends React.Component {
         },
       })
       .then((res) => {
-        if (!('status' in res.data)) {
-          this.setState(res.data);
+        const data = res.data;
+
+        if (!('status' in data)) {
+          this.setState(data);
           this.setState({
             userImg:
-              res.data.userImg === '' || !('userImg' in res.data)
+              data.userImg === '' || !('userImg' in data)
                 ? this.state.userImg
-                : res.data.userImg,
+                : data.userImg,
           });
         }
       })
@@ -127,10 +159,11 @@ class MySettings extends React.Component {
         settingsStatus = 'settingsStatusBad';
         break;
       case 'Invalid Color':
+      case 'Invalid File':
         statusMessage = (
           <div>
             <i className='fas fa-times'></i>
-            <span style={{ marginLeft: '10px' }}>Invalid Color</span>
+            <span style={{ marginLeft: '10px' }}>{this.state.status}</span>
           </div>
         );
         settingsStatus = 'settingsStatusBad';
@@ -156,7 +189,15 @@ class MySettings extends React.Component {
           <div className='settingsSection'>
             <div className='settingsH'>
               <img className='adminImage' src={this.state.userImg} alt='User' />
-              <div className='settingsButton'>Upload</div>
+              <label className='settingsButton' onChange={this.imageUpload}>
+                <input
+                  id='profileImage'
+                  type='file'
+                  accept='.bmp,.jpeg,.jpg,.png,.tiff'
+                  style={{ display: 'none' }}
+                />
+                Upload
+              </label>
               <div className='settingsButton settingsButtonRed'>Remove</div>
             </div>
           </div>
@@ -201,12 +242,14 @@ class MySettings extends React.Component {
                     }`}
                   ></i>
                 </div>
-                <div
+                <label
                   id='bgChoice3'
-                  className='settingsCard settingsBgCard'
+                  className='settingsCard settingsBgCard settingsCardImage'
                   style={{ background: this.state.bgImage }}
                   onClick={this.cardSelect}
+                  onChange={this.imageUpload}
                 >
+                  <input id='bgImage' type='file' style={{ display: 'none' }} />
                   <i
                     className={`far fa-image ${
                       this.state.bgChoice === '3'
@@ -221,7 +264,7 @@ class MySettings extends React.Component {
                         : 'settingsCardNo'
                     }`}
                   ></i>
-                </div>
+                </label>
               </div>
               <div className='settingsH'>
                 <div className='settingsColor'>
@@ -308,11 +351,17 @@ class MySettings extends React.Component {
                     }`}
                   ></i>
                 </div>
-                <div
+                <label
                   id='cardChoice3'
-                  className={`settingsCard settingsCardCard`}
+                  className={`settingsCard settingsCardCard settingsCardImage`}
                   onClick={this.cardSelect}
+                  onChange={this.imageUpload}
                 >
+                  <input
+                    id='cardImage'
+                    type='file'
+                    style={{ display: 'none' }}
+                  />
                   <i
                     className={`far fa-image ${
                       this.state.cardChoice === '3'
@@ -327,7 +376,7 @@ class MySettings extends React.Component {
                         : 'settingsCardNo'
                     }`}
                   ></i>
-                </div>
+                </label>
               </div>
               <div className='settingsH'>
                 <div className='settingsColor'>
