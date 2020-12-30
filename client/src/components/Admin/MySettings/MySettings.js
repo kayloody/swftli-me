@@ -109,6 +109,10 @@ class MySettings extends React.Component {
       });
   };
 
+  addSocial = () => {};
+
+  saveSocial = () => {};
+
   saveSettings = () => {
     this.setState({ status: 'Saving' });
 
@@ -248,6 +252,14 @@ class MySettings extends React.Component {
           </div>
           <div className='settingsSection'>
             <div className='settingsName'>Socials</div>
+            <div className='settingsH'>
+              <div className='settingsButton' onClick={this.addSocial}>
+                Add
+              </div>
+              <div className='settingsButton' onClick={this.saveSocial}>
+                Save
+              </div>
+            </div>
           </div>
           <div className='settingsSection'>
             <div className='settingsName'>Background</div>
