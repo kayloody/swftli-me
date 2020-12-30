@@ -1,7 +1,9 @@
 import pkg from 'validate-color';
 const { validateHTMLColor, validateHTMLColorName } = pkg;
+import cloudinary from 'cloudinary';
 
 import User from '../models/swftli.js';
+import keys from '../config/keys.js';
 
 export const oauthuser = (req, res) => {
   const username = req.body.username;
@@ -47,6 +49,26 @@ export const loadSettings = (req, res) => {
       }
     }
   });
+};
+
+export const uploadImage = (req, res) => {
+  const username = req.user.username;
+  const name = req.body.name;
+  const image = req.body.image;
+
+  console.log(req);
+
+  // User.findOneAndUpdate(
+  //   { user_lower: username.toLowerCase() },
+  //   { settings: data }
+  // ).exec((err, doc) => {
+  //   if (err) {
+  //     res.json({ status: 'Error' });
+  //   } else {
+  //     res.json({ status: 'Okay' });
+  //   }
+  // });
+  res.json({ url: '' });
 };
 
 export const saveSettings = (req, res) => {

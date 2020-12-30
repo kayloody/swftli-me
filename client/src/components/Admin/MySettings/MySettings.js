@@ -58,19 +58,29 @@ class MySettings extends React.Component {
       'image/tiff',
     ];
 
+    // Perform test to filter unwanted images
+
     if (formats.some((format) => image.type.includes(format))) {
-      switch (name) {
-        case 'profileImage':
-          break;
-        case 'bgImage':
-          break;
-        case 'cardImage':
-          console.log('3', event);
-          break;
-        default:
-          console.log('Def', event);
-          break;
-      }
+      console.log(image);
+      axios
+        .post(
+          `${server}/admin/uploadImage`,
+          { id: name, image },
+          {
+            withCredentials: true,
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Credentials': true,
+            },
+          }
+        )
+        .then((url) => {
+          this.setState({ name: url });
+        })
+        .catch(() => {
+          this.setState({ status: 'Error' });
+        });
     } else {
       this.setState({ status: 'Invalid File' });
     }
@@ -191,7 +201,7 @@ class MySettings extends React.Component {
               <img className='adminImage' src={this.state.userImg} alt='User' />
               <label className='settingsButton' onChange={this.imageUpload}>
                 <input
-                  id='profileImage'
+                  id='userImg'
                   type='file'
                   accept='.bmp,.jpeg,.jpg,.png,.tiff'
                   style={{ display: 'none' }}
