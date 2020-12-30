@@ -4,6 +4,7 @@ import cloudinary from 'cloudinary';
 
 import User from '../models/swftli.js';
 import keys from '../config/keys.js';
+import cloudinaryConfig from '../config/cloudinary.js';
 
 export const oauthuser = (req, res) => {
   const username = req.body.username;
@@ -38,37 +39,82 @@ export const oauthuser = (req, res) => {
 
 export const loadSettings = (req, res) => {
   const username = req.user.username;
-  User.findOne({ user_lower: username.toLowerCase() }).exec((err, doc) => {
-    if (err) {
-      res.json({ status: 'Error' });
-    } else {
-      if ('settings' in doc) {
-        res.json(doc.settings);
+  User.findOne({ user_lower: username.toLowerCase() })
+    .select('userImg settings')
+    .exec((err, doc) => {
+      if (err) {
+        res.json({ status: 'Error' });
       } else {
-        res.json({ status: 'No custom settings' });
+        if ('settings' in doc) {
+          res.json(doc);
+        } else {
+          res.json({ userImg: doc.userImg, status: 'No custom settings' });
+        }
       }
-    }
-  });
+    });
 };
 
 export const uploadImage = (req, res) => {
-  const username = req.user.username;
-  const name = req.body.name;
-  const image = req.body.image;
+  const id = req.user.id;
+  const image = Object.values(req.files)[0];
+  if (image.fieldName === 'userImg') {
+    cloudinary.v2.uploader
+      .upload(image.path, {
+        public_id: image.fieldName,
+        folder: id,
+        width: 200,
+        height: 200,
+        gravity: 'face',
+        crop: 'thumb',
+      })
+      .then((cloud) => {
+        User.findByIdAndUpdate(id, { userImg: cloud.url }, { new: true }).exec(
+          (err, doc) => {
+            if (err) {
+              res.json({ status: 'Error' });
+            } else {
+              res.json({ url: cloud.url });
+            }
+          }
+        );
+      })
+      .catch(() => {
+        res.json({ status: 'Error' });
+      });
+  } else {
+    cloudinary.v2.uploader
+      .upload(image.path, {
+        public_id: image.fieldName,
+        folder: id,
+      })
+      .then((cloud) => {
+        res.json({ url: cloud.url });
+      })
+      .catch(() => {
+        res.json({ status: 'Error' });
+      });
+  }
+};
 
-  console.log(req);
+export const deleteImage = (req, res) => {
+  const id = req.user.id;
 
-  // User.findOneAndUpdate(
-  //   { user_lower: username.toLowerCase() },
-  //   { settings: data }
-  // ).exec((err, doc) => {
-  //   if (err) {
-  //     res.json({ status: 'Error' });
-  //   } else {
-  //     res.json({ status: 'Okay' });
-  //   }
-  // });
-  res.json({ url: '' });
+  cloudinary.v2.uploader
+    .destroy('userImg', {
+      folder: id,
+    })
+    .then(() => {
+      User.findByIdAndUpdate(id, { userImg: '' }).exec((err, doc) => {
+        if (err) {
+          res.json({ status: 'Error' });
+        } else {
+          res.json({ status: 'Okay' });
+        }
+      });
+    })
+    .catch(() => {
+      res.json({ status: 'Error' });
+    });
 };
 
 export const saveSettings = (req, res) => {

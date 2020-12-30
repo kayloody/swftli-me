@@ -15,9 +15,6 @@ const SESSION = {
 };
 
 const CLOUDINARY_KEYS = {
-  CLOUD_NAME: 'swftli-me',
-  CLOUD_API_KEY: '297792667697841',
-  CLOUD_API_SECRET: 'Y9MVqbeiRK80qokLW9tMnu6SAUA',
   CLOUD_URL:
     'CLOUDINARY_URL=cloudinary://297792667697841:Y9MVqbeiRK80qokLW9tMnu6SAUA@swftli-me',
 };

@@ -34,6 +34,7 @@
   background: var(--bg-image),
     linear-gradient(var(--bg-angle), var(--bg-color1) 0%, var(--bg-color2) 100%);
   background-position: center;
+  background-size: cover;
 }
 
 .error {

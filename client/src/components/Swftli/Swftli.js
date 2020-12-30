@@ -8,8 +8,6 @@ import Footer from './Footer.js';
 
 import './styles.css';
 
-import meow from '../../images/meow.jpg';
-
 const server = 'http://localhost:5000';
 
 class Swftli extends React.Component {
@@ -41,7 +39,7 @@ class Swftli extends React.Component {
               style.setProperty('--bg-color2', custom.bgColor2);
               style.setProperty('--bg-angle', custom.bgAngle);
             } else {
-              style.setProperty('--bg-image', `url(${meow})`);
+              style.setProperty('--bg-image', `url(${custom.bgImg})`);
             }
 
             if (custom.cardChoice === '1') {
@@ -52,7 +50,7 @@ class Swftli extends React.Component {
               style.setProperty('--card-color2', custom.cardColor2);
               style.setProperty('--card-angle', custom.cardAngle);
             } else {
-              style.setProperty('--card-image', `url(${meow})`);
+              style.setProperty('--card-image', `url(${custom.cardImg})`);
             }
 
             style.setProperty('color', custom.textColor);

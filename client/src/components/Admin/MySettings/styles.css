@@ -113,6 +113,9 @@
 
 .settingsCardImage {
   border-style: dashed;
+
+  background-position: center;
+  background-size: cover;
 }
 
 /* .settingsCardHighlight {

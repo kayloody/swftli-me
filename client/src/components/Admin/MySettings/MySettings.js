@@ -16,16 +16,16 @@ class MySettings extends React.Component {
 
     this.state = {
       status: '',
-      userImg: defaultImg,
+      userImg: 'none',
       bgColor1: '#d4bec0',
       bgColor2: '#a2c6ca',
       bgAngle: '45deg',
-      bgImage: 'none',
+      bgImg: 'none',
       bgChoice: '2',
       cardColor1: '#f8f8f5',
       cardColor2: '#f8f8f5',
       cardAngle: '45deg',
-      cardImage: 'none',
+      cardImg: 'none',
       cardChoice: '2',
       textColor: '#5f5d54',
       borderColor: '#929b94',
@@ -48,7 +48,8 @@ class MySettings extends React.Component {
 
   imageUpload = (event) => {
     const name = event.target.id;
-    const image = event.target.files[0];
+    const files = Array.from(event.target.files);
+    const image = files[0];
 
     const formats = [
       'image/bmp',
@@ -61,22 +62,21 @@ class MySettings extends React.Component {
     // Perform test to filter unwanted images
 
     if (formats.some((format) => image.type.includes(format))) {
-      console.log(image);
+      this.setState({ status: 'Saving' });
+      const formData = new FormData();
+      formData.append(name, image);
+
       axios
-        .post(
-          `${server}/admin/uploadImage`,
-          { id: name, image },
-          {
-            withCredentials: true,
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Credentials': true,
-            },
-          }
-        )
-        .then((url) => {
-          this.setState({ name: url });
+        .post(`${server}/admin/uploadImage`, formData, {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true,
+          },
+        })
+        .then((res) => {
+          this.setState({ [name]: res.data.url, status: '' });
         })
         .catch(() => {
           this.setState({ status: 'Error' });
@@ -84,6 +84,29 @@ class MySettings extends React.Component {
     } else {
       this.setState({ status: 'Invalid File' });
     }
+  };
+
+  deleteImage = () => {
+    this.setState({ status: 'Saving' });
+    axios
+      .get(`${server}/admin/deleteImage`, {
+        withCredentials: true,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 'Okay') {
+          this.setState({ userImg: '', status: '' });
+        } else {
+          this.setState({ status: 'Oops' });
+        }
+      })
+      .catch(() => {
+        this.setState({ status: 'Oops' });
+      });
   };
 
   saveSettings = () => {
@@ -107,6 +130,7 @@ class MySettings extends React.Component {
   };
 
   deleteAccount = () => {
+    this.setState({ status: 'Saving' });
     axios
       .get(`${server}/admin/delete`, {
         withCredentials: true,
@@ -118,6 +142,7 @@ class MySettings extends React.Component {
       })
       .then((res) => {
         if (res.data.status === 'Okay') {
+          this.setState({ status: '' });
           window.open('../', '_self');
         } else {
           this.setState({ status: 'Oops' });
@@ -142,11 +167,11 @@ class MySettings extends React.Component {
         const data = res.data;
 
         if (!('status' in data)) {
-          this.setState(data);
+          this.setState(data.settings);
           this.setState({
             userImg:
               data.userImg === '' || !('userImg' in data)
-                ? this.state.userImg
+                ? defaultImg
                 : data.userImg,
           });
         }
@@ -187,10 +212,15 @@ class MySettings extends React.Component {
         break;
       // code block
     }
+
+    const userImg = this.state.userImg === '' ? defaultImg : this.state.userImg;
+    const bgImage = `url(${this.state.bgImg})`;
+    const cardImage = `url(${this.state.cardImg})`;
+
     return (
       <div className='main'>
         <Header
-          userImg={this.state.userImg}
+          userImg={userImg}
           name={this.props.user.username}
           handleLogout={this.props.handleLogout}
           calledFrom='MySettings'
@@ -198,7 +228,7 @@ class MySettings extends React.Component {
         <div className='settings'>
           <div className='settingsSection'>
             <div className='settingsH'>
-              <img className='adminImage' src={this.state.userImg} alt='User' />
+              <img className='adminImage' src={userImg} alt='User' />
               <label className='settingsButton' onChange={this.imageUpload}>
                 <input
                   id='userImg'
@@ -208,7 +238,12 @@ class MySettings extends React.Component {
                 />
                 Upload
               </label>
-              <div className='settingsButton settingsButtonRed'>Remove</div>
+              <div
+                className='settingsButton settingsButtonRed'
+                onClick={this.deleteImage}
+              >
+                Remove
+              </div>
             </div>
           </div>
           <div className='settingsSection'>
@@ -255,11 +290,13 @@ class MySettings extends React.Component {
                 <label
                   id='bgChoice3'
                   className='settingsCard settingsBgCard settingsCardImage'
-                  style={{ background: this.state.bgImage }}
+                  style={{
+                    backgroundImage: bgImage,
+                  }}
                   onClick={this.cardSelect}
                   onChange={this.imageUpload}
                 >
-                  <input id='bgImage' type='file' style={{ display: 'none' }} />
+                  <input id='bgImg' type='file' style={{ display: 'none' }} />
                   <i
                     className={`far fa-image ${
                       this.state.bgChoice === '3'
@@ -366,12 +403,11 @@ class MySettings extends React.Component {
                   className={`settingsCard settingsCardCard settingsCardImage`}
                   onClick={this.cardSelect}
                   onChange={this.imageUpload}
+                  style={{
+                    backgroundImage: cardImage,
+                  }}
                 >
-                  <input
-                    id='cardImage'
-                    type='file'
-                    style={{ display: 'none' }}
-                  />
+                  <input id='cardImg' type='file' style={{ display: 'none' }} />
                   <i
                     className={`far fa-image ${
                       this.state.cardChoice === '3'
@@ -522,5 +558,4 @@ class MySettings extends React.Component {
     );
   }
 }
-
 export default MySettings;
