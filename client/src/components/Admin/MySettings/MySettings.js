@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Header from '../Header.js';
+import MySocial from './MySocial.js';
 import Footer from '../../Footer.js';
 
 import './styles.css';
@@ -30,6 +31,7 @@ class MySettings extends React.Component {
       textColor: '#5f5d54',
       borderColor: '#929b94',
       socialColor: '#f2f3ef',
+      socials: [],
     };
   }
 
@@ -109,9 +111,82 @@ class MySettings extends React.Component {
       });
   };
 
-  addSocial = () => {};
+  addSocial = () => {
+    this.setState({ status: '' });
+    const socials = this.state.socials;
 
-  saveSocial = () => {};
+    if (socials.length < 6) {
+      if (socials === []) {
+        const newSocials = this.state.socials.push({ name: '', uid: '' });
+        this.setState({ socials: newSocials });
+      } else if (
+        !socials.some((social) => social.uid === '') &&
+        !socials.some((social) => social.name === '')
+      ) {
+        console.log(socials[socials.length - 1].name);
+        const newSocials = [...this.state.socials, { name: '', uid: '' }];
+        this.setState({ socials: newSocials });
+      } else {
+        console.log('Fill', this.state.socials);
+        this.setState({ status: 'Fill Socials First' });
+      }
+    } else {
+      console.log('Max');
+      this.setState({ status: 'Max Reached' });
+    }
+  };
+
+  updateSocial = (event) => {
+    const target = event.target;
+    const id = target.name.split('_');
+    const platform = id[1];
+    const field = id[0];
+
+    const socials = this.state.socials;
+    const social = socials[platform];
+    social[field] = target.value;
+    socials.splice(platform, 1, social);
+
+    this.setState({ socials: socials });
+  };
+
+  deleteSocial = (event) => {
+    this.setState({ status: '' });
+    const target = event.target;
+
+    const socials = this.state.socials;
+    socials.splice(target.id, 1);
+
+    this.setState({ socials: socials });
+  };
+
+  saveSocial = () => {
+    this.setState({ status: 'Saving' });
+
+    const socials = this.state.socials;
+    if (
+      !socials.some((social) => social.uid === '') &&
+      !socials.some((social) => social.name === '')
+    ) {
+      axios
+        .post(`${server}/admin/saveSocials`, this.state.socials, {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true,
+          },
+        })
+        .then((res) => {
+          this.setState({ status: res.data.status });
+        })
+        .catch(() => {
+          this.setState({ status: 'Error' });
+        });
+    } else {
+      this.setState({ status: 'Fill Socials First' });
+    }
+  };
 
   saveSettings = () => {
     this.setState({ status: 'Saving' });
@@ -171,7 +246,7 @@ class MySettings extends React.Component {
         const data = res.data;
 
         if (!('status' in data)) {
-          this.setState(data.settings);
+          this.setState(data);
           this.setState({
             userImg:
               data.userImg === '' || !('userImg' in data)
@@ -197,6 +272,8 @@ class MySettings extends React.Component {
         statusMessage = <i className='fas fa-times'></i>;
         settingsStatus = 'settingsStatusBad';
         break;
+      case 'Fill Socials First':
+      case 'Max Reached':
       case 'Invalid Color':
       case 'Invalid File':
         statusMessage = (
@@ -214,12 +291,25 @@ class MySettings extends React.Component {
       default:
         settingsStatus = 'settingsStatusHide';
         break;
-      // code block
     }
 
     const userImg = this.state.userImg === '' ? defaultImg : this.state.userImg;
     const bgImage = `url(${this.state.bgImg})`;
     const cardImage = `url(${this.state.cardImg})`;
+
+    const socials = this.state.socials.map((social, i) => {
+      console.log(social.name);
+      return (
+        <MySocial
+          key={i}
+          num={i}
+          platform={social.name}
+          uid={social.uid}
+          deleteSocial={this.deleteSocial}
+          updateSocial={this.updateSocial}
+        />
+      );
+    });
 
     return (
       <div className='main'>
@@ -252,12 +342,15 @@ class MySettings extends React.Component {
           </div>
           <div className='settingsSection'>
             <div className='settingsName'>Socials</div>
-            <div className='settingsH'>
-              <div className='settingsButton' onClick={this.addSocial}>
-                Add
-              </div>
-              <div className='settingsButton' onClick={this.saveSocial}>
-                Save
+            <div className='settingsV' style={{ marginBottom: '0px' }}>
+              <div className='settingsSocials'>{socials}</div>
+              <div className='settingsH'>
+                <div className='settingsButton' onClick={this.addSocial}>
+                  Add
+                </div>
+                <div className='settingsButton' onClick={this.saveSocial}>
+                  Save
+                </div>
               </div>
             </div>
           </div>

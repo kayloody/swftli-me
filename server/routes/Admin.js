@@ -8,6 +8,7 @@ import {
   loadSettings,
   uploadImage,
   deleteImage,
+  saveSocials,
   saveSettings,
   deleteAccount,
 } from '../controllers/Admin.js';
@@ -23,6 +24,7 @@ router.post('/oauthuser', oauthuser);
 router.get('/loadSettings', loadSettings);
 router.post('/uploadImage', uploadImage);
 router.get('/deleteImage', deleteImage);
+router.post('/saveSocials', saveSocials);
 router.post('/saveSettings', saveSettings);
 router.get('/delete', deleteAccount);
 

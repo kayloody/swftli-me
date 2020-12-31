@@ -85,6 +85,61 @@
   background-color: var(--warning-color);
 }
 
+.settingsSocials {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100%;
+
+  gap: 20px;
+}
+
+.settingsSocial {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  height: 30px;
+  width: 100%;
+  box-sizing: border-box;
+
+  font-size: 20px;
+}
+
+.settingsSocialSelect {
+  background: none;
+  border-radius: 10px;
+  border: solid 2px var(--button-dark);
+  resize: none;
+
+  width: 110px;
+  height: 30px;
+
+  padding-left: 3px;
+
+  font-family: 'Bahnschrift';
+  font-size: 20px;
+  color: #5f5d54;
+}
+
+.settingsSocialId {
+  background: var(--social-color);
+  border-radius: 10px;
+  border: solid 2px var(--button-dark);
+
+  font-family: 'Bahnschrift';
+  font-size: 20px;
+  color: #5f5d54;
+
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .settingsCard {
   display: flex;
   flex-direction: column;
@@ -152,7 +207,7 @@
   align-items: center;
 
   background: var(--social-color);
-  border-radius: 100px;
+  border-radius: 10px;
   border: solid 2px var(--button-dark);
 
   height: 30px;
@@ -162,7 +217,7 @@
 
 .settingsColorPreview {
   background: var(--social-color);
-  border-radius: 100px;
+  border-radius: 10px;
   border: solid 2px var(--button-dark);
 
   width: 30px;
@@ -186,7 +241,7 @@
 
 .settingsSelect {
   background: none;
-  border-radius: 100px;
+  border-radius: 10px;
   border: solid 2px var(--button-dark);
   resize: none;
 
@@ -309,19 +364,52 @@
     font-weight: 300;
   }
 
+  .settingsSocials {
+    gap: 10px;
+  }
+
+  .settingsSocial {
+    font-size: 15px;
+  }
+
+  .settingsSocialSelect {
+    border-radius: 7px;
+    border-width: 1px;
+
+    width: 90px;
+    height: 20px;
+
+    padding-left: 3px;
+
+    font-size: 15px;
+  }
+
+  .settingsSocialId {
+    border-radius: 7px;
+    border-width: 1px;
+
+    width: 70px;
+
+    font-size: 15px;
+
+    padding-left: 10px;
+  }
+
   .settingsColor {
-    border-width: 1.5px;
+    border-radius: 7px;
+    border-width: 1px;
 
     height: 20px;
     width: 110px;
   }
 
   .settingsColorPreview {
-    border-width: 1.5px;
+    border-radius: 7px;
+    border-width: 1px;
 
     width: 20px;
     height: 20px;
-    margin-left: -1.5px;
+    margin-left: -1px;
   }
 
   .settingsColorText {
@@ -331,7 +419,7 @@
   }
 
   .settingsSelect {
-    border-radius: 100px;
+    border-radius: 7px;
     border-width: 1px;
 
     width: 110px;

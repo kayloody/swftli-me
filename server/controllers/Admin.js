@@ -40,7 +40,7 @@ export const oauthuser = (req, res) => {
 export const loadSettings = (req, res) => {
   const username = req.user.username;
   User.findOne({ user_lower: username.toLowerCase() })
-    .select('userImg settings')
+    .select('userImg settings socials')
     .exec((err, doc) => {
       if (err) {
         res.json({ status: 'Error' });
@@ -48,7 +48,11 @@ export const loadSettings = (req, res) => {
         if ('settings' in doc) {
           res.json(doc);
         } else {
-          res.json({ userImg: doc.userImg, status: 'No custom settings' });
+          res.json({
+            userImg: doc.userImg,
+            socials: doc.socials,
+            status: 'No custom settings',
+          });
         }
       }
     });
@@ -117,10 +121,28 @@ export const deleteImage = (req, res) => {
     });
 };
 
-export const saveSettings = (req, res) => {
-  const username = req.user.username;
+export const saveSocials = (req, res) => {
+  const id = req.user.id;
   const data = req.body;
   delete data.status;
+  delete data.userImg;
+  delete data.settings;
+
+  User.findByIdAndUpdate(id, { socials: data }).exec((err) => {
+    if (err) {
+      res.json({ status: 'Error' });
+    } else {
+      res.json({ status: 'Okay' });
+    }
+  });
+};
+
+export const saveSettings = (req, res) => {
+  const id = req.user.id;
+  const data = req.body;
+  delete data.status;
+  delete data.userImg;
+  delete data.socials;
 
   if (data.bgChoice === '3') {
     delete data.bgColor1;
@@ -144,10 +166,7 @@ export const saveSettings = (req, res) => {
   }
 
   if (color === 'valid') {
-    User.findOneAndUpdate(
-      { user_lower: username.toLowerCase() },
-      { settings: data }
-    ).exec((err, doc) => {
+    User.findByIdAndUpdate(id, { settings: data }).exec((err) => {
       if (err) {
         res.json({ status: 'Error' });
       } else {
@@ -160,15 +179,13 @@ export const saveSettings = (req, res) => {
 };
 
 export const deleteAccount = (req, res) => {
-  const username = req.user.username;
+  const id = req.user.id;
 
-  User.findOneAndDelete({ user_lower: username.toLowerCase() }).exec(
-    (err, doc) => {
-      if (err) {
-        res.json({ status: 'Error' });
-      } else {
-        res.json({ status: 'Okay' });
-      }
+  User.findById(id).exec((err) => {
+    if (err) {
+      res.json({ status: 'Error' });
+    } else {
+      res.json({ status: 'Okay' });
     }
-  );
+  });
 };
