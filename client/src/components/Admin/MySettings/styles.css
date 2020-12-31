@@ -140,6 +140,18 @@
   padding-right: 15px;
 }
 
+.settingsSocialDelete {
+  color: var(--warning-color);
+}
+
+.settingsSocialDelete:hover {
+  filter: brightness(110%);
+}
+
+.settingsSocialDelete:active {
+  filter: brightness(90%);
+}
+
 .settingsCard {
   display: flex;
   flex-direction: column;
@@ -191,7 +203,10 @@
 }
 
 .settingsImageIconYes {
+  -webkit-text-stroke: 2px var(--button-dark);
+
   font-size: 30px;
+  color: var(--social-color);
 
   pointer-events: none;
 }
@@ -442,6 +457,17 @@
 
   .settingsMiscText {
     font-weight: 300;
+    font-size: 15px;
+  }
+
+  .settingsStatus {
+    padding: 7px;
+    min-width: 20px;
+
+    border-width: 1px;
+    border-radius: 7px;
+
+    line-height: 15px;
     font-size: 15px;
   }
 }

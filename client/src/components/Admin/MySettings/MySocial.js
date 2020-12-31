@@ -10,7 +10,7 @@ class MySocial extends React.Component {
           value={this.props.platform}
           onChange={this.props.updateSocial}
         >
-          <option style={{ display: 'none' }} selected value='Platform'>
+          <option style={{ display: 'none' }} value=''>
             Platform
           </option>
           <option value='discord.gg'>Discord</option>
@@ -37,8 +37,7 @@ class MySocial extends React.Component {
         ></input>
         <i
           id={this.props.num}
-          className='far fa-trash-alt'
-          style={{ color: 'var(--warning-color)' }}
+          className='far fa-trash-alt settingsSocialDelete'
           onClick={this.props.deleteSocial}
         ></i>
       </div>

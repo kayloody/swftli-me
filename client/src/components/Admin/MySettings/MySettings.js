@@ -134,6 +134,7 @@ class MySettings extends React.Component {
   };
 
   updateSocial = (event) => {
+    this.setState({ status: '' });
     const target = event.target;
     const id = target.name.split('_');
     const platform = id[1];
@@ -243,7 +244,7 @@ class MySettings extends React.Component {
         const data = res.data;
 
         if (!('status' in data)) {
-          this.setState(data);
+          this.setState({ socials: data.socials, ...data.settings });
           this.setState({
             userImg:
               data.userImg === '' || !('userImg' in data)
@@ -399,7 +400,7 @@ class MySettings extends React.Component {
                 >
                   <input id='bgImg' type='file' style={{ display: 'none' }} />
                   <i
-                    className={`far fa-image ${
+                    className={`fas fa-image ${
                       this.state.bgChoice === '3'
                         ? 'settingsImageIconNo'
                         : 'settingsImageIconYes'
@@ -510,7 +511,7 @@ class MySettings extends React.Component {
                 >
                   <input id='cardImg' type='file' style={{ display: 'none' }} />
                   <i
-                    className={`far fa-image ${
+                    className={`fas fa-image ${
                       this.state.cardChoice === '3'
                         ? 'settingsImageIconNo'
                         : 'settingsImageIconYes'
