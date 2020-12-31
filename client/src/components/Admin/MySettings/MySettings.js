@@ -123,15 +123,12 @@ class MySettings extends React.Component {
         !socials.some((social) => social.uid === '') &&
         !socials.some((social) => social.name === '')
       ) {
-        console.log(socials[socials.length - 1].name);
         const newSocials = [...this.state.socials, { name: '', uid: '' }];
         this.setState({ socials: newSocials });
       } else {
-        console.log('Fill', this.state.socials);
         this.setState({ status: 'Fill Socials First' });
       }
     } else {
-      console.log('Max');
       this.setState({ status: 'Max Reached' });
     }
   };
@@ -298,7 +295,6 @@ class MySettings extends React.Component {
     const cardImage = `url(${this.state.cardImg})`;
 
     const socials = this.state.socials.map((social, i) => {
-      console.log(social.name);
       return (
         <MySocial
           key={i}
