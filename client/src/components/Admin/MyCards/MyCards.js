@@ -14,7 +14,7 @@ const server = 'http://localhost:5000';
 class MyCards extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { socials: ['A', 'B', 'C', 'D', 'E'] };
+    this.state = { links: ['A', 'B', 'C', 'D', 'E'] };
   }
 
   onDragStart = (result) => {
@@ -37,11 +37,11 @@ class MyCards extends React.Component {
       return;
     }
 
-    const updatedSocials = [...this.state.socials];
-    updatedSocials.splice(source.index, 1);
-    updatedSocials.splice(destination.index, 0, draggableId);
+    const updatedLinks = [...this.state.links];
+    updatedLinks.splice(source.index, 1);
+    updatedLinks.splice(destination.index, 0, draggableId);
 
-    this.setState({ socials: updatedSocials });
+    this.setState({ links: updatedLinks });
   };
 
   componentDidMount() {
@@ -92,7 +92,7 @@ class MyCards extends React.Component {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {this.state.socials.map((elem, i) => {
+                {this.state.links.map((elem, i) => {
                   return <MyCard key={elem} id={elem} index={i} />;
                 })}
                 {provided.placeholder}
