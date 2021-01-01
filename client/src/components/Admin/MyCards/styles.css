@@ -1,0 +1,25 @@
+.cardsDroppable {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 70%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  transition: ease;
+}
+
+.cardsDraggable {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100%;
+  margin-bottom: 20px;
+
+  background: var(--card-color1);
+}
