@@ -3,14 +3,17 @@ import React from 'react';
 import Card from './Card';
 import { socialClasses, getDomain } from '../Domains.js';
 
-// Need to have code to remove everything before hostname as
-// written below when user inputs links (no www http https)
-// and to properly verify url
-// Can then remove code to get hostname
 const Cards = (props) => {
   const allCards = props.links.map((card, i) => {
     const domain = getDomain(card.url);
-    const socialClass = domain in socialClasses ? socialClasses[domain] : '';
+    const domainNoW = domain.substring(4);
+    const socialClass =
+      domain in socialClasses
+        ? socialClasses[domain]
+        : domainNoW in socialClasses
+        ? socialClasses[domainNoW]
+        : '';
+
     return (
       <Card
         key={i}

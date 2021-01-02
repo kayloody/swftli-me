@@ -5,6 +5,8 @@ import formData from 'express-form-data';
 
 import {
   oauthuser,
+  loadCards,
+  saveCards,
   loadSettings,
   uploadImage,
   deleteImage,
@@ -20,6 +22,9 @@ router.use(bodyParser.json());
 router.use(formData.parse());
 
 router.post('/oauthuser', oauthuser);
+
+router.get('/loadCards', loadCards);
+router.post('/saveCards', saveCards);
 
 router.get('/loadSettings', loadSettings);
 router.post('/uploadImage', uploadImage);

@@ -141,7 +141,10 @@
 }
 
 .settingsSocialDelete {
+  font-size: 20px;
   color: var(--warning-color);
+
+  cursor: pointer;
 }
 
 .settingsSocialDelete:hover {

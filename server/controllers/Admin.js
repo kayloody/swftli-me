@@ -25,16 +25,52 @@ export const oauthuser = (req, res) => {
           user_lower: username.toLowerCase(),
           'oauth.new': false,
         }
-      ).exec((err, doc) => {
+      ).exec((err) => {
         if (err) {
           res.json({ error: 'Database Error' });
         } else {
-          console.log(doc);
           res.json({ okay: username });
         }
       });
     }
   });
+};
+
+export const loadCards = (req, res) => {
+  const username = req.user.username;
+  User.findOne({ user_lower: username.toLowerCase() })
+    .select('userImg links')
+    .exec((err, doc) => {
+      if (err) {
+        res.json({ status: 'Error' });
+      } else {
+        if ('links' in doc) {
+          res.json(doc);
+        } else {
+          res.json({
+            userImg: doc.userImg,
+            status: 'No cards',
+          });
+        }
+      }
+    });
+};
+
+export const saveCards = (req, res) => {
+  const id = req.user.id;
+  const data = req.body;
+  delete data.status;
+  delete data.userImg;
+
+  User.findByIdAndUpdate(id, { links: data }, { new: true }).exec(
+    (err, doc) => {
+      if (err) {
+        res.json({ status: 'Error' });
+      } else {
+        res.json({ status: 'Okay' });
+      }
+    }
+  );
 };
 
 export const loadSettings = (req, res) => {

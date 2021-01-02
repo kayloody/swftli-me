@@ -15,11 +15,198 @@
 .cardsDraggable {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  box-sizing: border-box;
+  width: 800px;
+  height: 80px;
+  max-width: 90vw;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  background: linear-gradient(
+    var(--card-angle),
+    var(--card-color1) 0%,
+    var(--card-color2) 100%
+  );
+  background-position: center;
+  border-radius: 10px;
+}
+
+.cardsGrip {
+  height: 100%;
+  line-height: 30px;
   align-items: center;
 
+  font-size: 30px;
+
+  color: var(--border-color);
+}
+
+.cardsGrip:active {
+  color: #5f5d54;
+}
+
+.cardsGripLines {
+  padding-top: 80%;
+}
+
+.cardsLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  height: 70%;
   width: 100%;
-  margin-bottom: 20px;
+}
+
+.cardsLinkName {
+  background: none;
+  border: none;
+  width: 100%;
+
+  font-family: 'Bahnschrift';
+  font-size: 20px;
+  font-weight: 500;
+  color: #5f5d54;
+}
+
+.cardsLinkUrl {
+  background: none;
+  border: none;
+  width: 100%;
+
+  font-family: 'Bahnschrift';
+  font-size: 20px;
+  font-weight: 100;
+  color: #5f5d54;
+}
+
+.cardsSettings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  height: 70%;
+}
+
+.cardsEnabled {
+  box-sizing: border-box;
+  width: 50px;
+
+  background: var(--bg-color2);
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.cardsEnabledNo {
+  background: var(--bg-color1);
+}
+
+.cardsEnabledCircle {
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: auto;
+  margin-right: 3px;
 
   background: var(--card-color1);
+  border-radius: 10px;
+}
+
+.cardsEnabledCircleNo {
+  margin-right: auto;
+  margin-left: 3px;
+}
+
+.cardsDelete {
+  font-size: 20px;
+  color: var(--warning-color);
+
+  cursor: pointer;
+}
+
+.cardsDelete:hover {
+  filter: brightness(110%);
+}
+
+.cardsDelete:active {
+  filter: brightness(90%);
+}
+
+.cardsButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+
+  gap: 20px;
+
+  width: 100%;
+}
+
+.cardsButton {
+  width: 250px;
+  max-width: 90%;
+  height: 40px;
+  border-radius: 10px;
+
+  background-color: var(--button-color);
+
+  text-align: center;
+  line-height: 40px;
+
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--social-color);
+
+  cursor: pointer;
+}
+
+.cardsButton:hover {
+  filter: brightness(110%);
+}
+
+.cardsButton:active {
+  filter: brightness(90%);
+}
+
+.settingsStatus {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+
+  background: var(--card-color1);
+  padding: 10px;
+  min-width: 20px;
+
+  border: solid 2px;
+  border-radius: 10px;
+
+  text-align: center;
+  line-height: 20px;
+  font-size: 20px;
+}
+
+.settingsStatusGood {
+  background-color: var(--bg-color2);
+}
+
+.settingsStatusBad {
+  background-color: var(--bg-color1);
+}
+
+.settingsStatusNeutral {
+  background-color: var(--card-color1);
+}
+
+.settingsStatusHide {
+  visibility: hidden;
 }

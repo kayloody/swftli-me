@@ -245,13 +245,13 @@ class MySettings extends React.Component {
 
         if (!('status' in data)) {
           this.setState({ socials: data.socials, ...data.settings });
-          this.setState({
-            userImg:
-              data.userImg === '' || !('userImg' in data)
-                ? defaultImg
-                : data.userImg,
-          });
         }
+        this.setState({
+          userImg:
+            data.userImg === '' || !('userImg' in data)
+              ? defaultImg
+              : data.userImg,
+        });
       })
       .catch(() => {
         this.setState({ status: 'Error' });
