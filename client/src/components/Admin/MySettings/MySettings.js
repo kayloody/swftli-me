@@ -78,12 +78,15 @@ class MySettings extends React.Component {
           },
         })
         .then((res) => {
+          event.target.value = ''; // To allow upload of same image again
           this.setState({ [name]: res.data.url, status: '' });
         })
         .catch(() => {
+          event.target.value = '';
           this.setState({ status: 'Error' });
         });
     } else {
+      event.target.value = '';
       this.setState({ status: 'Invalid File' });
     }
   };
@@ -103,11 +106,11 @@ class MySettings extends React.Component {
         if (res.data.status === 'Okay') {
           this.setState({ userImg: '', status: '' });
         } else {
-          this.setState({ status: 'Oops' });
+          this.setState({ status: 'Error' });
         }
       })
       .catch(() => {
-        this.setState({ status: 'Oops' });
+        this.setState({ status: 'Error' });
       });
   };
 
@@ -219,14 +222,14 @@ class MySettings extends React.Component {
       })
       .then((res) => {
         if (res.data.status === 'Okay') {
-          this.setState({ status: '' });
+          this.setState({ status: 'Okay' });
           window.open('../', '_self');
         } else {
-          this.setState({ status: 'Oops' });
+          this.setState({ status: 'Error' });
         }
       })
       .catch(() => {
-        this.setState({ status: 'Oops' });
+        this.setState({ status: 'Error' });
       });
   };
 

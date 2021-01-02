@@ -140,9 +140,7 @@ export const deleteImage = (req, res) => {
   const id = req.user.id;
 
   cloudinary.v2.uploader
-    .destroy('userImg', {
-      folder: id,
-    })
+    .destroy(id + '/userImg')
     .then(() => {
       User.findByIdAndUpdate(id, { userImg: '' }).exec((err, doc) => {
         if (err) {
@@ -217,11 +215,18 @@ export const saveSettings = (req, res) => {
 export const deleteAccount = (req, res) => {
   const id = req.user.id;
 
-  User.findByIdAndDelete(id).exec((err) => {
-    if (err) {
+  cloudinary.v2.api
+    .delete_resources_by_prefix(id)
+    .then(() => {
+      User.findByIdAndDelete(id).exec((err) => {
+        if (err) {
+          res.json({ status: 'Error' });
+        } else {
+          res.json({ status: 'Okay' });
+        }
+      });
+    })
+    .catch(() => {
       res.json({ status: 'Error' });
-    } else {
-      res.json({ status: 'Okay' });
-    }
-  });
+    });
 };
