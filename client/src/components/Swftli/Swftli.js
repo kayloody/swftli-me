@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import Cards from './Cards/Cards';
 import Header from './Header/Header.js';
 import Footer from './Footer.js';
+import Logo from '../Logo.js';
 
 import './styles.css';
 
@@ -68,7 +69,13 @@ class Swftli extends React.Component {
   }
 
   render() {
-    let content = <div className='error'>Loading (swftli 😉)...</div>;
+    let content = (
+      <div className='main'>
+        <Logo />
+        <br />
+        <p className='cardMessage'>Swftli loading...</p>
+      </div>
+    );
 
     if (this.state.status === 'OK') {
       let user = this.state.data;
@@ -85,18 +92,25 @@ class Swftli extends React.Component {
       );
     } else if (this.state.data === 'No User Found') {
       content = (
-        <div className='error'>
-          Nobody owns this swftli
-          <br />
-          Quick snatch it!
+        <div className='main'>
+          <Logo />
+          <p className='cardMessage'>
+            <br />
+            Nobody owns {this.props.match.params.uid}.{' '}
+            <a href='./' className='cardMessageLink'>
+              Snatch it swftli!
+            </a>
+          </p>
         </div>
       );
-    } else if (this.state.status === 'OK') {
+    } else if (this.state.status !== 'OK') {
       content = (
-        <div className='error'>
-          We are experiencing technical difficulty
-          <br />
-          Please try again later
+        <div className='main'>
+          <Logo />
+          <p className='cardMessage'>
+            <br />
+            Server is down. Please try again later.
+          </p>
         </div>
       );
     } else {

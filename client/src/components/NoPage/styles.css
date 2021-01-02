@@ -1,0 +1,36 @@
+.noPage {
+  width: 100%;
+
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  color: #5f5d54;
+}
+
+.noPageLink {
+  margin-left: 5px;
+
+  text-decoration: none;
+  font-weight: bolder;
+
+  color: #5f5d54;
+}
+
+.noPageLink:hover {
+  cursor: pointer;
+
+  filter: brightness(120%);
+}
+
+.noPageLink:active {
+  filter: brightness(80%);
+}
+
+@media screen and (max-width: 500px) {
+  .noPage {
+    width: 70%;
+    margin: auto;
+
+    font-size: 16px;
+  }
+}

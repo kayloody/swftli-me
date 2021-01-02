@@ -119,6 +119,59 @@
   margin-right: 20px;
 }
 
+.cardMessage {
+  width: 100%;
+
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+  color: #5f5d54;
+}
+
+.cardMessageLink {
+  margin-left: 5px;
+
+  text-decoration: none;
+  font-weight: bolder;
+
+  color: #5f5d54;
+}
+
+.cardMessageLink:hover {
+  cursor: pointer;
+
+  filter: brightness(120%);
+}
+
+.cardMessageLink:active {
+  filter: brightness(80%);
+}
+
+.userFooterLink {
+  text-decoration: none;
+  font-weight: bolder;
+
+  width: 100%;
+
+  margin-top: 50px;
+
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  text-shadow: 0 0 3px #5f5d54;
+  color: #f8f8f5;
+}
+
+.userFooterLink:hover {
+  cursor: pointer;
+
+  filter: brightness(80%);
+}
+
+.userFooterLink:active {
+  filter: brightness(120%);
+}
+
 @media screen and (max-width: 1150px) {
   .userHeader {
     display: flex;
@@ -225,5 +278,12 @@
 
   .cardSocial {
     margin-right: 10px;
+  }
+
+  .cardMessage {
+    width: 70%;
+    margin: auto;
+
+    font-size: 16px;
   }
 }
