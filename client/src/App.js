@@ -63,7 +63,17 @@ class App extends React.Component {
   render() {
     const { auth, user } = this.state;
 
-    const mainPaths = ['/', '/home', '/admin', '/administrator', '/settings'];
+    const mainPaths = [
+      '/',
+      '/home',
+      '/admin',
+      '/administrator',
+      '/settings',
+      '/',
+      '/home/*',
+      '/administrator/*',
+      '/settings/*',
+    ];
     const noPaths = ['/login', '/signin', '/logout', '/signout', '/signup'];
 
     const routeCards = (
@@ -113,7 +123,9 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path={noPaths} component={NoPage} />
-          {!auth && <Route exact path={mainPaths} component={Auth} />}
+          {!auth && (
+            <Route exact path={[...mainPaths, '/admin/*']} component={Auth} />
+          )}
           {auth && user.oauth.new === false && routeSettings}
           {auth && user.oauth.new === false && routeCards}
           {auth && user.oauth.new === true && routeOauth}

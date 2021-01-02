@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import axios from 'axios';
+import badwordsList from 'badwords-list';
 
 import Header from '../Header.js';
 import MyCard from './MyCard.js';
@@ -20,11 +21,6 @@ class MyCards extends React.Component {
       links: [],
     };
   }
-
-  onDragStart = (result) => {
-    this.setState({ status: '' });
-    const { source } = result;
-  };
 
   onDragEnd = (result) => {
     this.setState({ status: '' });
@@ -57,8 +53,11 @@ class MyCards extends React.Component {
       });
       this.setState({ links: newLinks });
     } else if (
-      !links.some((link) => link.name === '') &&
-      !links.some((link) => link.url === '' || !validateURL(link.url))
+      !links.some((link) => link.name === '' || !filterInput(link.name)) &&
+      !links.some(
+        (link) =>
+          link.url === '' || !validateURL(link.url) || !filterInput(link.url)
+      )
     ) {
       const newLinks = [
         ...links,
@@ -66,7 +65,7 @@ class MyCards extends React.Component {
       ];
       this.setState({ links: newLinks });
     } else {
-      this.setState({ status: 'Fill Everything First' });
+      this.setState({ status: 'Invalid Name or URL' });
     }
   };
 
@@ -119,8 +118,11 @@ class MyCards extends React.Component {
     this.setState({ status: 'Saving' });
     const links = this.state.links;
     if (
-      !links.some((link) => link.name === '') &&
-      !links.some((link) => link.url === '' || !validateURL(link.url))
+      !links.some((link) => link.name === '' || !filterInput(link.name)) &&
+      !links.some(
+        (link) =>
+          link.url === '' || !validateURL(link.url) || !filterInput(link.url)
+      )
     ) {
       console.log(this.state.links);
       axios
@@ -139,7 +141,7 @@ class MyCards extends React.Component {
           this.setState({ status: 'Error' });
         });
     } else {
-      this.setState({ status: 'Fill Everything First' });
+      this.setState({ status: 'Invalid Name or URL' });
     }
   };
 
@@ -173,31 +175,31 @@ class MyCards extends React.Component {
 
   render() {
     let statusMessage = '';
-    let settingsStatus = '';
+    let cardsStatus = '';
     switch (this.state.status) {
       case 'Okay':
         statusMessage = <i className='fas fa-check'></i>;
-        settingsStatus = 'settingsStatusGood';
+        cardsStatus = 'cardsStatusGood';
         break;
       case 'Error':
         statusMessage = <i className='fas fa-times'></i>;
-        settingsStatus = 'settingsStatusBad';
+        cardsStatus = 'cardsStatusBad';
         break;
-      case 'Fill Everything First':
+      case 'Invalid Name or URL':
         statusMessage = (
           <div>
             <i className='fas fa-times'></i>
             <span style={{ marginLeft: '10px' }}>{this.state.status}</span>
           </div>
         );
-        settingsStatus = 'settingsStatusBad';
+        cardsStatus = 'cardsStatusBad';
         break;
       case 'Saving':
         statusMessage = <i className='fas fa-spinner'></i>;
-        settingsStatus = 'settingsStatusNeutral';
+        cardsStatus = 'cardsStatusNeutral';
         break;
       default:
-        settingsStatus = 'settingsStatusHide';
+        cardsStatus = 'cardsStatusHide';
         break;
     }
 
@@ -249,9 +251,7 @@ class MyCards extends React.Component {
           </div>
         </div>
         <Footer />
-        <div className={`settingsStatus ${settingsStatus}`}>
-          {statusMessage}
-        </div>
+        <div className={`cardsStatus ${cardsStatus}`}>{statusMessage}</div>
       </div>
     );
   }
@@ -277,6 +277,12 @@ const validateURL = (url) => {
     'i'
   ); // fragment locator
   return !!pattern.test(url);
+};
+
+const filterInput = (str) => {
+  const badwordsArray = badwordsList.array;
+
+  return !badwordsArray.some((word) => str.includes(word));
 };
 
 export default MyCards;

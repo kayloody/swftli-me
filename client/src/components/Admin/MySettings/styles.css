@@ -375,6 +375,7 @@
 
   .settingsButton {
     height: 30px;
+    max-width: 100%;
 
     line-height: 30px;
 

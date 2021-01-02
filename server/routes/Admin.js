@@ -31,6 +31,6 @@ router.post('/uploadImage', uploadImage);
 router.get('/deleteImage', deleteImage);
 router.post('/saveSocials', saveSocials);
 router.post('/saveSettings', saveSettings);
-router.get('/delete', deleteAccount);
+router.get('/deleteAccount', deleteAccount);
 
 export default router;

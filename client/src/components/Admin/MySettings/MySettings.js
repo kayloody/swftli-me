@@ -209,7 +209,7 @@ class MySettings extends React.Component {
   deleteAccount = () => {
     this.setState({ status: 'Saving' });
     axios
-      .get(`${server}/admin/delete`, {
+      .get(`${server}/admin/deleteAccount`, {
         withCredentials: true,
         headers: {
           Accept: 'application/json',

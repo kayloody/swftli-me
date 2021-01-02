@@ -149,12 +149,25 @@
 
   gap: 20px;
 
-  width: 100%;
+  box-sizing: border-box;
+  width: 800px;
+  max-width: 90vw;
+
+  margin: auto;
+  padding: 20px;
+
+  background: linear-gradient(
+    var(--card-angle),
+    var(--card-color1) 0%,
+    var(--card-color2) 100%
+  );
+  background-position: center;
+  border-radius: 10px;
 }
 
 .cardsButton {
   width: 250px;
-  max-width: 90%;
+  max-width: 40%;
   height: 40px;
   border-radius: 10px;
 
@@ -178,7 +191,7 @@
   filter: brightness(90%);
 }
 
-.settingsStatus {
+.cardsStatus {
   position: fixed;
   bottom: 10px;
   right: 20px;
@@ -195,18 +208,92 @@
   font-size: 20px;
 }
 
-.settingsStatusGood {
+.cardsStatusGood {
   background-color: var(--bg-color2);
 }
 
-.settingsStatusBad {
+.cardsStatusBad {
   background-color: var(--bg-color1);
 }
 
-.settingsStatusNeutral {
+.cardsStatusNeutral {
   background-color: var(--card-color1);
 }
 
-.settingsStatusHide {
+.cardsStatusHide {
   visibility: hidden;
+}
+
+@media screen and (max-width: 500px) {
+  .cardsDraggable {
+    height: 60px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+
+    gap: 10px;
+  }
+  .cardsGrip {
+    line-height: 20px;
+
+    font-size: 20px;
+  }
+
+  .cardsGripLines {
+    padding-top: 100%;
+  }
+
+  .cardsLinkName {
+    font-size: 15px;
+  }
+
+  .cardsLinkUrl {
+    font-size: 15px;
+  }
+
+  .cardsSettings {
+    height: 70%;
+  }
+
+  .cardsEnabled {
+    width: 30px;
+  }
+
+  .cardsEnabledCircle {
+    width: 10px;
+    height: 10px;
+  }
+
+  .cardsDelete {
+    font-size: 15px;
+  }
+
+  .cardsButtons {
+    flex-direction: column;
+    align-items: center;
+
+    gap: 15px;
+  }
+
+  .cardsButton {
+    height: 30px;
+    max-width: 100%;
+
+    line-height: 30px;
+
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .cardsStatus {
+    padding: 7px;
+    min-width: 20px;
+
+    border-width: 1px;
+    border-radius: 7px;
+
+    line-height: 15px;
+    font-size: 15px;
+  }
 }

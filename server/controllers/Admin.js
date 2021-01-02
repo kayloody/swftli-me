@@ -217,7 +217,7 @@ export const saveSettings = (req, res) => {
 export const deleteAccount = (req, res) => {
   const id = req.user.id;
 
-  User.findById(id).exec((err) => {
+  User.findByIdAndDelete(id).exec((err) => {
     if (err) {
       res.json({ status: 'Error' });
     } else {
