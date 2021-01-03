@@ -3,8 +3,9 @@ import badwordsList from 'badwords-list';
 
 import User from '../models/swftli.js';
 
-const CLIENT_HOME_PAGE_URL = 'http://localhost:3000';
-
+const CLIENT_HOME_PAGE_URL = process.env.PUBLIC_URL
+  ? process.env.PUBLIC_URL + ':3000'
+  : 'http://localhost:3000';
 const saltRounds = bcrypt.genSaltSync(10);
 
 export const status = (req, res) => {

@@ -20,7 +20,10 @@ const Header = (props) => {
           >
             Preview
           </Link>
-          <Link to='../admin/settings' className='bannerOtherLinks'>
+          <Link
+            to={process.env.PUBLIC_URL + '/admin/settings'}
+            className='bannerOtherLinks'
+          >
             Settings
           </Link>
         </div>
@@ -37,7 +40,10 @@ const Header = (props) => {
           >
             Preview
           </Link>
-          <Link to='../admin/cards' className='bannerOtherLinks'>
+          <Link
+            to={process.env.PUBLIC_URL + '/admin/cards'}
+            className='bannerOtherLinks'
+          >
             Cards
           </Link>
         </div>
