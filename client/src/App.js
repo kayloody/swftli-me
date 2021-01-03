@@ -9,7 +9,8 @@ import MySettings from './components/Admin/MySettings/MySettings.js';
 import Swftli from './components/Swftli/Swftli.js';
 import NoPage from './components/NoPage/NoPage.js';
 
-const server = 'http://localhost:5000';
+//const server = 'http://localhost:5000';
+const server = 'https://swftli-me.herokuapp.com';
 class App extends React.Component {
   constructor(props) {
     super(props);

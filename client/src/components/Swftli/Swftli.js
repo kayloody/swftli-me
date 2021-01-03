@@ -9,7 +9,8 @@ import Logo from '../Logo.js';
 
 import './styles.css';
 
-const server = 'http://localhost:5000';
+//const server = 'http://localhost:5000';
+const server = 'https://swftli-me.herokuapp.com';
 
 class Swftli extends React.Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import badwordsList from 'badwords-list';
 import User from '../models/swftli.js';
 
 const CLIENT_HOME_PAGE_URL = process.env.PUBLIC_URL
-  ? process.env.PUBLIC_URL + ':3000'
+  ? process.env.PUBLIC_URL
   : 'http://localhost:3000';
 const saltRounds = bcrypt.genSaltSync(10);
 
@@ -56,8 +56,7 @@ export const signup = (req, res) => {
                   error: `${username} is already taken.`,
                   field: 'username',
                 });
-              } // FUTURE: Include username restrictions (illegal paths, bad usernames)
-              else {
+              } else {
                 if (!passwordStrength(password)) {
                   res.json({
                     error:

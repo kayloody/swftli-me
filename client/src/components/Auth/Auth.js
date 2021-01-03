@@ -8,7 +8,8 @@ import Footer from '../Footer.js';
 
 import './styles.css';
 
-const server = 'http://localhost:5000';
+//const server = 'http://localhost:5000';
+const server = 'https://swftli-me.herokuapp.com';
 
 class Auth extends React.Component {
   constructor(props) {
@@ -63,7 +64,8 @@ class Auth extends React.Component {
           window.open('./', '_self');
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         this.setState({
           error: 'Error: Could not communicate with server',
         });
@@ -88,7 +90,7 @@ class Auth extends React.Component {
 
   handleGoogle = (event) => {
     event.preventDefault();
-    window.open('http://localhost:5000/auth/google', '_self');
+    window.open(server + '/auth/google', '_self');
   };
 
   handleSignup = (event) => {

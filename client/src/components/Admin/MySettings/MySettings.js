@@ -12,7 +12,8 @@ import './styles.css';
 
 import defaultImg from '../../../images/digitalia.PNG';
 
-const server = 'http://localhost:5000';
+//const server = 'http://localhost:5000';
+const server = 'https://swftli-me.herokuapp.com';
 
 class MySettings extends React.Component {
   constructor(props) {

@@ -5,7 +5,8 @@ import Header from '../Header.js';
 import Footer from '../../Footer.js';
 import './styles.css';
 
-const server = 'http://localhost:5000';
+//const server = 'http://localhost:5000';
+const server = 'https://swftli-me.herokuapp.com';
 
 class OauthUser extends React.Component {
   constructor(props) {

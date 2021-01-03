@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import path from 'path';
+// import path from 'path';
 
 import passport from 'passport';
 import passportSetup from './config/passport-setup.js';
@@ -47,7 +47,11 @@ app.use(passport.session());
 
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://192.168.1.80:3000'],
+    origin: [
+      'https://www.swftli.me',
+      'http://localhost:3000',
+      'http://192.168.1.80:3000',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   })
@@ -56,3 +60,7 @@ app.use(
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/users', swftliRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the swftli.me API.');
+});
