@@ -154,13 +154,13 @@ class MySettings extends React.Component {
 
     if (socials.length < 6) {
       if (socials === []) {
-        const newSocials = this.state.socials.push({ name: '', uid: '' });
+        const newSocials = this.state.socials.push({ name: '', uid: 'ID' });
         this.setState({ socials: newSocials });
       } else if (
         !socials.some((social) => social.uid === '') &&
         !socials.some((social) => social.name === '')
       ) {
-        const newSocials = [...this.state.socials, { name: '', uid: '' }];
+        const newSocials = [...this.state.socials, { name: '', uid: 'ID' }];
         this.setState({ socials: newSocials });
       } else {
         this.setState({ status: 'Fill Socials First' });

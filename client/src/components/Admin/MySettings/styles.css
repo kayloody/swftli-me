@@ -117,7 +117,8 @@
   border: solid 2px var(--button-dark);
   resize: none;
 
-  width: 110px;
+  min-width: 110px;
+  width: 16%;
   height: 30px;
 
   padding-left: 3px;
