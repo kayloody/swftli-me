@@ -62,7 +62,15 @@ export const saveCards = (req, res) => {
   delete data.status;
   delete data.userImg;
 
-  User.findByIdAndUpdate(id, { links: data }, { new: true }).exec(
+  const properData = data.map((link) => {
+    return {
+      name: link.name,
+      url: protocolURL(link.url),
+      enabled: link.enabled,
+    };
+  });
+
+  User.findByIdAndUpdate(id, { links: properData }, { new: true }).exec(
     (err, doc) => {
       if (err) {
         res.json({ status: 'Error' });
@@ -71,6 +79,15 @@ export const saveCards = (req, res) => {
       }
     }
   );
+};
+
+const protocolURL = (url) => {
+  var pattern = new RegExp('^(https?:\\/\\/)');
+  if (!pattern.test(url)) {
+    return 'https://'.concat(url);
+  } else {
+    return url;
+  }
 };
 
 export const loadSettings = (req, res) => {

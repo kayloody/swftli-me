@@ -80,9 +80,6 @@ class MyCards extends React.Component {
     const link = links[num];
 
     let updateValue = target.value;
-    if (name === 'url') {
-      updateValue = protocolURL(target.value);
-    }
 
     link[name] = updateValue;
     links.splice(num, 1, link);
@@ -110,8 +107,6 @@ class MyCards extends React.Component {
     links.splice(target.id.charAt(target.id.length - 1), 1);
 
     this.setState({ links: links });
-
-    console.log(this.state.links);
   };
 
   saveLinks = () => {
@@ -124,7 +119,6 @@ class MyCards extends React.Component {
           link.url === '' || !validateURL(link.url) || !filterInput(link.url)
       )
     ) {
-      console.log(this.state.links);
       axios
         .post(`${server}/admin/saveCards`, this.state.links, {
           withCredentials: true,
@@ -256,15 +250,6 @@ class MyCards extends React.Component {
     );
   }
 }
-
-const protocolURL = (url) => {
-  var pattern = new RegExp('^(https?:\\/\\/)');
-  if (!pattern.test(url)) {
-    return 'https://'.concat(url);
-  } else {
-    return url;
-  }
-};
 
 const validateURL = (url) => {
   var pattern = new RegExp(
