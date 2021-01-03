@@ -97,6 +97,7 @@ export const loadSettings = (req, res) => {
 export const uploadImage = (req, res) => {
   const id = req.user.id;
   const image = Object.values(req.files)[0];
+
   if (image.fieldName === 'userImg') {
     cloudinary.v2.uploader
       .upload(image.path, {

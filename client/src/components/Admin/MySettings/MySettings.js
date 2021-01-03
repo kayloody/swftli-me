@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import * as nsfwjs from 'nsfwjs';
+import * as tf from '@tensorflow/tfjs';
 
 import Header from '../Header.js';
 import MySocial from './MySocial.js';
@@ -61,34 +63,66 @@ class MySettings extends React.Component {
       'image/tiff',
     ];
 
+    const oImg = document.createElement('img');
+    const oPath = URL.createObjectURL(image);
+    oImg.setAttribute('src', oPath);
+
     // Perform test to filter unwanted images
+    // Load nsfwjs model
+    nsfwjs
+      .load('/models/nsfwjs/', { size: 299 })
+      .then((model) => {
+        model
+          .classify(oImg)
+          .then((pred) => {
+            const filterPred = pred.some((guess) => {
+              if (guess.className === 'Porn' || guess.className === 'Hentai') {
+                return guess.probability > 0.8;
+              } else return false;
+            });
 
-    if (formats.some((format) => image.type.includes(format))) {
-      this.setState({ status: 'Saving' });
-      const formData = new FormData();
-      formData.append(name, image);
+            if (!filterPred) {
+              if (formats.some((format) => image.type.includes(format))) {
+                this.setState({ status: 'Saving' });
 
-      axios
-        .post(`${server}/admin/uploadImage`, formData, {
-          withCredentials: true,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
-          },
-        })
-        .then((res) => {
-          event.target.value = ''; // To allow upload of same image again
-          this.setState({ [name]: res.data.url, status: '' });
-        })
-        .catch(() => {
-          event.target.value = '';
-          this.setState({ status: 'Error' });
-        });
-    } else {
-      event.target.value = '';
-      this.setState({ status: 'Invalid File' });
-    }
+                const formData = new FormData();
+                formData.append(name, image);
+
+                axios
+                  .post(`${server}/admin/uploadImage`, formData, {
+                    withCredentials: true,
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                      'Access-Control-Allow-Credentials': true,
+                    },
+                  })
+                  .then((res) => {
+                    event.target.value = ''; // To allow upload of same image again
+                    this.setState({ [name]: res.data.url, status: '' });
+                  })
+                  .catch(() => {
+                    event.target.value = '';
+                    this.setState({ status: 'Error' });
+                  });
+              } else {
+                event.target.value = '';
+                this.setState({ status: 'Invalid File' });
+              }
+            } else {
+              event.target.value = '';
+              this.setState({ status: 'Invalid File' });
+            }
+          })
+          .catch((err) => {
+            event.target.value = '';
+            this.setState({ status: 'Error' });
+          });
+      })
+      .catch((err) => {
+        event.target.value = '';
+        this.setState({ status: 'Error' });
+      });
   };
 
   deleteImage = () => {

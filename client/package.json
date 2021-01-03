@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
+    "@tensorflow/tfjs": "^2.8.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.0",
     "badwords-list": "^1.0.0",
+    "nsfwjs": "^2.3.0",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^17.0.1",
