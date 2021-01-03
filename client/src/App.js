@@ -78,7 +78,6 @@ class App extends React.Component {
 
     const routeCards = (
       <Route
-        exact
         path={[...mainPaths, '/admin/cards']}
         render={(props) => (
           <MyCards
