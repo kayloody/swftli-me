@@ -29,14 +29,20 @@ mongoose
   )
   .catch((error) => console.log(error.message));
 
+// To find out who is accessing
 app.use((req, res, next) => {
   console.log(`Request_Endpoint: ${req.method} ${req.url}`);
   next();
 });
 
+app.set('trust proxy', 1);
+
 app.use(
   cookieSession({
     name: 'session',
+    secure: true,
+    httpOnly: true,
+    sameSite: 'none',
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
   })
@@ -48,8 +54,8 @@ app.use(passport.session());
 app.use(
   cors({
     origin: [
-      'https://www.swftli.me',
       'http://localhost:3000',
+      process.env.PUBLIC_URL,
       'http://192.168.1.80:3000',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

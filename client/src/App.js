@@ -54,6 +54,7 @@ class App extends React.Component {
       })
       .then((res) => {
         const data = res.data;
+
         if (data.auth) {
           this.setState({ auth: true, user: data.user });
         }

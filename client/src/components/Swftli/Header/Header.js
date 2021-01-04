@@ -1,7 +1,7 @@
 import React from 'react';
 import Socials from './Socials.js';
 
-import defaultImg from '../../../images/digitalia.PNG';
+import defaultImg from '../../../images/defaultImg.png';
 
 const Header = (props) => {
   const userImg = props.userImg === '' ? defaultImg : props.userImg;

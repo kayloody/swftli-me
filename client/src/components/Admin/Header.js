@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './styles.css';
-import defaultImg from '../../images/digitalia.PNG';
+import defaultImg from '../../images/defaultImg.png';
 
 const Header = (props) => {
   const userImg = props.userImg === '' ? defaultImg : props.userImg;
@@ -58,7 +58,7 @@ const Header = (props) => {
   return (
     <div className='adminBanner'>
       <div className='adminUser'>
-        <img className='adminImage' src={userImg} alt='User' />
+        <img className='adminImage' src={userImg} alt='user' />
         {userName}
       </div>
       <div className='bannerLinks'>

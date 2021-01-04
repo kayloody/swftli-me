@@ -8,7 +8,7 @@ import MyCard from './MyCard.js';
 import Footer from '../../Footer.js';
 import './styles.css';
 
-import defaultImg from '../../../images/digitalia.PNG';
+import defaultImg from '../../../images/defaultImg.png';
 
 //const server = 'http://localhost:5000';
 const server = 'https://swftli-me.herokuapp.com';
@@ -18,7 +18,7 @@ class MyCards extends React.Component {
     super(props);
     this.state = {
       status: '',
-      userImg: 'none',
+      userImg: defaultImg,
       links: [],
     };
   }

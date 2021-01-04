@@ -29,7 +29,7 @@ class Swftli extends React.Component {
         if ('Error' in data) {
           this.setState({ status: 'Error', data: data.Error });
         } else {
-          this.setState({ status: 'OK', data });
+          this.setState({ status: 'Okay', data });
           if ('settings' in data) {
             const custom = data.settings;
 
@@ -78,7 +78,7 @@ class Swftli extends React.Component {
       </div>
     );
 
-    if (this.state.status === 'OK') {
+    if (this.state.status === 'Okay') {
       let user = this.state.data;
       content = (
         <>
@@ -104,7 +104,7 @@ class Swftli extends React.Component {
           </p>
         </div>
       );
-    } else if (this.state.status !== 'OK') {
+    } else if (this.state.status === 'Error') {
       content = (
         <div className='main'>
           <Logo />
@@ -115,6 +115,13 @@ class Swftli extends React.Component {
         </div>
       );
     } else {
+      content = (
+        <div className='main'>
+          <Logo />
+          <br />
+          <p className='cardMessage'>Swftli loading...</p>
+        </div>
+      );
     }
 
     return <div className='main'>{content}</div>;

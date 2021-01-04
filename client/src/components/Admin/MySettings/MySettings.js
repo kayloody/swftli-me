@@ -10,7 +10,7 @@ import Footer from '../../Footer.js';
 
 import './styles.css';
 
-import defaultImg from '../../../images/digitalia.PNG';
+import defaultImg from '../../../images/defaultImg.png';
 
 //const server = 'http://localhost:5000';
 const server = 'https://swftli-me.herokuapp.com';
@@ -21,7 +21,7 @@ class MySettings extends React.Component {
 
     this.state = {
       status: '',
-      userImg: 'none',
+      userImg: defaultImg,
       bgColor1: '#d4bec0',
       bgColor2: '#a2c6ca',
       bgAngle: '45deg',
@@ -53,6 +53,8 @@ class MySettings extends React.Component {
   };
 
   imageUpload = (event) => {
+    this.setState({ status: 'Saving' });
+
     const name = event.target.id;
     const files = Array.from(event.target.files);
     const image = files[0];
@@ -85,8 +87,6 @@ class MySettings extends React.Component {
 
             if (!filterPred) {
               if (formats.some((format) => image.type.includes(format))) {
-                this.setState({ status: 'Saving' });
-
                 const formData = new FormData();
                 formData.append(name, image);
 
@@ -358,7 +358,7 @@ class MySettings extends React.Component {
         <div className='settings'>
           <div className='settingsSection'>
             <div className='settingsH'>
-              <img className='adminImage' src={userImg} alt='User' />
+              <img className='adminImage' src={userImg} alt='' />
               <label className='settingsButton' onChange={this.imageUpload}>
                 <input
                   id='userImg'
