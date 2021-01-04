@@ -126,6 +126,16 @@ const validateUsername = (username) => {
 
 const filterUsername = (username) => {
   const badwordsArray = badwordsList.array;
+  const user_lower = username.toLowerCase();
 
-  return !badwordsArray.some((word) => username.includes(word));
+  badwordsArray.push(
+    'swftli',
+    'swftlime',
+    'swiftli',
+    'swiftlime',
+    'admin',
+    'administrator'
+  );
+
+  return !badwordsArray.some((word) => user_lower.includes(word));
 };
