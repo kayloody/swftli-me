@@ -8,12 +8,10 @@ import Header from '../Header.js';
 import MySocial from './MySocial.js';
 import Footer from '../../Footer.js';
 
-import './styles.css';
-
 import defaultImg from '../../../images/defaultImg.png';
 
 //const server = 'http://localhost:5000';
-const server = 'https://swftli-me.herokuapp.com';
+const server = 'https://api.swftli.me';
 
 class MySettings extends React.Component {
   constructor(props) {

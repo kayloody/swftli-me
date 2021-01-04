@@ -78,12 +78,38 @@
   font-size: 50px;
 }
 
+.logoBanner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--card-color1);
+  border-radius: 100px 0px 100px 100px;
+  border: solid 8px var(--border-color);
+
+  margin: 30px;
+  padding: auto;
+
+  height: 100px;
+  width: 240px;
+
+  font-weight: 100;
+  font-size: 50px;
+}
+
+.logoMe {
+  font-weight: 500;
+  color: var(--border-color);
+}
+
 .footer {
   width: 100%;
 
   margin-top: 50px;
 
-  font-weight: 500;
+  font-weight: 100;
   font-size: 20px;
   text-align: center;
   text-shadow: 0 0 3px #5f5d54;
@@ -106,6 +132,22 @@
 
     font-size: 5.6vw;
   }
+
+  .logoBanner {
+    border: solid 0.9vw var(--border-color);
+
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    height: 11vw;
+    min-height: 65px;
+    width: 27vw;
+    min-width: 165px;
+
+    font-size: 6vw;
+  }
+
   .footer {
     margin-top: 35px;
     font-size: 2.2vw;
@@ -127,6 +169,19 @@
     max-width: 700px;
 
     font-size: 29px;
+  }
+
+  .logoBanner {
+    border: solid 4px var(--border-color);
+
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    height: 65px;
+    width: 165px;
+
+    font-size: 32px;
   }
 
   .footer {

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Logo from '../Logo.js';
-import './styles.css';
 
 function NoPage() {
   return (

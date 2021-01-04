@@ -24,6 +24,7 @@ class MyCard extends React.Component {
                 type='text'
                 name={'name_' + this.props.index}
                 className='cardsLinkName'
+                placeholder='Link Name'
                 value={this.props.name}
                 onChange={this.props.updateLink}
               ></input>
@@ -31,6 +32,7 @@ class MyCard extends React.Component {
                 type='text'
                 name={'url_' + this.props.index}
                 className='cardsLinkUrl'
+                placeholder='Link URL'
                 value={this.props.url}
                 onChange={this.props.updateLink}
               ></input>

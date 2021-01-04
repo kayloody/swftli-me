@@ -3,7 +3,12 @@ import React from 'react';
 function Card(props) {
   if (props.enabled === true) {
     return (
-      <a className='userCard' href={props.url}>
+      <a
+        className='userCard'
+        href={props.url}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         <i className={props.social + ' cardSocial'}></i>
         <div className='userCardName'>{props.name}</div>
       </a>

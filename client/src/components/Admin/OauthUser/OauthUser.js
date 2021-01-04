@@ -3,10 +3,9 @@ import axios from 'axios';
 
 import Header from '../Header.js';
 import Footer from '../../Footer.js';
-import './styles.css';
 
 //const server = 'http://localhost:5000';
-const server = 'https://swftli-me.herokuapp.com';
+const server = 'https://api.swftli.me';
 
 class OauthUser extends React.Component {
   constructor(props) {

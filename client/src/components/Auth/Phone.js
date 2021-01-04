@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './styles.css';
-
 import phoneImage from '../../images/digitalia.PNG';
 
 const Phone = (props) => {

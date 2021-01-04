@@ -6,10 +6,8 @@ import Logo from '../Logo.js';
 import Phone from './Phone.js';
 import Footer from '../Footer.js';
 
-import './styles.css';
-
 //const server = 'http://localhost:5000';
-const server = 'https://swftli-me.herokuapp.com';
+const server = 'https://api.swftli.me';
 
 class Auth extends React.Component {
   constructor(props) {
