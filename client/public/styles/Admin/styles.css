@@ -57,14 +57,16 @@
   justify-content: space-evenly;
   align-items: center;
 
-  gap: 30px;
-  margin-right: 30px;
+  /* gap: 30px; */
+  /* margin-right: 30px; */
 }
 
 .bannerOtherLinks {
   color: inherit;
   font-weight: 300;
   text-decoration: none;
+
+  margin-right: 30px;
 }
 
 .bannerOtherLinks:hover {
@@ -121,12 +123,13 @@
   }
 
   .bannerSettings {
-    gap: 3.3vw;
-    margin-right: 3.3vw;
+    /* gap: 3.3vw;
+    margin-right: 3.3vw; */
   }
 
   .bannerOtherLinks {
     font-size: 3.3vw;
+    margin-right: 3.3vw;
   }
 
   .bannerLogout {
@@ -168,13 +171,15 @@
   }
 
   .bannerSettings {
-    gap: 1.79vw;
-    margin-right: 1.79vw;
+    /* gap: 1.79vw;
+    margin-right: 1.79vw; */
   }
 
   .bannerOtherLinks {
     font-size: 13px;
     font-weight: bolder;
+
+    margin-right: 1.79vw;
   }
 
   .bannerLogout {

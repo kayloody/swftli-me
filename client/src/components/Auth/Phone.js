@@ -52,10 +52,10 @@ const Phone = (props) => {
           @swftlime
         </div>
         <div className='authPhoneSocials'>
-          <i className='fab fa-instagram'></i>
-          <i className='fab fa-patreon'></i>
-          <i className='fab fa-spotify'></i>
-          <i className='fab fa-twitch'></i>
+          <i className='fab fa-instagram authPhoneSocial'></i>
+          <i className='fab fa-patreon authPhoneSocial'></i>
+          <i className='fab fa-spotify authPhoneSocial'></i>
+          <i className='fab fa-twitch authPhoneSocial'></i>
         </div>
         <div className='authPhoneButton'>
           <i className='fab fa-youtube'></i> Funny cats
