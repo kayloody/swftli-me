@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   user_lower: { type: String, lowercase: true },
   email: { type: String, required: true, unique: true },
   password: String,
+  passwordReset: { type: Number, default: '0' },
   oauth: {
     service: { type: String, default: 'local', immutable: true },
     new: { type: Boolean, default: false },

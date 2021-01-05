@@ -6,7 +6,6 @@ function Footer() {
       <a href='./' className='userFooterLink'>
         make your own swftli
       </a>
-      <br />
       <br />© swftli.me 2020
     </p>
   );

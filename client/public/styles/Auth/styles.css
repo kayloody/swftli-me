@@ -209,7 +209,8 @@ button:focus {
 }
 
 #authGoogle {
-  margin: 25px;
+  margin: 15px;
+  margin-bottom: 0px;
   font-size: 27px;
   font-weight: 300;
 }
@@ -226,6 +227,12 @@ button:focus {
   margin-left: 5px;
 
   font-weight: bolder;
+}
+
+.authLink {
+  text-decoration: none;
+
+  color: #5f5d54;
 }
 
 .authLink:hover {
@@ -377,6 +384,7 @@ button:focus {
 
   #authGoogle {
     margin: 15px;
+    margin-bottom: 0px;
     font-size: 18px;
   }
 

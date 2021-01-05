@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Logo from '../Logo.js';
@@ -59,7 +59,7 @@ class Auth extends React.Component {
             field: data.field,
           });
         } else {
-          window.open('./', '_self');
+          window.open('/', '_self');
         }
       })
       .catch((err) => {
@@ -189,7 +189,12 @@ class Auth extends React.Component {
               <i className='fab fa-google' style={{ marginRight: '15px' }}></i>
               Log in with Google
             </div>
-            <div className='authSubtext authLink'>Forgot password?</div>
+            <Link
+              className='authSubtext authLink'
+              to={process.env.PUBLIC_URL + '/admin/passwordReset'}
+            >
+              Forgot password?
+            </Link>
             <hr />
             <div className='authSubtext'>
               Don't have an account?{' '}

@@ -1,17 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 
-import Header from '../Header.js';
+import Logo from '../../Logo.js';
 import Footer from '../../Footer.js';
 
 //const server = 'http://localhost:5000';
 const server = 'https://api.swftli.me';
 
-class OauthUser extends React.Component {
+class PasswordReset extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
+      message: 'Please enter email.',
       error: '',
     };
   }
@@ -19,7 +20,11 @@ class OauthUser extends React.Component {
   handleChange = (event) => {
     const target = event.target;
 
-    this.setState({ error: '', username: target.value });
+    this.setState({
+      error: '',
+      message: 'Please enter email.',
+      email: target.value,
+    });
   };
 
   handleSubmit = (event) => {
@@ -27,20 +32,19 @@ class OauthUser extends React.Component {
 
     this.setState({
       error: '',
+      message: 'Please enter email.',
     });
 
     axios
       .post(
-        `${server}/admin/oauthUser`,
+        `${server}/admin/passwordReset`,
         {
-          username: this.state.username,
+          email: this.state.email,
         },
         {
-          withCredentials: true,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Credentials': true,
           },
         }
       )
@@ -50,7 +54,7 @@ class OauthUser extends React.Component {
         if ('error' in data) {
           this.setState({ error: data.error });
         } else {
-          window.open('/', '_self');
+          this.setState({ message: 'Temporary password sent.' });
         }
       })
       .catch(() => {
@@ -63,33 +67,25 @@ class OauthUser extends React.Component {
   render() {
     return (
       <div className='main'>
-        <Header
-          userImg={this.props.user.userImg}
-          name={
-            this.state.error
-              ? this.state.error
-              : this.state.username
-              ? '@' + this.state.username
-              : 'Select a username'
-          }
-          handleLogout={this.props.handleLogout}
-          calledFrom='OauthUser'
-        />
-        <div className='usernameContainer'>
+        <Logo />
+        <div className='resetContainer'>
+          <div className='resetMessage'>
+            {this.state.error ? this.state.error : this.state.message}
+          </div>
           <form
-            className='usernameForm'
-            name='oauthUsername'
+            className='resetForm'
+            name='resetEmail'
             onSubmit={this.handleSubmit}
           >
             <input
-              name='username'
-              className='usernameInput'
+              name='email'
+              className='resetInput'
               type='text'
-              value={this.state.username}
+              value={this.state.email}
               onChange={this.handleChange}
-              placeholder='Username'
+              placeholder='Email'
             />
-            <button className='usernameSubmit' type='submit'>
+            <button className='resetSubmit' type='submit'>
               <i className='fas fa-angle-right'></i>
             </button>
           </form>
@@ -100,4 +96,4 @@ class OauthUser extends React.Component {
   }
 }
 
-export default OauthUser;
+export default PasswordReset;

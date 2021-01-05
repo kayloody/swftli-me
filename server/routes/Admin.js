@@ -1,10 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-// hmm
 import formData from 'express-form-data';
 
 import {
-  oauthuser,
+  oauthUser,
+  passwordReset,
   loadCards,
   saveCards,
   loadSettings,
@@ -18,10 +18,10 @@ import {
 const router = express.Router();
 
 router.use(bodyParser.json());
-// hmm
 router.use(formData.parse());
 
-router.post('/oauthuser', oauthuser);
+router.post('/oauthUser', oauthUser);
+router.post('/passwordReset', passwordReset);
 
 router.get('/loadCards', loadCards);
 router.post('/saveCards', saveCards);

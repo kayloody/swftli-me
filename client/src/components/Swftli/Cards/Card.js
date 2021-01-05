@@ -9,7 +9,9 @@ function Card(props) {
         target='_blank'
         rel='noopener noreferrer'
       >
-        <i className={props.social + ' cardSocial'}></i>
+        {props.social !== '' && (
+          <i className={props.social + ' cardSocial'}></i>
+        )}
         <div className='userCardName'>{props.name}</div>
       </a>
     );

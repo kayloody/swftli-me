@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Auth from './components/Auth/Auth.js';
 import OauthUser from './components/Admin/OauthUser/OauthUser.js';
+import PasswordReset from './components/Admin/PasswordReset/PasswordReset.js';
 import MyCards from './components/Admin/MyCards/MyCards.js';
 import MySettings from './components/Admin/MySettings/MySettings.js';
 import Swftli from './components/Swftli/Swftli.js';
@@ -81,7 +82,7 @@ class App extends React.Component {
     const routeCards = (
       <Route
         exact
-        path={[...mainPaths, '/admin/cards']}
+        path={[...mainPaths, '/admin/cards', 'admin/*']}
         render={(props) => (
           <MyCards
             {...props}
@@ -125,12 +126,19 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path={noPaths} component={NoPage} />
-          {!auth && (
-            <Route exact path={[...mainPaths, '/admin/*']} component={Auth} />
-          )}
           {auth && user.oauth.new === false && routeSettings}
           {auth && user.oauth.new === false && routeCards}
           {auth && user.oauth.new === true && routeOauth}
+          {!auth && (
+            <Route
+              exact
+              path={['/admin/passwordReset']}
+              component={PasswordReset}
+            />
+          )}
+          {!auth && (
+            <Route exact path={[...mainPaths, '/admin/*']} component={Auth} />
+          )}
           {routeUsers}
         </Switch>
       </Router>

@@ -19,11 +19,18 @@ const CLOUDINARY_KEYS = {
     'CLOUDINARY_URL=cloudinary://297792667697841:Y9MVqbeiRK80qokLW9tMnu6SAUA@swftli-me',
 };
 
+const EMAIL_KEYS = {
+  EMAIL_HOST: 'smtp.porkbun.com',
+  EMAIL_USER: 'admin@swftli.me',
+  EMAIL_PASSWORD: '35Ed9bCBzbbNTgJh',
+};
+
 const KEYS = {
   ...MONGODB,
   ...GOOGLE_TOKENS,
   ...SESSION,
   ...CLOUDINARY_KEYS,
+  ...EMAIL_KEYS,
 };
 
 export default KEYS;

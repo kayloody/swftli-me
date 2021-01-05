@@ -257,7 +257,7 @@ class MySettings extends React.Component {
       .then((res) => {
         if (res.data.status === 'Okay') {
           this.setState({ status: 'Okay' });
-          window.open('../', '_self');
+          window.open('/', '_self');
         } else {
           this.setState({ status: 'Error' });
         }

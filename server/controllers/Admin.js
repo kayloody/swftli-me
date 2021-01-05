@@ -1,12 +1,14 @@
 import pkg from 'validate-color';
 const { validateHTMLColor, validateHTMLColorName } = pkg;
 import cloudinary from 'cloudinary';
+import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
 
 import User from '../models/swftli.js';
 import keys from '../config/keys.js';
 import cloudinaryConfig from '../config/cloudinary.js';
 
-export const oauthuser = (req, res) => {
+export const oauthUser = (req, res) => {
   const username = req.body.username;
   const email = req.user.email;
 
@@ -32,6 +34,72 @@ export const oauthuser = (req, res) => {
           res.json({ okay: username });
         }
       });
+    }
+  });
+};
+
+const transporter = nodemailer.createTransport({
+  host: keys.EMAIL_HOST,
+  port: 587,
+  secure: false,
+  auth: {
+    user: keys.EMAIL_USER,
+    pass: keys.EMAIL_PASSWORD,
+  },
+});
+
+const dayInMiliseconds = 60 * 60 * 1000;
+const saltRounds = bcrypt.genSaltSync(10);
+const s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const arr = Array(12).join().split(',');
+
+export const passwordReset = (req, res) => {
+  const email = req.body.email;
+
+  User.findOne({ email: email }).exec((err, doc) => {
+    if (err) {
+      res.json({ error: 'Database Error' });
+    } else if (!doc) {
+      res.json({
+        error: 'Email not found.',
+      });
+    } else {
+      const resetDate = doc.passwordReset;
+      const currDate = Date.now();
+
+      if (currDate - resetDate >= dayInMiliseconds) {
+        const tmpPassword = arr
+          .map(() => s.charAt(Math.floor(Math.random() * s.length)))
+          .join('');
+        var hash = bcrypt.hashSync(tmpPassword, saltRounds);
+
+        User.findOneAndUpdate(
+          { email: email },
+          { password: hash, passwordReset: currDate }
+        ).exec((err) => {
+          if (err) {
+            res.json({ error: 'Database Error' });
+          } else {
+            const message = {
+              from: `swftli.me no-reply <${keys.EMAIL_USER}>`,
+              to: email,
+              subject: 'swftli.me | Password Reset',
+              text: `Your requested temporary password is: ${tmpPassword}`,
+            };
+
+            transporter.sendMail(message, (err) => {
+              if (err) {
+                console.log(err);
+                res.json({ error: 'Oops, something went wrong.' });
+              } else {
+                res.json({ okay: 'Please check your email.' });
+              }
+            });
+          }
+        });
+      } else {
+        res.json({ error: 'Please wait at least a day from your last reset.' });
+      }
     }
   });
 };
