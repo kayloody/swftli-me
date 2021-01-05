@@ -143,6 +143,10 @@ button:focus {
 }
 
 .authText {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   background: #ffffff;
   border-radius: 5px;
   border: solid 5px var(--border-color);
@@ -153,6 +157,8 @@ button:focus {
   margin-bottom: 25px;
   padding: 20px;
 
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 27px;
   font-weight: 300;
   color: #5f5d54;
@@ -163,6 +169,10 @@ button:focus {
 }
 
 .authSubmit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
   background: var(--border-color);
   border-radius: 5px;
   border: solid 5px var(--border-color);
@@ -174,6 +184,8 @@ button:focus {
 
   text-align: center;
 
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 27px;
   font-weight: 300;
   color: #ffffff;
@@ -225,6 +237,7 @@ button:focus {
 
   font-size: 17px;
   font-weight: 200;
+  line-height: 1;
   color: var(--warning-color);
 }
 
@@ -244,6 +257,16 @@ button:focus {
     width: 1px;
     height: 1px;
   }
+
+  .authPhoneContent {
+    visibility: hidden;
+    right: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+  }
+
   .authMain {
     border-radius: 50px 0 50px 50px;
   }
@@ -352,6 +375,7 @@ button:focus {
 
     font-size: 13px;
     font-weight: 300;
+    line-height: 1;
   }
 
   .authError {

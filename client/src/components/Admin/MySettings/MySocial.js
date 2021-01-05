@@ -32,6 +32,7 @@ class MySocial extends React.Component {
           rows='1'
           cols='30'
           className='settingsSocialId'
+          placeholder='Username/ID'
           value={this.props.uid}
           onChange={this.props.updateSocial}
         ></input>

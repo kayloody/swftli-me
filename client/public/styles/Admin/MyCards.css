@@ -57,7 +57,7 @@
 .cardsLink {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
 
   height: 70%;
@@ -69,7 +69,8 @@
   border: none;
   width: 100%;
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   font-weight: 500;
   color: #5f5d54;
@@ -80,7 +81,8 @@
   border: none;
   width: 100%;
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   font-weight: 100;
   color: #5f5d54;

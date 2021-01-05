@@ -1,5 +1,6 @@
 :root {
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   user-select: none;
 
   --button-color: #707070;

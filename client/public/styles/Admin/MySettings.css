@@ -31,7 +31,9 @@
 
 .settingsName {
   font-size: 25px;
+  font-weight: 500;
   margin-bottom: 15px;
+  line-height: 1;
 }
 
 .settingsH {
@@ -119,11 +121,11 @@
 
   min-width: 110px;
   width: 16%;
-  height: 30px;
 
   padding-left: 3px;
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   color: #5f5d54;
 }
@@ -133,7 +135,8 @@
   border-radius: 10px;
   border: solid 2px var(--button-dark);
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   color: #5f5d54;
 
@@ -231,7 +234,7 @@
   border-radius: 10px;
   border: solid 2px var(--button-dark);
 
-  height: 30px;
+  height: 38px;
   width: 160px;
   box-sizing: border-box;
 }
@@ -241,8 +244,8 @@
   border-radius: 10px;
   border: solid 2px var(--button-dark);
 
-  width: 30px;
-  height: 30px;
+  width: 38px;
+  height: 38px;
   box-sizing: border-box;
   margin-left: -2px;
 }
@@ -252,7 +255,8 @@
   border: none;
   resize: none;
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   color: #5f5d54;
   text-transform: uppercase;
@@ -267,11 +271,11 @@
   resize: none;
 
   width: 160px;
-  height: 30px;
 
   padding-left: 3px;
 
-  font-family: 'Bahnschrift';
+  /* font-family: 'Bahnschrift'; */
+  font-family: 'Baloo 2';
   font-size: 20px;
   color: #5f5d54;
 }
@@ -297,7 +301,7 @@
 }
 
 .settingsMiscText {
-  font-weight: 300;
+  font-weight: 200;
   font-size: 25px;
 }
 
@@ -399,7 +403,6 @@
     border-width: 1px;
 
     width: 90px;
-    height: 20px;
 
     padding-left: 3px;
 
@@ -417,11 +420,15 @@
     padding-left: 10px;
   }
 
+  .settingsSocialDelete {
+    font-size: 15px;
+  }
+
   .settingsColor {
     border-radius: 7px;
     border-width: 1px;
 
-    height: 20px;
+    height: 26px;
     width: 110px;
   }
 
@@ -429,8 +436,8 @@
     border-radius: 7px;
     border-width: 1px;
 
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     margin-left: -1px;
   }
 
@@ -445,7 +452,6 @@
     border-width: 1px;
 
     width: 110px;
-    height: 20px;
 
     padding-left: 3px;
 
