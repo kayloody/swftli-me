@@ -34,6 +34,8 @@ class MySettings extends React.Component {
       borderColor: '#929b94',
       socialColor: '#f2f3ef',
       socials: [],
+      oldPassword: '',
+      newPassword: '',
     };
   }
 
@@ -243,6 +245,44 @@ class MySettings extends React.Component {
       });
   };
 
+  changePassword = () => {
+    this.setState({ status: 'Saving' });
+    axios
+      .post(
+        `${server}/admin/passwordChange`,
+        {
+          oldPassword: this.state.oldPassword,
+          newPassword: this.state.newPassword,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Credentials': true,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.status === 'Okay') {
+          this.setState({ status: 'Okay' });
+        } else if (res.data.status === 'Wrong') {
+          this.setState({ status: 'Wrong Old Password' });
+        } else if (res.data.status === 'Invalid') {
+          this.setState({
+            status: 'Invalid New Password',
+          });
+        } else if (res.data.status === 'Recent') {
+          this.setState({ status: 'Last Reset < 24hrs Ago' });
+        } else {
+          this.setState({ status: 'Error' });
+        }
+      })
+      .catch((err) => {
+        this.setState({ status: 'Error' });
+      });
+  };
+
   deleteAccount = () => {
     this.setState({ status: 'Saving' });
     axios
@@ -311,6 +351,9 @@ class MySettings extends React.Component {
       case 'Max Reached':
       case 'Invalid Color':
       case 'Invalid File':
+      case 'Wrong Old Password':
+      case 'Invalid New Password':
+      case 'Last Reset < 24hrs Ago':
         statusMessage = (
           <div>
             <i className='fas fa-times'></i>
@@ -380,7 +423,7 @@ class MySettings extends React.Component {
               <div className='settingsSocials'>{socials}</div>
               <div className='settingsH'>
                 <div className='settingsButton' onClick={this.addSocial}>
-                  Add
+                  Add Social
                 </div>
                 <div className='settingsButton' onClick={this.saveSocial}>
                   Save
@@ -676,6 +719,34 @@ class MySettings extends React.Component {
               onClick={this.saveSettings}
             >
               Save
+            </div>
+          </div>
+          <div className='settingsSection'>
+            <div className='settingsName'>Password</div>
+            <div className='settingsH'>
+              <input
+                type='password'
+                name='oldPassword'
+                className='settingsPassword'
+                placeholder='Old Password'
+                value={this.state.oldPassword}
+                onChange={this.handleChange}
+              ></input>
+              <input
+                type='password'
+                name='newPassword'
+                className='settingsPassword'
+                placeholder='New Password'
+                value={this.state.newPassword}
+                onChange={this.handleChange}
+              ></input>
+            </div>
+            <div
+              className='settingsButton'
+              style={{ margin: 'auto' }}
+              onClick={this.changePassword}
+            >
+              Change Password
             </div>
           </div>
           <div className='settingsSection'>

@@ -235,7 +235,7 @@ class MyCards extends React.Component {
         </DragDropContext>
         <div className='cardsButtons'>
           <div className='cardsButton' onClick={this.addLink}>
-            Add
+            Add Card
           </div>
           <div className='cardsButton' onClick={this.saveLinks}>
             Save

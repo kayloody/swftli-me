@@ -316,6 +316,23 @@
   font-size: 25px;
 }
 
+.settingsPassword {
+  background: var(--social-color);
+  border-radius: 10px;
+  border: solid 2px var(--button-dark);
+
+  width: 50%;
+
+  font-family: 'Baloo 2';
+  font-size: 20px;
+  color: #5f5d54;
+
+  margin-right: 10px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .settingsStatus {
   position: fixed;
   bottom: 10px;
@@ -497,6 +514,20 @@
   .settingsMiscText {
     font-weight: 300;
     font-size: 15px;
+  }
+
+  .settingsPassword {
+    border-radius: 7px;
+    border-width: 1px;
+
+    width: 220px;
+    max-width: 88%;
+
+    font-size: 15px;
+    margin: auto;
+    margin-bottom: 10px;
+
+    padding-left: 10px;
   }
 
   .settingsStatus {

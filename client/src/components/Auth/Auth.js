@@ -63,7 +63,6 @@ class Auth extends React.Component {
         }
       })
       .catch((err) => {
-        console.log(err);
         this.setState({
           error: 'Error: Could not communicate with server',
         });

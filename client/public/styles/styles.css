@@ -21,6 +21,13 @@
   --social-color: #f2f3ef;
 }
 
+:-webkit-autofill,
+:-webkit-autofill:hover,
+:-webkit-autofill:focus {
+  transition: background 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #5f5d54;
+}
+
 .main {
   position: fixed;
   left: 0;

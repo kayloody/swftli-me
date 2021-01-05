@@ -89,7 +89,6 @@ export const passwordReset = (req, res) => {
 
             transporter.sendMail(message, (err) => {
               if (err) {
-                console.log(err);
                 res.json({ error: 'Oops, something went wrong.' });
               } else {
                 res.json({ okay: 'Please check your email.' });
@@ -247,6 +246,8 @@ export const saveSocials = (req, res) => {
   delete data.status;
   delete data.userImg;
   delete data.settings;
+  delete data.oldPassword;
+  delete data.newPassword;
 
   User.findByIdAndUpdate(id, { socials: data }).exec((err) => {
     if (err) {
@@ -263,6 +264,8 @@ export const saveSettings = (req, res) => {
   delete data.status;
   delete data.userImg;
   delete data.socials;
+  delete data.oldPassword;
+  delete data.newPassword;
 
   if (data.bgChoice === '3') {
     delete data.bgColor1;
@@ -276,6 +279,9 @@ export const saveSettings = (req, res) => {
 
   let color = 'valid';
   for (var key in data) {
+    if (data[key].toLowerCase() === 'grey') {
+      data[key] = 'gray';
+    }
     if (
       key.includes('Color') &&
       !(validateHTMLColor(data[key]) || validateHTMLColorName(data[key]))
@@ -296,6 +302,50 @@ export const saveSettings = (req, res) => {
   } else {
     res.json({ status: 'Invalid Color' });
   }
+};
+
+const passwordStrength = (password) => {
+  let reg = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s])/;
+  return password.length > 7 && reg.test(password);
+};
+
+export const passwordChange = (req, res) => {
+  const id = req.user.id;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  User.findById(id).exec((err, doc) => {
+    if (err) {
+      res.json({ status: 'Error' });
+    } else {
+      const resetDate = doc.passwordReset;
+      const currDate = Date.now();
+
+      if (currDate - resetDate >= dayInMiliseconds) {
+        if (
+          !bcrypt.compareSync(oldPassword, doc.password) ||
+          oldPassword === ''
+        ) {
+          res.json({ status: 'Wrong' });
+        } else if (!passwordStrength(newPassword)) {
+          res.json({ status: 'Invalid' });
+        } else {
+          User.findByIdAndUpdate(id, {
+            password: newPassword,
+            passwordReset: currDate,
+          }).exec((err) => {
+            if (err) {
+              res.json({ status: 'Error' });
+            } else {
+              res.json({ status: 'Okay' });
+            }
+          });
+        }
+      } else {
+        res.json({ status: 'Recent' });
+      }
+    }
+  });
 };
 
 export const deleteAccount = (req, res) => {
