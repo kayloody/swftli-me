@@ -71,6 +71,7 @@
   background: none;
   border: none;
   width: 100%;
+  height: 50%;
 
   /* font-family: 'Bahnschrift'; */
   font-family: 'Baloo 2';
@@ -83,6 +84,7 @@
   background: none;
   border: none;
   width: 100%;
+  height: 50%;
 
   /* font-family: 'Bahnschrift'; */
   font-family: 'Baloo 2';
@@ -174,6 +176,7 @@
   width: 250px;
   max-width: 40%;
   height: 40px;
+  line-height: 100%;
   border-radius: 10px;
 
   background-color: var(--button-color);

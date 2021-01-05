@@ -6,7 +6,12 @@ const Socials = (props) => {
   const socials = props.socials.map((social, i) => {
     const socialClass = socialClasses[social.name];
     return (
-      <a key={i} href={'https://' + social.name + '/' + social.uid}>
+      <a
+        key={i}
+        href={'https://' + social.name + '/' + social.uid}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         <i className={socialClass + ' userSocial'}></i>
       </a>
     );
