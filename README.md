@@ -19,3 +19,6 @@ The API is hosted at api.swftli.me
 - NSFW.js (TensorFlow.js model library to filter uploaded images)
 - Netlify (Hosts the client)
 - Heroku (Hosts the server)
+
+## Mockup
+![Mockup screens of swftli.me](https://www.alamoodi.io/static/swftli-me-acfa0c56e7b2a6f0f6630b3410968b03.jpg)
