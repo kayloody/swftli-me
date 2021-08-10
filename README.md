@@ -7,6 +7,7 @@ You can use the following credentials to test without making an account:
 - Password: Visitor1$
 
 Live website can be accessed at www.swftli.me
+
 The API is hosted at api.swftli.me
 
 ## Technologies Used
